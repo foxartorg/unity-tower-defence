@@ -518,7 +518,7 @@ GameObject:
   - component: {fileID: 335515656}
   - component: {fileID: 335515655}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Destination
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3179,7 +3179,7 @@ GameObject:
   - component: {fileID: 1804707071}
   - component: {fileID: 1804707072}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3281,10 +3281,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1804707065}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5610f3af817101bb5940a8ad166bde31, type: 3}
+  m_Script: {fileID: 11500000, guid: c791158ad4fd46f248109d105d426a5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movePositionTransform: {fileID: 335515658}
+  destination: {fileID: 335515658}
 --- !u!65 &1804707072
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Player : MonoBehaviour {
-	[SerializeField] private Transform movePositionTransform;
+public class Enemy : MonoBehaviour {
+	[SerializeField] private Transform destination;
 	private NavMeshAgent _navMeshAgent;
 
 	// Start is called before the first frame update
@@ -12,6 +12,6 @@ public class Player : MonoBehaviour {
 
 	// Update is called once per frame
 	private void Update() {
-		_navMeshAgent.destination = movePositionTransform.position;
+		_navMeshAgent.destination = destination.position;
 	}
 }
