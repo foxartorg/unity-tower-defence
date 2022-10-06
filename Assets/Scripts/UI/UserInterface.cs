@@ -11,18 +11,18 @@ namespace UI {
 			SceneManager.LoadSceneAsync(_level, LoadSceneMode.Additive);
 		}
 
-		private void SwitchToLevel(int level) {
+		private void SwitchTo(int level) {
 			SceneManager.UnloadSceneAsync(_level);
 			_level = level;
 			SceneManager.LoadSceneAsync(_level, LoadSceneMode.Additive);
 		}
 
 		public void Level1() {
-			SwitchToLevel(LevelIndex);
+			SwitchTo(LevelIndex);
 		}
 
 		public void Level2() {
-			SwitchToLevel(LevelIndex + 1);
+			SwitchTo(LevelIndex + 1);
 		}
 	}
 }
