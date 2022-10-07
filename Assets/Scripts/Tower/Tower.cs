@@ -2,21 +2,16 @@ using UnityEngine;
 
 namespace Tower {
 	public class Tower : MonoBehaviour {
+		[SerializeField] private GameObject bulletPrefab;
+		[SerializeField] private Transform firePoint;
 		private float _fireCountDown = 1f;
-		private const float FireRate = 0f;
 
 		private void Update() {
 			if (_fireCountDown <= 0f) {
-				Shoot();
-				_fireCountDown = 1f / FireRate;
+				Instantiate(bulletPrefab, firePoint.position, firePoint.rotation, transform);
+				_fireCountDown = 1f;
 			}
-
 			_fireCountDown -= Time.deltaTime;
-		}
-
-		// ReSharper disable Unity.PerformanceAnalysis
-		private void Shoot() {
-			Debug.Log("Shoot!");
 		}
 	}
 }
