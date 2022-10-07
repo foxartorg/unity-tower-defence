@@ -5,7 +5,7 @@ namespace UI {
 		private Color _hoverColor;
 		private Renderer _render;
 		private Color _startColor;
-		private GameObject _turret;
+		private GameObject _tower;
 
 		private void Start() {
 			_render = GetComponent<Renderer>();
@@ -13,11 +13,12 @@ namespace UI {
 		}
 
 		private void OnMouseDown() {
-			if (_turret != null) {
+			if (_tower != null) {
 				Debug.Log("Can't build here!");
 			}
 
-			// GameObject _towerToBuild = BuildManager.instance.GetTowerToBuild();
+			var towerToBuild = BuildManager.Instance.GetTowerToBuild();
+			_tower = Instantiate(towerToBuild, transform.position, transform.rotation);
 		}
 
 		private void OnMouseEnter() {

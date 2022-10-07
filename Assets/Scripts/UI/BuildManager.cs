@@ -2,17 +2,17 @@ using UnityEngine;
 
 namespace UI {
 	public class BuildManager : MonoBehaviour {
-		private static BuildManager _instance;
-		public GameObject towerPrefab;
+		public static BuildManager Instance;
+		[SerializeField] public GameObject towerPrefab;
 		private GameObject _towerToBuild;
 
 		private void Awake() {
-			if (_instance != null) {
+			if (Instance != null) {
 				Debug.LogError("More than one BuildManager in scene");
 				return;
 			}
 
-			_instance = this;
+			Instance = this;
 		}
 
 		private void Start() {
