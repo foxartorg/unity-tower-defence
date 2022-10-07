@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UI {
+namespace Tower {
 	public class BuildManager : MonoBehaviour {
 		public static BuildManager Instance;
 		[SerializeField] public GameObject towerPrefab;

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UI {
+namespace Tower {
 	public class Wall : MonoBehaviour {
 		private Color _hoverColor;
 		private Renderer _render;
@@ -18,7 +18,8 @@ namespace UI {
 			}
 
 			var towerToBuild = BuildManager.Instance.GetTowerToBuild();
-			_tower = Instantiate(towerToBuild, transform.position, transform.rotation);
+			var transform1 = transform;
+			_tower = Instantiate(towerToBuild, transform1.position, transform1.rotation);
 		}
 
 		private void OnMouseEnter() {
