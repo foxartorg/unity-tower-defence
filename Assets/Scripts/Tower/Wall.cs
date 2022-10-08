@@ -14,7 +14,7 @@ namespace Tower {
 
 		private void OnMouseDown() {
 			if (_tower != null) {
-				Debug.Log("Can't build here!");
+				return;
 			}
 
 			var towerToBuild = BuildManager.Instance.GetTowerToBuild();
