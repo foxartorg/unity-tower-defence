@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Tower {
 	public class Tower : MonoBehaviour {
-		[SerializeField] private GameObject bulletPrefab;
+		[SerializeField] private GameObject bulletGameObject;
 		private Transform _transform;
 		private float _fireRate = 1f;
 
@@ -16,7 +16,7 @@ namespace Tower {
 
 		private void Shoot() {
 			if (_fireRate <= 0f) {
-				Instantiate(bulletPrefab, _transform.position, _transform.rotation, transform);
+				Instantiate(bulletGameObject, _transform.position, _transform.rotation, transform);
 				_fireRate = 1f;
 			}
 

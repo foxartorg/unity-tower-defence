@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c791158ad4fd46f248109d105d426a5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 0}
+  spawnEndTransform: {fileID: 4074602797714146557, guid: 7b74e5d2cdc5daa1e92b1b8659a7704e, type: 3}
 --- !u!65 &5231259221201410285
 BoxCollider:
   m_ObjectHideFlags: 0
