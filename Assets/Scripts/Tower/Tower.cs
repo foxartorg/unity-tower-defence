@@ -1,27 +1,28 @@
 using UnityEngine;
 
-namespace UI {
+namespace Tower {
 	public class Tower : MonoBehaviour {
-		[SerializeField] private GameObject bulletPrefab;
+		private const float FireRate = 2f;
+		[SerializeField] private GameObject bulletGameObject;
+		private float _timeout;
 		private Transform _transform;
-		private float _fireRate = 1f;
 
 		private void Awake() {
 			_transform = transform;
+			_timeout = FireRate;
 		}
 
-		private void Update() {
+		private void FixedUpdate() {
 			Shoot();
 		}
 
-		// TODO destroy bullet on screen exit
 		private void Shoot() {
-			if (_fireRate <= 0f) {
-				Instantiate(bulletPrefab, _transform.position, _transform.rotation, transform);
-				_fireRate = 1f;
+			if (_timeout < 0f) {
+				Instantiate(bulletGameObject, _transform.position, _transform.rotation, transform);
+				_timeout = FireRate;
 			}
 
-			_fireRate -= Time.deltaTime;
+			_timeout -= Time.deltaTime;
 		}
 	}
 }
