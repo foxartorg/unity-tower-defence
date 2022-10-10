@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Tower {
+namespace Bullet {
 	public class Bullet : MonoBehaviour {
 		private const int Speed = 10;
 
@@ -9,6 +9,7 @@ namespace Tower {
 			StartCoroutine(DestroyBullet());
 		}
 
+		//TODO can we just once set destination and don't update on each frame
 		private void Update() {
 			Flight();
 		}
