@@ -8,14 +8,14 @@ namespace Enemy {
 		[SerializeField] public GameObject enemyGameObject;
 		private readonly int[] _enemies = { 3, 2 };
 		private readonly int[] _waves = { 2, 3 };
-		private Canvas _canvas;
+		private App _app;
 		private Transform _transform;
-		private int Waves => _waves[_canvas.Level - 1];
-		private int Enemies => _enemies[_canvas.Level - 1];
+		private int Waves => _waves[_app.Level - 1];
+		private int Enemies => _enemies[_app.Level - 1];
 
 		public void Awake() {
 			_transform = transform;
-			_canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+			_app = GameObject.Find("App").GetComponent<App>();
 		}
 
 		private void Start() {

@@ -4,21 +4,24 @@ using UnityEngine;
 namespace Wall {
 	public class Wall : MonoBehaviour {
 		private static int _counter;
-		private Canvas _canvas;
 		private Color _hoverColor;
 		private Color _initColor;
 		private GameObject _manager;
 		private Renderer _render;
 		private GameObject _tower;
 		private Transform _transform;
+		private UI _ui;
 
 		private void Awake() {
-			_canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+			_ui = GameObject.Find("UI").GetComponent<UI>();
 			_render = GetComponent<Renderer>();
-			_manager = Builder.Instance.CreateTower();
 			_initColor = _render.material.color;
 			_hoverColor = new Color(255, 0, 0);
 			_transform = transform;
+		}
+
+		private void Start() {
+			_manager = Builder.Instance.CreateTower();
 		}
 
 		private void OnMouseDown() {
@@ -40,7 +43,7 @@ namespace Wall {
 
 			var position = _transform.position;
 			_tower = Instantiate(_manager, new Vector3(position.x, position.y + 1f, position.z), _transform.rotation, _transform);
-			_canvas.TowerCountText(++_counter);
+			_ui.TowerCountText(++_counter);
 		}
 	}
 }
