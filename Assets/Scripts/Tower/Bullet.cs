@@ -1,8 +1,18 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Tower {
 	public class Bullet : MonoBehaviour {
 		private const int Speed = 30;
+
+		private void Awake() {
+			StartCoroutine(DestroyBullet());
+		}
+
+		private IEnumerator DestroyBullet() {
+			yield return new WaitForSeconds(1);
+			Destroy(gameObject);
+		}
 
 		private void Update() {
 			Flight();

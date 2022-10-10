@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UI {
+namespace Tower {
 	public class Tower : MonoBehaviour {
 		[SerializeField] private GameObject bulletPrefab;
 		private Transform _transform;
@@ -14,7 +14,6 @@ namespace UI {
 			Shoot();
 		}
 
-		// TODO destroy bullet on screen exit
 		private void Shoot() {
 			if (_fireRate <= 0f) {
 				Instantiate(bulletPrefab, _transform.position, _transform.rotation, transform);
