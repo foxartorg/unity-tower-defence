@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Tower {
 	public class Manager : MonoBehaviour {
 		public static Manager Instance;
-		[SerializeField] public GameObject towerPrefab;
+		[SerializeField] public GameObject towerGameObject;
 
 		private void Awake() {
 			CheckInstance();
@@ -19,7 +19,7 @@ namespace Tower {
 		}
 
 		public GameObject GetTowerToBuild() {
-			return towerPrefab;
+			return towerGameObject;
 		}
 	}
 }

@@ -8,12 +8,12 @@ namespace Tower {
 		private Color _initColor;
 		private Renderer _render;
 		private GameObject _tower;
-		private GameObject _towerManager;
+		private GameObject _manager;
 		private Transform _transform;
 
 		private void Awake() {
 			_render = GetComponent<Renderer>();
-			_towerManager = Manager.Instance.GetTowerToBuild();
+			_manager = Manager.Instance.GetTowerToBuild();
 			_initColor = _render.material.color;
 			_hoverColor = new Color(255, 0, 0);
 			_transform = transform;
@@ -36,7 +36,7 @@ namespace Tower {
 				return;
 			}
 
-			_tower = Instantiate(_towerManager, _transform.position, _transform.rotation);
+			_tower = Instantiate(_manager, _transform.position, _transform.rotation);
 			TowerCounterText.UpdateText(++_counter);
 		}
 	}
