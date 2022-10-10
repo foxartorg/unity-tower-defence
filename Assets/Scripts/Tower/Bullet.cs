@@ -5,6 +5,10 @@ namespace Tower {
 		private const int Speed = 30;
 
 		private void Update() {
+			Flight();
+		}
+
+		private void Flight() {
 			var distanceThisFrame = Speed * Time.deltaTime;
 			transform.Translate(transform.forward * distanceThisFrame);
 		}

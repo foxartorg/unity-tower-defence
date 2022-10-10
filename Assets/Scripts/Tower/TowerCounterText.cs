@@ -11,6 +11,10 @@ namespace Tower {
 		}
 
 		private void Update() {
+			UpdateText();
+		}
+
+		private void UpdateText() {
 			_counter = Wall.Counter;
 			_text.text = "Tower Placed:" + _counter;
 		}
