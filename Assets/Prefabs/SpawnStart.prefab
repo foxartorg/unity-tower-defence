@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5833354906299907986}
   - component: {fileID: 5833354906299907987}
   - component: {fileID: 5833354906299907988}
-  - component: {fileID: 4622356358164219174}
   m_Layer: 0
   m_Name: SpawnStart
   m_TagString: Untagged
@@ -98,17 +97,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4622356358164219174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5833354906299907984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8428467b733184d5c99b15d064de3f54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyGameObject: {fileID: 5231259221201410324, guid: 48bf1f36be2aff9d68fbf709d9178838, type: 3}
-  number: 5

@@ -1,9 +1,9 @@
-using UI;
 using UnityEngine;
 
 namespace Tower {
 	public class Wall : MonoBehaviour {
 		private static int _counter;
+		private Canvas _canvas;
 		private Color _hoverColor;
 		private Color _initColor;
 		private GameObject _manager;
@@ -12,12 +12,15 @@ namespace Tower {
 		private Transform _transform;
 
 		private void Awake() {
+			_canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
 			_render = GetComponent<Renderer>();
 			_manager = Builder.Instance.CreateTower();
 			_initColor = _render.material.color;
 			_hoverColor = new Color(255, 0, 0);
 			_transform = transform;
 		}
+
+		private void Start() { }
 
 		private void OnMouseDown() {
 			CreateTower();
@@ -37,7 +40,7 @@ namespace Tower {
 			}
 
 			_tower = Instantiate(_manager, _transform.position, _transform.rotation);
-			TowerCounterText.UpdateText(++_counter);
+			_canvas.TowerCountText(++_counter);
 		}
 	}
 }
