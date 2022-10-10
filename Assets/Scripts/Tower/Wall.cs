@@ -35,7 +35,6 @@ namespace Tower {
 			if (_tower != null) {
 				return;
 			}
-
 			_tower = Instantiate(_manager, _transform.position, _transform.rotation);
 			TowerCounterText.UpdateText(++_counter);
 		}

@@ -4,7 +4,7 @@ namespace Tower {
 	public class Tower : MonoBehaviour {
 		[SerializeField] private GameObject bulletGameObject;
 		private Transform _transform;
-		private float _fireRate = 1f;
+		private float _fireRate = 2f;
 
 		private void Awake() {
 			_transform = transform;
@@ -17,7 +17,7 @@ namespace Tower {
 		private void Shoot() {
 			if (_fireRate <= 0f) {
 				Instantiate(bulletGameObject, _transform.position, _transform.rotation, transform);
-				_fireRate = 1f;
+				_fireRate = 2f;
 			}
 
 			_fireRate -= Time.deltaTime;
