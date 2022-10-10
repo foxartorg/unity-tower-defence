@@ -1,10 +1,10 @@
 using UnityEngine;
 
-namespace UI {
+namespace Tower {
 	public class Tower : MonoBehaviour {
 		[SerializeField] private GameObject bulletGameObject;
-		private Transform _transform;
 		private float _fireRate = 1f;
+		private Transform _transform;
 
 		private void Awake() {
 			_transform = transform;

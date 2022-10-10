@@ -2,8 +2,8 @@ using System;
 using UnityEngine;
 
 namespace Tower {
-	public class Manager : MonoBehaviour {
-		public static Manager Instance;
+	public class Builder : MonoBehaviour {
+		public static Builder Instance;
 		[SerializeField] public GameObject towerGameObject;
 
 		private void Awake() {
@@ -18,7 +18,7 @@ namespace Tower {
 			Instance = this;
 		}
 
-		public GameObject GetTowerToBuild() {
+		public GameObject CreateTower() {
 			return towerGameObject;
 		}
 	}
