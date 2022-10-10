@@ -59,5 +59,6 @@ sysinfo.txt
 crashlytics-build.properties
 
 # my
+[Uu]ser[Ss]ettings/
 .idea
 .DS_Store
