@@ -1,18 +1,22 @@
+using UI;
 using UnityEngine;
 
 namespace Tower {
 	public class Wall : MonoBehaviour {
-		public static int Counter;
-		private Color _color;
+		private static int _counter;
 		private Color _hoverColor;
+		private Color _initColor;
 		private Renderer _render;
 		private GameObject _tower;
 		private GameObject _towerManager;
+		private Transform _transform;
 
-		private void Start() {
+		private void Awake() {
 			_render = GetComponent<Renderer>();
+			_towerManager = Manager.Instance.GetTowerToBuild();
+			_initColor = _render.material.color;
 			_hoverColor = new Color(255, 0, 0);
-			_color = _render.material.color;
+			_transform = transform;
 		}
 
 		private void OnMouseDown() {
@@ -24,17 +28,16 @@ namespace Tower {
 		}
 
 		private void OnMouseExit() {
-			_render.material.color = _color;
+			_render.material.color = _initColor;
 		}
 
 		private void CreateTower() {
-			if (_tower == null) {
-				_towerManager = Manager.Instance.GetTowerToBuild();
-				var transform1 = transform;
-				_tower = Instantiate(_towerManager, transform1.position, transform1.rotation);
+			if (_tower != null) {
+				return;
 			}
 
-			Counter++;
+			_tower = Instantiate(_towerManager, _transform.position, _transform.rotation);
+			TowerCounterText.UpdateText(++_counter);
 		}
 	}
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Tower {
@@ -6,9 +7,12 @@ namespace Tower {
 		[SerializeField] public GameObject towerPrefab;
 
 		private void Awake() {
+			CheckInstance();
+		}
+
+		private void CheckInstance() {
 			if (Instance != null) {
-				Debug.LogError("More than one BuildManager in scene");
-				return;
+				throw new Exception("Multiple instances");
 			}
 
 			Instance = this;
