@@ -35,7 +35,9 @@ namespace Tower {
 			if (_tower != null) {
 				return;
 			}
-			_tower = Instantiate(_manager, _transform.position, _transform.rotation);
+
+			var position = _transform.position;
+			_tower = Instantiate(_manager, new Vector3(position.x, position.y + 1f, position.z),_transform.rotation, _transform);
 			TowerCounterText.UpdateText(++_counter);
 		}
 	}
