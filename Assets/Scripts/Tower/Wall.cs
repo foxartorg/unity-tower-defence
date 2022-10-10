@@ -17,6 +17,7 @@ namespace Tower {
 			_initColor = _render.material.color;
 			_hoverColor = new Color(255, 0, 0);
 			_transform = transform;
+			TowerCounterText.UpdateText(_counter = 0);
 		}
 
 		private void OnMouseDown() {
