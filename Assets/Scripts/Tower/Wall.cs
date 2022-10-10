@@ -2,23 +2,26 @@ using UnityEngine;
 
 namespace Tower {
 	public class Wall : MonoBehaviour {
+		public static int Counter;
+		private Color _color;
 		private Color _hoverColor;
 		private Renderer _render;
-		private Color _startColor;
 		private GameObject _tower;
-		public static int Counter;
+		private GameObject _towerManager;
 
 		private void Start() {
 			_render = GetComponent<Renderer>();
-			_startColor = _render.material.color;
+			_hoverColor = new Color(255, 0, 0);
+			_color = _render.material.color;
 		}
 
 		private void OnMouseDown() {
 			if (_tower == null) {
-				var towerToBuild = BuildManager.Instance.GetTowerToBuild();
+				_towerManager = Manager.Instance.GetTowerToBuild();
 				var transform1 = transform;
-				_tower = Instantiate(towerToBuild, transform1.position, transform1.rotation);
+				_tower = Instantiate(_towerManager, transform1.position, transform1.rotation);
 			}
+
 			Counter++;
 		}
 
@@ -27,7 +30,7 @@ namespace Tower {
 		}
 
 		private void OnMouseExit() {
-			_render.material.color = _startColor;
+			_render.material.color = _color;
 		}
 	}
 }
