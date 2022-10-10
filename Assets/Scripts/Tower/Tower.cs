@@ -2,26 +2,27 @@ using UnityEngine;
 
 namespace Tower {
 	public class Tower : MonoBehaviour {
+		private const float FireRate = 2f;
 		[SerializeField] private GameObject bulletGameObject;
-		private float _fireRate = 1f;
+		private float _timeout;
 		private Transform _transform;
 
 		private void Awake() {
 			_transform = transform;
+			_timeout = FireRate;
 		}
 
-		private void Update() {
+		private void FixedUpdate() {
 			Shoot();
 		}
 
-		// TODO destroy bullet on screen exit
 		private void Shoot() {
-			if (_fireRate <= 0f) {
+			if (_timeout < 0f) {
 				Instantiate(bulletGameObject, _transform.position, _transform.rotation, transform);
-				_fireRate = 1f;
+				_timeout = FireRate;
 			}
 
-			_fireRate -= Time.deltaTime;
+			_timeout -= Time.deltaTime;
 		}
 	}
 }

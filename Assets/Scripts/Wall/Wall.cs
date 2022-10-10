@@ -1,6 +1,7 @@
+using Tower;
 using UnityEngine;
 
-namespace Tower {
+namespace Wall {
 	public class Wall : MonoBehaviour {
 		private static int _counter;
 		private Canvas _canvas;
@@ -20,8 +21,6 @@ namespace Tower {
 			_transform = transform;
 		}
 
-		private void Start() { }
-
 		private void OnMouseDown() {
 			CreateTower();
 		}
@@ -39,7 +38,8 @@ namespace Tower {
 				return;
 			}
 
-			_tower = Instantiate(_manager, _transform.position, _transform.rotation);
+			var position = _transform.position;
+			_tower = Instantiate(_manager, new Vector3(position.x, position.y + 1f, position.z), _transform.rotation, _transform);
 			_canvas.TowerCountText(++_counter);
 		}
 	}
