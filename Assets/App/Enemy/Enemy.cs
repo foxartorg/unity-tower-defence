@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Enemy {
+namespace App.Enemy {
 	public class Enemy : MonoBehaviour {
 		private NavMeshAgent _navMeshAgent;
 

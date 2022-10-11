@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Tower {
+namespace App.Tower {
 	public class Tower : MonoBehaviour {
 		private const float FireRate = 2f;
 		[SerializeField] private GameObject bulletGameObject;

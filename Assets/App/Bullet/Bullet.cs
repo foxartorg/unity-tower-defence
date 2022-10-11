@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Bullet {
+namespace App.Bullet {
 	public class Bullet : MonoBehaviour {
 		private const int Speed = 10;
 
