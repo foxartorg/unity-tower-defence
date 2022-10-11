@@ -9,7 +9,7 @@ namespace App.Tower {
 
 		private void Awake() {
 			_transform = transform;
-			_timeout = FireRate;
+			// _timeout = FireRate;
 		}
 
 		private void FixedUpdate() {
@@ -18,7 +18,7 @@ namespace App.Tower {
 
 		private void Shoot() {
 			if (_timeout < 0f) {
-				Instantiate(bulletGameObject, _transform.position, _transform.rotation, transform);
+				Instantiate(bulletGameObject, _transform.position, _transform.rotation, _transform);
 				_timeout = FireRate;
 			}
 

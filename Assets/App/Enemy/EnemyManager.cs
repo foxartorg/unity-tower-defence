@@ -1,20 +1,24 @@
 using System.Collections;
+using Common;
 using GameScene;
 using UnityEngine;
 
 namespace App.Enemy {
-	public class EnemyManager : MonoBehaviour {
+	public class EnemyManager : Singleton {
 		[SerializeField] private Transform spawnStartTransform;
 		[SerializeField] private Transform spawnEndTransform;
-		[SerializeField] public GameObject enemyGameObject;
+		[SerializeField] private GameObject enemyGameObject;
 		private readonly int[] _enemies = { 3, 2 };
 		private readonly int[] _waves = { 2, 3 };
 		private Main _main;
 		private Transform _transform;
 		private int Waves => _waves[_main.Level - 1];
 		private int Enemies => _enemies[_main.Level - 1];
+		public EnemyManager Instance { get; set; }
 
 		public void Awake() {
+			// Instance = Helper.SingletonInstance<EnemyManager>(this, Instance);
+			Instance = GetInstance<EnemyManager>();
 			_main = Helper.FindComponent<Main>("Main");
 			_transform = transform;
 		}
