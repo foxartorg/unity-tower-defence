@@ -4,11 +4,7 @@ using UnityEngine.UI;
 namespace MainScene {
 	public class EventSystem : MonoBehaviour {
 		[SerializeField] private Button startButton;
-		private SceneLoader _sceneLoader;
-
-		private void Awake() {
-			_sceneLoader = Helper.FindComponent<SceneLoader>("Scene Loader");
-		}
+		private void Awake() { }
 
 		private void Start() {
 			startButton.onClick.AddListener(() => StartCoroutine(SceneLoader.LoadScene(1, false)));

@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 60680021}
   - component: {fileID: 60680020}
   m_Layer: 5
-  m_Name: TowerCounter Text
+  m_Name: TowerCounterText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 134314754}
   - component: {fileID: 134314757}
   m_Layer: 5
-  m_Name: Canvas Ui
+  m_Name: CanvasUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -295,7 +295,7 @@ RectTransform:
   - {fileID: 687321724}
   - {fileID: 60680018}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -407,7 +407,7 @@ Transform:
   m_Children:
   - {fileID: 1917669396}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &687321723
 GameObject:
@@ -421,7 +421,7 @@ GameObject:
   - component: {fileID: 687321727}
   - component: {fileID: 687321726}
   m_Layer: 5
-  m_Name: Level Text
+  m_Name: LevelText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -555,7 +555,7 @@ GameObject:
   - component: {fileID: 705507995}
   - component: {fileID: 705507994}
   m_Layer: 0
-  m_Name: Directional Light
+  m_Name: DirectionalLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -651,7 +651,7 @@ GameObject:
   - component: {fileID: 835551175}
   - component: {fileID: 835551178}
   m_Layer: 0
-  m_Name: Event System
+  m_Name: EventSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -705,7 +705,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &835551178
 MonoBehaviour:
@@ -721,7 +721,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level1Button: {fileID: 1023348183}
   level2Button: {fileID: 1600494515}
-  main: {fileID: 2065315223}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,7 +734,7 @@ GameObject:
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: MainCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -832,7 +831,7 @@ GameObject:
   - component: {fileID: 1023348184}
   - component: {fileID: 1023348183}
   m_Layer: 5
-  m_Name: Level1 Button
+  m_Name: Level1Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -965,7 +964,7 @@ GameObject:
   - component: {fileID: 1472384131}
   - component: {fileID: 1472384130}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1101,7 +1100,7 @@ GameObject:
   - component: {fileID: 1600494516}
   - component: {fileID: 1600494515}
   m_Layer: 5
-  m_Name: Level2 Button
+  m_Name: Level2Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1222,50 +1221,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1600494513}
   m_CullTransparentMesh: 1
---- !u!1 &1755005980
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1755005981}
-  - component: {fileID: 1755005982}
-  m_Layer: 0
-  m_Name: Scene Loader
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1755005981
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1755005980}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1755005982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1755005980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f273e6cab57f43d889a134bfb538ac95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1852252974
 GameObject:
   m_ObjectHideFlags: 0
@@ -1278,7 +1233,7 @@ GameObject:
   - component: {fileID: 1852252977}
   - component: {fileID: 1852252976}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1412,7 +1367,7 @@ GameObject:
   - component: {fileID: 1917669396}
   - component: {fileID: 1917669397}
   m_Layer: 0
-  m_Name: Tower Builder
+  m_Name: TowerBuilder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1490,6 +1445,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee839305573fbd3e0b547e363e88bd87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasUi: {fileID: 134314757}
-  sceneLoader: {fileID: 1755005982}
-  eventSystem: {fileID: 0}
+  canvasUI: {fileID: 134314757}

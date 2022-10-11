@@ -4,8 +4,7 @@ using UnityEngine;
 namespace GameScene {
 	public class Main : MonoBehaviour {
 		private const int LevelIndex = 2;
-		[SerializeField] public CanvasUi canvasUi;
-		[SerializeField] private SceneLoader sceneLoader;
+		[SerializeField] public CanvasUI canvasUI;
 		private int _level;
 		private int Scene { get; set; }
 
@@ -18,8 +17,8 @@ namespace GameScene {
 		}
 
 		private void Awake() {
-			canvasUi.LevelText(Level = 1);
-			canvasUi.TowerCountText(0);
+			canvasUI.LevelText(Level = 1);
+			canvasUI.TowerCountText(0);
 		}
 
 		private IEnumerator Start() {
@@ -28,8 +27,8 @@ namespace GameScene {
 
 		public IEnumerator SwitchToLevel(int level) {
 			yield return SceneLoader.UnloadSceneAsync(Scene);
-			canvasUi.LevelText(Level = level);
-			canvasUi.TowerCountText(0);
+			canvasUI.LevelText(Level = level);
+			canvasUI.TowerCountText(0);
 			yield return SceneLoader.LoadScene(Scene);
 		}
 	}

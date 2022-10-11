@@ -3,7 +3,7 @@ using GameScene;
 using UnityEngine;
 
 namespace App.Enemy {
-	public class Manager : MonoBehaviour {
+	public class EnemyManager : MonoBehaviour {
 		[SerializeField] private Transform spawnStartTransform;
 		[SerializeField] private Transform spawnEndTransform;
 		[SerializeField] public GameObject enemyGameObject;

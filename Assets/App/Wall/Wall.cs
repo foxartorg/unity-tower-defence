@@ -22,7 +22,7 @@ namespace App.Wall {
 		}
 
 		private void Start() {
-			_manager = Builder.Instance.CreateTower();
+			_manager = TowerBuilder.Instance.CreateTower();
 		}
 
 		private void OnMouseDown() {
@@ -44,7 +44,7 @@ namespace App.Wall {
 
 			var position = _transform.position;
 			_tower = Instantiate(_manager, new Vector3(position.x, position.y + 1f, position.z), _transform.rotation, _transform);
-			_main.canvasUi.TowerCountText(++_counter);
+			_main.canvasUI.TowerCountText(++_counter);
 		}
 	}
 }

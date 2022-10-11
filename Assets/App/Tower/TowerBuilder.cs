@@ -2,8 +2,8 @@ using System;
 using UnityEngine;
 
 namespace App.Tower {
-	public class Builder : MonoBehaviour {
-		public static Builder Instance;
+	public class TowerBuilder : MonoBehaviour {
+		public static TowerBuilder Instance;
 		[SerializeField] public GameObject towerGameObject;
 
 		private void Awake() {
