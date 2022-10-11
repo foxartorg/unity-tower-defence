@@ -1,19 +1,20 @@
-using Tower;
+using App.Tower;
+using GameScene;
 using UnityEngine;
 
-namespace Wall {
+namespace App.Wall {
 	public class Wall : MonoBehaviour {
 		private static int _counter;
 		private Color _hoverColor;
 		private Color _initColor;
+		private Main _main;
 		private GameObject _manager;
 		private Renderer _render;
 		private GameObject _tower;
 		private Transform _transform;
-		private UI _ui;
 
 		private void Awake() {
-			_ui = GameObject.Find("UI").GetComponent<UI>();
+			_main = Helper.FindComponent<Main>("Main");
 			_render = GetComponent<Renderer>();
 			_initColor = _render.material.color;
 			_hoverColor = new Color(255, 0, 0);
@@ -43,7 +44,7 @@ namespace Wall {
 
 			var position = _transform.position;
 			_tower = Instantiate(_manager, new Vector3(position.x, position.y + 1f, position.z), _transform.rotation, _transform);
-			_ui.TowerCountText(++_counter);
+			_main.canvasUi.TowerCountText(++_counter);
 		}
 	}
 }

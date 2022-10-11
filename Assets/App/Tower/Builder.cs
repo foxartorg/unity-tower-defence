@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Tower {
+namespace App.Tower {
 	public class Builder : MonoBehaviour {
 		public static Builder Instance;
 		[SerializeField] public GameObject towerGameObject;

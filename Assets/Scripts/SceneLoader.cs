@@ -16,14 +16,14 @@ public class SceneLoader : MonoBehaviour {
 		Debug.Log("OnSceneLoaded: " + scene.name);
 	}
 
-	public IEnumerator LoadScene(int scene) {
-		var async = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
+	public static IEnumerator LoadScene(int scene, bool additive = true) {
+		var async = SceneManager.LoadSceneAsync(scene, additive ? LoadSceneMode.Additive : LoadSceneMode.Single);
 		while (!async.isDone) {
 			yield return null;
 		}
 	}
 
-	public IEnumerator UnloadSceneAsync(int scene) {
+	public static IEnumerator UnloadSceneAsync(int scene) {
 		var async = SceneManager.UnloadSceneAsync(scene);
 		while (!async.isDone) {
 			yield return null;
