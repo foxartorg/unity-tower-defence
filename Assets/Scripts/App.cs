@@ -19,6 +19,7 @@ public class App : MonoBehaviour {
 	private void Awake() {
 		ui.LevelText(Level = 1);
 		ui.TowerCountText(0);
+		ui.EnemyCountText(0);
 	}
 
 	private IEnumerator Start() {
@@ -29,6 +30,7 @@ public class App : MonoBehaviour {
 		yield return sceneLoader.UnloadSceneAsync(Scene);
 		ui.LevelText(Level = level);
 		ui.TowerCountText(0);
+		ui.EnemyCountText(0);
 		yield return sceneLoader.LoadScene(Scene);
 	}
 }

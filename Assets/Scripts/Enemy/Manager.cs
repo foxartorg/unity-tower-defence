@@ -12,10 +12,13 @@ namespace Enemy {
 		private Transform _transform;
 		private int Waves => _waves[_app.Level - 1];
 		private int Enemies => _enemies[_app.Level - 1];
+		private UI _ui;
+		private int _counter;
 
 		public void Awake() {
 			_transform = transform;
 			_app = GameObject.Find("App").GetComponent<App>();
+			_ui  = GameObject.Find("UI").GetComponent<UI>();
 		}
 
 		private void Start() {
@@ -33,6 +36,7 @@ namespace Enemy {
 			for (var i = 0; i < Enemies; i++) {
 				var enemy = Instantiate(enemyGameObject, spawnStartTransform.position, spawnStartTransform.rotation, _transform);
 				enemy.GetComponent<Enemy>().Go(spawnEndTransform.position);
+				_ui.EnemyCountText(++_counter);
 				yield return new WaitForSeconds(0.25f);
 			}
 		}

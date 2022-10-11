@@ -7,6 +7,7 @@ public class UI : MonoBehaviour {
 	[SerializeField] private Button level2Button;
 	[SerializeField] private TextMeshProUGUI levelText;
 	[SerializeField] private TextMeshProUGUI towerCounterText;
+	[SerializeField] private TextMeshProUGUI enemyCounterText;
 	private App _app;
 
 	private void Awake() {
@@ -24,5 +25,9 @@ public class UI : MonoBehaviour {
 
 	public void TowerCountText(int count) {
 		towerCounterText.text = $"Towers: {count}";
+	}
+
+	public void EnemyCountText(int count) {
+		enemyCounterText.text = $"Enemy: {count}";
 	}
 }
