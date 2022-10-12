@@ -1,3 +1,4 @@
+using Common;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,13 +10,13 @@ namespace GameScene {
 		private Main _main;
 
 		private void Awake() {
-			_main = Helper.FindComponent<Main>("Main");
+			this._main = Helper.FindComponent<Main>("Main");
 		}
 
 		private void Start() {
-			menuButton.onClick.AddListener(() => StartCoroutine(SceneLoader.LoadScene(0, false)));
-			level1Button.onClick.AddListener(() => StartCoroutine(_main.SwitchToLevel(1)));
-			level2Button.onClick.AddListener(() => StartCoroutine(_main.SwitchToLevel(2)));
+			this.menuButton.onClick.AddListener(() => this.StartCoroutine(SceneLoader.LoadScene(0, false)));
+			this.level1Button.onClick.AddListener(() => this.StartCoroutine(this._main.SwitchToLevel(1)));
+			this.level2Button.onClick.AddListener(() => this.StartCoroutine(this._main.SwitchToLevel(2)));
 		}
 	}
 }

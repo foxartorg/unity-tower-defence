@@ -9,29 +9,29 @@ namespace App.Tower {
 		private Transform _transform;
 
 		private void Awake() {
-			_renderer = GetComponent<Renderer>();
-			_hoverColor = new Color(0, 255, 255, 127);
-			_initColor = _renderer.material.color;
+			this._renderer = this.GetComponent<Renderer>();
+			this._hoverColor = new Color(0, 255, 255, 127);
+			this._initColor = this._renderer.material.color;
 		}
 
 		private void OnMouseDown() {
-			CreateTower();
+			this.CreateTower();
 		}
 
 		private void OnMouseEnter() {
-			_renderer.material.color = _hoverColor;
+			this._renderer.material.color = this._hoverColor;
 		}
 
 		private void OnMouseExit() {
-			_renderer.material.color = _initColor;
+			this._renderer.material.color = this._initColor;
 		}
 
 		private void CreateTower() {
-			if (_tower) {
+			if (this._tower) {
 				return;
 			}
 
-			_tower = TowerManager.Instance.Create(transform);
+			this._tower = TowerManager.Instance.Create(this.transform);
 		}
 	}
 }

@@ -1,9 +1,10 @@
 using System.Collections;
+using Common;
 using GameScene;
 using UnityEngine;
 
 namespace App.Enemy {
-	public class EnemyManager : MonoBehaviour {
+	public class EnemyManager : Manager {
 		[SerializeField] private Transform spawnStartTransform;
 		[SerializeField] private Transform spawnEndTransform;
 		[SerializeField] private GameObject enemyGameObject;
@@ -11,31 +12,32 @@ namespace App.Enemy {
 		private readonly int[] _waves = { 2, 3 };
 		private Main _main;
 		private Transform _transform;
-		private int Waves => _waves[_main.Level - 1];
-		private int Enemies => _enemies[_main.Level - 1];
-		public EnemyManager Instance { get; set; }
+		private int Waves => this._waves[this._main.Level - 1];
+		private int Enemies => this._enemies[this._main.Level - 1];
+		public static EnemyManager Instance { get; private set; }
 
 		public void Awake() {
-			Instance = Helper.SingletonInstance<EnemyManager>(this, Instance);
-			_main = Helper.FindComponent<Main>("Main");
-			_transform = transform;
+			Instance = this.SingleInstance<EnemyManager>(this, Instance);
+			this._main = Helper.FindComponent<Main>("Main");
+			this._transform = this.transform;
 		}
 
 		private void Start() {
-			StartCoroutine(SpawnWaves());
+			this.StartCoroutine(this.SpawnWaves());
 		}
 
 		private IEnumerator SpawnWaves() {
-			for (var i = 0; i < Waves; i++) {
-				StartCoroutine(SpawnWave());
+			for (var i = 0; i < this.Waves; i++) {
+				this.StartCoroutine(this.SpawnWave());
 				yield return new WaitForSeconds(1.5f);
 			}
 		}
 
 		private IEnumerator SpawnWave() {
-			for (var i = 0; i < Enemies; i++) {
-				var enemy = Instantiate(enemyGameObject, spawnStartTransform.position, spawnStartTransform.rotation, _transform);
-				enemy.GetComponent<Enemy>().Go(spawnEndTransform.position);
+			for (var i = 0; i < this.Enemies; i++) {
+				var enemy = Instantiate(this.enemyGameObject, this.spawnStartTransform.position,
+					this.spawnStartTransform.rotation, this._transform);
+				enemy.GetComponent<Enemy>().Go(this.spawnEndTransform.position);
 				yield return new WaitForSeconds(0.25f);
 			}
 		}

@@ -7,11 +7,11 @@ namespace GameScene {
 		[SerializeField] private TextMeshProUGUI towerCounterText;
 
 		public void LevelText(int level) {
-			levelText.text = $"Level: {level}";
+			this.levelText.text = $"Level: {level}";
 		}
 
 		public void TowerCountText(int count) {
-			towerCounterText.text = $"Towers: {count}";
+			this.towerCounterText.text = $"Towers: {count}";
 		}
 	}
 }
