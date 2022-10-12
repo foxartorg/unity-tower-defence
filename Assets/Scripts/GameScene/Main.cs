@@ -19,6 +19,7 @@ namespace GameScene {
 		private void Awake() {
 			this.canvasUI.LevelText(this.Level = 1);
 			this.canvasUI.TowerCountText(0);
+			this.canvasUI.EnemyCounterText(0);
 		}
 
 		private IEnumerator Start() {
@@ -29,6 +30,7 @@ namespace GameScene {
 			yield return SceneLoader.UnloadSceneAsync(this.Scene);
 			this.canvasUI.LevelText(this.Level = level);
 			this.canvasUI.TowerCountText(0);
+			this.canvasUI.EnemyCounterText(0);
 			yield return SceneLoader.LoadScene(this.Scene);
 		}
 	}

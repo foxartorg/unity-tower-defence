@@ -15,10 +15,13 @@ namespace App.Enemy {
 		private int Waves => this._waves[this._main.Level - 1];
 		private int Enemies => this._enemies[this._main.Level - 1];
 		public static EnemyManager Instance { get; private set; }
+		private int _counter;
+
 
 		public void Awake() {
 			Instance = this.SingleInstance<EnemyManager>(this, Instance);
 			this._main = Helper.FindComponent<Main>("Main");
+
 			this._transform = this.transform;
 		}
 
@@ -38,6 +41,7 @@ namespace App.Enemy {
 				var enemy = Instantiate(this.enemyGameObject, this.spawnStartTransform.position,
 					this.spawnStartTransform.rotation, this._transform);
 				enemy.GetComponent<Enemy>().Go(this.spawnEndTransform.position);
+				this._main.canvasUI.EnemyCounterText(++this._counter);
 				yield return new WaitForSeconds(0.25f);
 			}
 		}
