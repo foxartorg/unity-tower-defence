@@ -14,7 +14,7 @@ namespace App.Enemy {
 		private Transform _transform;
 		private int Waves => _waves[_main.Level - 1];
 		private int Enemies => _enemies[_main.Level - 1];
-		public EnemyManager Instance { get; set; }
+		public static EnemyManager Instance { get; set; }
 
 		public void Awake() {
 			// Instance = Helper.SingletonInstance<EnemyManager>(this, Instance);
