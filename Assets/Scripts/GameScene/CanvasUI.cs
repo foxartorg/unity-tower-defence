@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 
 namespace GameScene {
-	public class CanvasUi : MonoBehaviour {
+	public class CanvasUI : MonoBehaviour {
 		[SerializeField] private TextMeshProUGUI levelText;
 		[SerializeField] private TextMeshProUGUI towerCounterText;
 

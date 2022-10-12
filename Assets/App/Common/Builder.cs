@@ -1,5 +1,5 @@
 using UnityEngine;
 
-namespace App.Enemy {
+namespace App.Common {
 	public class Builder : MonoBehaviour { }
 }
