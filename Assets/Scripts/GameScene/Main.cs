@@ -9,27 +9,27 @@ namespace GameScene {
 		private int Scene { get; set; }
 
 		public int Level {
-			get => _level;
+			get => this._level;
 			private set {
-				_level = value;
-				Scene = value + LevelIndex - 1;
+				this._level = value;
+				this.Scene = value + LevelIndex - 1;
 			}
 		}
 
 		private void Awake() {
-			canvasUI.LevelText(Level = 1);
-			canvasUI.TowerCountText(0);
+			this.canvasUI.LevelText(this.Level = 1);
+			this.canvasUI.TowerCountText(0);
 		}
 
 		private IEnumerator Start() {
-			yield return SceneLoader.LoadScene(Scene);
+			yield return SceneLoader.LoadScene(this.Scene);
 		}
 
 		public IEnumerator SwitchToLevel(int level) {
-			yield return SceneLoader.UnloadSceneAsync(Scene);
-			canvasUI.LevelText(Level = level);
-			canvasUI.TowerCountText(0);
-			yield return SceneLoader.LoadScene(Scene);
+			yield return SceneLoader.UnloadSceneAsync(this.Scene);
+			this.canvasUI.LevelText(this.Level = level);
+			this.canvasUI.TowerCountText(0);
+			yield return SceneLoader.LoadScene(this.Scene);
 		}
 	}
 }

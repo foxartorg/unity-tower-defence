@@ -1,18 +1,15 @@
-using UnityEngine;
-
 namespace Common {
-	public abstract class Singleton : MonoBehaviour {
-		private static MonoBehaviour _instance;
+	public sealed class Singleton {
+		private static Singleton _instance;
+		private static readonly object Padlock = new();
+		private Singleton() { }
 
-		protected T GetInstance<T>() {
-			if (!_instance) {
-				_instance = this;
-				return (T)(object)_instance;
-				// return (T)(object)(_instance = this);
+		public static Singleton Instance {
+			get {
+				lock (Padlock) {
+					return _instance ??= new Singleton();
+				}
 			}
-
-			Helper.ThrowError($"Multiple instances of: {_instance.name}");
-			return default;
 		}
 	}
 }
