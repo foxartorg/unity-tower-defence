@@ -5,8 +5,7 @@ namespace App.Tower {
 		private Color _hoverColor;
 		private Color _initColor;
 		private Renderer _renderer;
-		private bool _tower;
-		private Transform _transform;
+		private GameObject _tower;
 
 		private void Awake() {
 			this._renderer = this.GetComponent<Renderer>();
@@ -27,7 +26,7 @@ namespace App.Tower {
 		}
 
 		private void CreateTower() {
-			if (this._tower) {
+			if (this._tower != null) {
 				return;
 			}
 

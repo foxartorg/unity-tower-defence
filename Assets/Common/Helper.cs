@@ -23,5 +23,11 @@ namespace Common {
 			ThrowError($"Component not found: {name}");
 			return default;
 		}
+
+		public static Vector3 PositionUpFromParent(Transform gameObjectTransform, Transform parentTransform) {
+			var position = parentTransform.position;
+			var y = position.y + parentTransform.localScale.y / 2 + gameObjectTransform.localScale.y;
+			return new Vector3(position.x, y, position.z);
+		}
 	}
 }
