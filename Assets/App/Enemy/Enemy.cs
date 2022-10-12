@@ -6,11 +6,11 @@ namespace App.Enemy {
 		private NavMeshAgent _navMeshAgent;
 
 		private void Awake() {
-			_navMeshAgent = GetComponent<NavMeshAgent>();
+			this._navMeshAgent = this.GetComponent<NavMeshAgent>();
 		}
 
 		public void Go(Vector3 position) {
-			_navMeshAgent.SetDestination(position);
+			this._navMeshAgent.SetDestination(position);
 		}
 	}
 }

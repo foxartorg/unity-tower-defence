@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace GameScene {
@@ -6,27 +7,39 @@ namespace GameScene {
 		private float _speed;
 
 		private void Awake() {
-			_camera = Camera.main;
+			this._camera = Camera.main;
 		}
 
 		private void Start() {
-			// _camera.transform.Translate(-10, 0, 0);
+			this._camera.fieldOfView = 100;
+			this.StartCoroutine(LerpFieldOfView(this._camera, 60, 0.5f));
+		}
+
+		private static IEnumerator LerpFieldOfView(Camera targetCamera, float toFOV, float duration) {
+			float counter = 0;
+			var fromFOV = targetCamera.fieldOfView;
+			while (counter < duration) {
+				counter += Time.deltaTime;
+				var fOvTime = counter / duration;
+				targetCamera.fieldOfView = Mathf.Lerp(fromFOV, toFOV, fOvTime);
+				yield return null;
+			}
 		}
 
 		public void Up() {
-			_camera.transform.Translate(0, 1000 * Time.deltaTime, 0);
+			this._camera.transform.Translate(0, 1000 * Time.deltaTime, 0);
 		}
 
 		public void Down() {
-			_camera.transform.Translate(0, -1000 * Time.deltaTime, 0);
+			this._camera.transform.Translate(0, -1000 * Time.deltaTime, 0);
 		}
 
 		public void Left() {
-			_camera.transform.Translate(-1000 * Time.deltaTime, 0, 0);
+			this._camera.transform.Translate(-1000 * Time.deltaTime, 0, 0);
 		}
 
 		public void Right() {
-			_camera.transform.Translate(1000 * Time.deltaTime, 0, 0);
+			this._camera.transform.Translate(1000 * Time.deltaTime, 0, 0);
 		}
 	}
 }
