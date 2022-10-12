@@ -1,9 +1,10 @@
+using System;
 using GameScene;
 using UnityEngine;
 
 namespace App.Tower {
 	public class TowerManager : MonoBehaviour {
-		[SerializeField] private GameObject towerGameObject;
+		[SerializeField] public GameObject towerGameObject;
 		private int _counter;
 		private Main _main;
 		private Renderer _renderer;
@@ -12,6 +13,16 @@ namespace App.Tower {
 		private void Awake() {
 			Instance = Helper.SingletonInstance<TowerManager>(this, Instance);
 			_main = Helper.FindComponent<Main>("Main");
+		}
+
+		private void Update() {
+			OnMouseDown();
+		}
+
+		private void OnMouseDown() {
+			if (Input.GetMouseButton(1)) {
+				Destroy(towerGameObject);
+			}
 		}
 
 		public bool Create(Transform pTransform) {

@@ -4,6 +4,7 @@ using UnityEngine;
 namespace App.Bullet {
 	public class Bullet : MonoBehaviour {
 		private const int Speed = 10;
+		private Transform _target;
 
 		private void Awake() {
 			StartCoroutine(DestroyBullet());
