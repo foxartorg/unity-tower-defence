@@ -18,5 +18,9 @@ namespace GameScene {
 		public void EnemyCounterText(int count) {
 			this.enemyCounterText.text = $"Enemy: {count}";
 		}
+
+		public static void EnemyHealthText(int health, TextMeshProUGUI textMeshProUGUI) {
+			textMeshProUGUI.text = $"Health: {health}";
+		}
 	}
 }
