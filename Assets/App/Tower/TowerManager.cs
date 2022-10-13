@@ -15,14 +15,10 @@ namespace App.Tower {
 			this._main = Helper.FindComponent<Main>("Main");
 		}
 
-		public bool Create(Transform pTransform) {
-			var position = pTransform.position;
-			var localScale = pTransform.localScale;
-			var y = position.y + localScale.y / 2 + this.towerGameObject.transform.localScale.y;
-			var vector3 = new Vector3(position.x, y, position.z);
-			Instantiate(this.towerGameObject, vector3, pTransform.rotation, this.transform);
+		public GameObject Create(Transform parentTransform) {
 			this._main.canvasUI.TowerCountText(++this._counter);
-			return true;
+			var vector3 = Helper.PositionUpFromParent(this.towerGameObject.transform, parentTransform);
+			return Instantiate(this.towerGameObject, vector3, parentTransform.rotation, this.transform);
 		}
 	}
 }
