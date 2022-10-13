@@ -7,21 +7,21 @@ namespace App.Bullet {
 		private Transform _target;
 
 		private void Awake() {
-			StartCoroutine(DestroyBullet());
+			this.StartCoroutine(this.DestroyBullet());
 		}
 
 		//TODO can we just once set destination and don't update on each frame
 		private void Update() {
-			Flight();
+			this.Flight();
 		}
 
 		private IEnumerator DestroyBullet() {
 			yield return new WaitForSeconds(0.5f);
-			Destroy(gameObject);
+			Destroy(this.gameObject);
 		}
 
 		private void Flight() {
-			transform.Translate(transform.forward * (Speed * Time.deltaTime));
+			this.transform.Translate(this.transform.forward * (Speed * Time.deltaTime));
 		}
 	}
 }

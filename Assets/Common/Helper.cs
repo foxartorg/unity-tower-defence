@@ -15,12 +15,16 @@ namespace Common {
 		public static T FindComponent<T>(string name) {
 			// var main = gameObject.GetComponent(typeof(Main)) as Main;
 			// var main = GameObject.Find(name).GetComponent<Main>();
-			var component = GameObject.Find(name).GetComponent<T>() as Component;
-			if (component) {
-				return (T)(object)component;
+			try {
+				var component = GameObject.Find(name).GetComponent<T>() as Component;
+				if (component) {
+					return (T)(object)component;
+				}
+			}
+			catch (Exception e) {
+				ThrowError($"Component not found {name}");
 			}
 
-			ThrowError($"Component not found: {name}");
 			return default;
 		}
 

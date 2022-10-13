@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace App.Tower {
@@ -15,7 +14,7 @@ namespace App.Tower {
 		}
 
 		private void Update() {
-			if (!target) { }
+			if (!this.target) { }
 		}
 
 		private void FixedUpdate() {
