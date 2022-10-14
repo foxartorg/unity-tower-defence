@@ -4,12 +4,17 @@ namespace App.Tower {
 	public class Tower : MonoBehaviour {
 		private const float FireRate = 2f;
 		[SerializeField] private GameObject bulletGameObject;
+		[SerializeField] private Transform target;
 		private float _timeout;
 		private Transform _transform;
 
 		private void Awake() {
 			this._transform = this.transform;
 			// _timeout = FireRate;
+		}
+
+		private void Update() {
+			if (!this.target) { }
 		}
 
 		private void FixedUpdate() {
