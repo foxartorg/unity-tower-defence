@@ -10,7 +10,7 @@ namespace App.Enemy {
 		[SerializeField] private GameObject enemyGameObject;
 		private readonly int[] _enemies = { 3, 2 };
 		private readonly int[] _waves = { 2, 3 };
-		private Main _main;
+		public Main _main;
 		private Transform _transform;
 		private int Waves => this._waves[this._main.Level - 1];
 		private int Enemies => this._enemies[this._main.Level - 1];

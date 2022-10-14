@@ -1,6 +1,4 @@
-using Common;
 using GameScene;
-using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -27,6 +25,7 @@ namespace App.Enemy {
 				this.EnemyDamage(20);
 			}
 			CanvasUI.EnemyHealthSlider(this._health,this._enemyHealthSlider);
+			this._enemyManager._main.canvasUI.EnemyCounterText(this._enemyManager.counter);
 			this.DestroyEnemy();
 		}
 
@@ -40,6 +39,7 @@ namespace App.Enemy {
 
 		private void DestroyEnemy() {
 			if (!this._navMeshAgent.hasPath || this._health <= 0) {
+				_enemyManager.counter -= 1;
 				Destroy(this.gameObject);
 			}
 		}
