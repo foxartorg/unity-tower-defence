@@ -38,10 +38,12 @@ namespace App.Enemy {
 		}
 
 		private void DestroyEnemy() {
-			if (!this._navMeshAgent.hasPath || this._health <= 0) {
-				_enemyManager.counter -= 1;
-				Destroy(this.gameObject);
+			if (this._navMeshAgent.hasPath && this._health > 0) {
+				return;
 			}
+
+			this._enemyManager.counter -= 1;
+			Destroy(this.gameObject);
 		}
 	}
 }
