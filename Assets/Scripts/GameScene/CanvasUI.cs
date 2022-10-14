@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GameScene {
 	public class CanvasUI : MonoBehaviour {
@@ -19,8 +20,8 @@ namespace GameScene {
 			this.enemyCounterText.text = $"Enemy: {count}";
 		}
 
-		public static void EnemyHealthText(int health, TextMeshProUGUI textMeshProUGUI) {
-			textMeshProUGUI.text = $"Health: {health}";
+		public static void EnemyHealthSlider(int health, Slider slider) {
+			slider.value = health;
 		}
 	}
 }
