@@ -10,6 +10,8 @@ namespace App.Tower {
 		private Main _main;
 		private Renderer _renderer;
 		public static TowerManager Instance { get; private set; }
+		private readonly int[] _maxCounter = {3, 5};
+		private int MaxCounterChose => this._maxCounter[this._main.Level - 1];
 
 		private void Awake() {
 			Instance = this.SingleInstance<TowerManager>(this, Instance);
@@ -17,18 +19,27 @@ namespace App.Tower {
 			this._eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
 		}
 
-		private void Update() {
-			// this.DestroyTower();
+		private void Start() {
+			this._main.canvasUI.TowerCountText(this._counter, this.MaxCounterChose);
 		}
+
+		// private void Update() {
+		// 	// this.DestroyTower();
+		// }
 
 		public GameObject Create(Transform parentTransform) {
-			this._main.canvasUI.TowerCountText(++this._counter);
+			if (this._counter > this.MaxCounterChose - 1) {
+				return null;
+			}
+
+			this._main.canvasUI.TowerCountText(++this._counter, this.MaxCounterChose);
 			var vector3 = Helper.PositionUpFromParent(this.towerGameObject.transform, parentTransform);
 			return Instantiate(this.towerGameObject, vector3, parentTransform.rotation, this.transform);
+
 		}
 
-		public void DestroyTower() {
-			Debug.Log("XXX");
-		}
+		// public void DestroyTower() {
+		// 	Debug.Log("XXX");
+		// }
 	}
 }

@@ -13,7 +13,7 @@ namespace GameScene {
 
 		private void Awake() {
 			this._main = Helper.FindComponent<Main>("Main");
-			this._towerManager = Helper.FindComponent<TowerManager>("TowerManager");
+			// this._towerManager = Helper.FindComponent<TowerManager>("TowerManager");
 		}
 
 		private void Start() {
@@ -22,10 +22,10 @@ namespace GameScene {
 			this.level2Button.onClick.AddListener(() => this.StartCoroutine(this._main.SwitchToLevel(2)));
 		}
 
-		public void OnMouseDown() {
-			if (Input.GetMouseButton(1)) {
-				this._towerManager.DestroyTower();
-			}
-		}
+		// public void OnMouseDown() {
+		// 	if (Input.GetMouseButton(1)) {
+		// 		this._towerManager.DestroyTower();
+		// 	}
+		// }
 	}
 }

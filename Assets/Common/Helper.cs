@@ -21,7 +21,7 @@ namespace Common {
 					return (T)(object)component;
 				}
 			}
-			catch (Exception e) {
+			catch (Exception) {
 				ThrowError($"Component not found {name}");
 			}
 

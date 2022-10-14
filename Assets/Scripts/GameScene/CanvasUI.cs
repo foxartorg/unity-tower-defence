@@ -10,8 +10,8 @@ namespace GameScene {
 			this.levelText.text = $"Level: {level}";
 		}
 
-		public void TowerCountText(int count) {
-			this.towerCounterText.text = $"Towers: {count}";
+		public void TowerCountText(int count, int maxCounterTower) {
+			this.towerCounterText.text = $"Towers: {count} / {maxCounterTower}";
 		}
 	}
 }
