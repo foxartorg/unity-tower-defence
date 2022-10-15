@@ -13,10 +13,6 @@ namespace App.Tower {
 			// _timeout = FireRate;
 		}
 
-		private void Update() {
-			if (!this.target) { }
-		}
-
 		private void FixedUpdate() {
 			this.Shoot();
 		}

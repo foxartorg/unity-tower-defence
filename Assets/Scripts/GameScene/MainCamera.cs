@@ -11,35 +11,20 @@ namespace GameScene {
 		}
 
 		private void Start() {
-			this._camera.fieldOfView = 100;
+			// this._camera.transform.Translate(0, 1000 * Time.deltaTime, 0);
+			this._camera.fieldOfView = 180;
 			this.StartCoroutine(LerpFieldOfView(this._camera, 60, 0.5f));
 		}
 
-		private static IEnumerator LerpFieldOfView(Camera targetCamera, float toFOV, float duration) {
+		private static IEnumerator LerpFieldOfView(Camera camera, float toFOV, float duration) {
 			float counter = 0;
-			var fromFOV = targetCamera.fieldOfView;
+			var fromFOV = camera.fieldOfView;
 			while (counter < duration) {
 				counter += Time.deltaTime;
 				var fOvTime = counter / duration;
-				targetCamera.fieldOfView = Mathf.Lerp(fromFOV, toFOV, fOvTime);
+				camera.fieldOfView = Mathf.Lerp(fromFOV, toFOV, fOvTime);
 				yield return null;
 			}
-		}
-
-		public void Up() {
-			this._camera.transform.Translate(0, 1000 * Time.deltaTime, 0);
-		}
-
-		public void Down() {
-			this._camera.transform.Translate(0, -1000 * Time.deltaTime, 0);
-		}
-
-		public void Left() {
-			this._camera.transform.Translate(-1000 * Time.deltaTime, 0, 0);
-		}
-
-		public void Right() {
-			this._camera.transform.Translate(1000 * Time.deltaTime, 0, 0);
 		}
 	}
 }
