@@ -21,9 +21,6 @@ namespace App.Enemy {
 		}
 
 		private void Update() {
-			if (Input.GetKeyDown(KeyCode.F)) {
-				this.EnemyDamage(20);
-			}
 			CanvasUI.EnemyHealthSlider(this._health,this._enemyHealthSlider);
 			this.DestroyEnemy();
 		}
