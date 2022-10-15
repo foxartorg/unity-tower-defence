@@ -5,10 +5,12 @@ using UnityEngine;
 namespace App.Tower {
 	public class TowerManager : Manager {
 		[SerializeField] public GameObject towerGameObject;
+		private readonly int[] _maxCounter = { 3, 5 };
 		private int _counter;
 		private Main _main;
 		private Renderer _renderer;
 		public static TowerManager Instance { get; private set; }
+		private int MaxCounterTower => this._maxCounter[this._main.Level - 1];
 
 		private void Awake() {
 			Instance = this.SingleInstance<TowerManager>(this, Instance);
@@ -16,7 +18,11 @@ namespace App.Tower {
 		}
 
 		public GameObject Add(Transform parentTransform) {
-			this._main.canvasUI.TowerCountText(++this._counter);
+			if (this._counter >= this.MaxCounterTower) {
+				return null;
+			}
+
+			this._main.canvasUI.TowerCountText(++this._counter, this.MaxCounterTower);
 			var vector3 = Helper.PositionUpFromParent(this.towerGameObject.transform, parentTransform);
 			return Instantiate(this.towerGameObject, vector3, parentTransform.rotation, this.transform);
 		}

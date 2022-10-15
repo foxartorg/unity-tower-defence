@@ -3,7 +3,8 @@ using UnityEngine;
 namespace App.Tower {
 	public class Tower : MonoBehaviour {
 		private const float FireRate = 2f;
-		[SerializeField] private GameObject bulletGameObject;
+
+		// [SerializeField] private GameObject bulletGameObject;
 		[SerializeField] private Transform target;
 		private float _timeout;
 		private Transform _transform;
@@ -19,7 +20,7 @@ namespace App.Tower {
 
 		private void Shoot() {
 			if (this._timeout < 0f) {
-				Instantiate(this.bulletGameObject, this._transform.position, this._transform.rotation, this._transform);
+				// Instantiate(this.bulletGameObject, this._transform.position, this._transform.rotation, this._transform);
 				this._timeout = FireRate;
 			}
 
