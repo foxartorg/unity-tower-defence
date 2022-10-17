@@ -3,23 +3,20 @@ using UnityEngine;
 namespace App.Tower {
 	public class Tower : MonoBehaviour {
 		private const float FireRate = 2f;
-
-		[SerializeField] private GameObject bulletGameObject;
+		private BulletManager _bulletManager;
 		private float _timeout;
-		private Transform _transform;
 
 		private void Awake() {
-			this._transform = this.transform;
-			// _timeout = FireRate;
+			this._bulletManager = GameObject.Find("BulletManager").GetComponent<BulletManager>();
 		}
 
-		private void FixedUpdate() {
+		private void Update() {
 			this.Shoot();
 		}
 
 		private void Shoot() {
 			if (this._timeout < 0f) {
-				Instantiate(this.bulletGameObject, this._transform.position, this._transform.rotation, this._transform);
+				this._bulletManager.Create(this.transform);
 				this._timeout = FireRate;
 			}
 
