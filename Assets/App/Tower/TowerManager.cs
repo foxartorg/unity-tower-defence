@@ -27,7 +27,7 @@ namespace App.Tower {
 			return Instantiate(this.towerGameObject, vector3, parentTransform.rotation, this.transform);
 		}
 
-		public void Delete(GameObject tower) {
+		public static void Delete(GameObject tower) {
 			Destroy(tower);
 		}
 	}
