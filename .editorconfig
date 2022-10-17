@@ -3,7 +3,7 @@ root = true
 [*]
 # Most of the standard properties are supported
 indent_size = 4
-max_line_length = 120
+max_line_length = 140
 
 dotnet_style_qualification_for_field = true
 dotnet_style_qualification_for_property = true
