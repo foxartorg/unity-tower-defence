@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Common;
 using GameScene;
 using UnityEngine;
@@ -8,6 +9,7 @@ namespace App.Enemy {
 		[SerializeField] private Transform spawnStartTransform;
 		[SerializeField] private Transform spawnEndTransform;
 		[SerializeField] private GameObject enemyGameObject;
+		public List<Transform> enemyTransform;
 		private readonly int[] _enemies = { 3, 2 };
 		private readonly int[] _waves = { 2, 3 };
 		private Main _main;
@@ -38,6 +40,7 @@ namespace App.Enemy {
 				var enemy = Instantiate(this.enemyGameObject, this.spawnStartTransform.position,
 					this.spawnStartTransform.rotation, this._transform);
 				enemy.GetComponent<Enemy>().Go(this.spawnEndTransform.position);
+				this.enemyTransform.Add(enemy.transform);
 				yield return new WaitForSeconds(0.25f);
 			}
 		}
