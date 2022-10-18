@@ -346,6 +346,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2025623009578889419, guid: 6cd9da9ff00710aeea522846a2470516, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 5231259221201410324, guid: 48bf1f36be2aff9d68fbf709d9178838, type: 3}
+    - target: {fileID: 2025623009578889419, guid: 6cd9da9ff00710aeea522846a2470516, type: 3}
+      propertyPath: spawnEnd
+      value: 
+      objectReference: {fileID: 441740422}
+    - target: {fileID: 2025623009578889419, guid: 6cd9da9ff00710aeea522846a2470516, type: 3}
+      propertyPath: spawnStart
+      value: 
+      objectReference: {fileID: 230710434}
+    - target: {fileID: 2025623009578889419, guid: 6cd9da9ff00710aeea522846a2470516, type: 3}
       propertyPath: spawnEndTransform
       value: 
       objectReference: {fileID: 441740422}
