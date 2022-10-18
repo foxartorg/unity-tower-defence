@@ -1,3 +1,4 @@
+using App.Bullet;
 using UnityEngine;
 
 namespace App.Tower {

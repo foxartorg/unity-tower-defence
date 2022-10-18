@@ -1,7 +1,7 @@
 using Common;
 using UnityEngine;
 
-namespace App.Tower {
+namespace App.Bullet {
 	public class BulletManager : Manager {
 		[SerializeField] private GameObject bulletPrefab;
 		private static BulletManager Instance { get; set; }

@@ -1,4 +1,4 @@
-namespace Common {
+namespace Sample {
 	public sealed class Singleton {
 		private static Singleton _instance;
 		private static readonly object Padlock = new();
