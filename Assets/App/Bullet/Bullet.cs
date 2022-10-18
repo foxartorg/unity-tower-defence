@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace App.Bullet {
 	public class Bullet : MonoBehaviour {
-		private const int Speed = 20;
+		private const int Speed = 10;
 		private Transform _target;
 
 		private void Update() {
@@ -11,7 +11,11 @@ namespace App.Bullet {
 		}
 
 		private void CheckTarget() {
-			var dir = EnemyManager.Instance.enemyTransform[0].position - this.transform.position;
+			if (EnemyManager.Instance.enemyList.Count == 0) {
+				return;
+			}
+
+			var dir = EnemyManager.Instance.enemyList[0].position - this.transform.position;
 			var distanceThisFrame = Speed * Time.deltaTime;
 			this.transform.Translate(dir.normalized * distanceThisFrame);
 			if (!(dir.magnitude <= distanceThisFrame)) {

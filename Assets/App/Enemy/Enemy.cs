@@ -16,7 +16,7 @@ namespace App.Enemy {
 		}
 
 		private void Start() {
-			this.CreateHandler();
+			this.execCreate();
 		}
 
 		private void Update() {
@@ -33,7 +33,7 @@ namespace App.Enemy {
 				return;
 			}
 
-			this.DestroyHandler(this.gameObject);
+			this.execDestroy(this.gameObject);
 		}
 	}
 }

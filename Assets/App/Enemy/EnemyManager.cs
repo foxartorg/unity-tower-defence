@@ -9,7 +9,7 @@ namespace App.Enemy {
 		[SerializeField] private Transform spawnStart;
 		[SerializeField] private Transform spawnEnd;
 		[SerializeField] private GameObject enemyPrefab;
-		public List<Transform> enemyTransform;
+		public List<Transform> enemyList;
 		private int _counter;
 
 		private void Start() {
@@ -27,13 +27,21 @@ namespace App.Enemy {
 			for (var i = 0; i < Main.Instance.Enemies; i++) {
 				var enemyGameObject = Instantiate(this.enemyPrefab, this.spawnStart.position, this.spawnStart.rotation, this.transform);
 				var enemyComponent = enemyGameObject.GetComponent<Enemy>();
-				enemyComponent.OnCreate += () => CanvasUI.Instance.EnemyCounterText(++this._counter);
+				enemyComponent.OnCreate += () => {
+					CanvasUI.Instance.EnemyCounterText(++this._counter);
+					this.enemyList.Add(enemyComponent.transform);
+					CanvasUI.Instance.DummyText(this.enemyList.Count.ToString());
+				};
+				enemyComponent.OnCreate += () => {
+					Debug.Log("another hook");
+				};
 				enemyComponent.OnDestroy += context => {
 					CanvasUI.Instance.EnemyCounterText(--this._counter);
-					Destroy(context);
+					this.enemyList.Remove(enemyComponent.transform);
+					CanvasUI.Instance.DummyText(this.enemyList.Count.ToString());
+					Destroy(enemyComponent);
 				};
 				enemyComponent.Go(this.spawnEnd.position);
-				this.enemyTransform.Add(enemyComponent.transform);
 				yield return new WaitForSeconds(0.25f);
 			}
 		}

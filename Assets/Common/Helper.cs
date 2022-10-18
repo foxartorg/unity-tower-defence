@@ -28,9 +28,15 @@ namespace Common {
 			return default;
 		}
 
-		public static Vector3 PositionUpFromParent(Transform gameObjectTransform, Transform parentTransform) {
-			var position = parentTransform.position;
-			var y = position.y + parentTransform.localScale.y / 2 + gameObjectTransform.localScale.y;
+		public static Vector3 PositionParentUp(Transform gameObject, Transform parent) {
+			var position = parent.position;
+			var y = position.y + parent.localScale.y / 2 + gameObject.localScale.y;
+			return new Vector3(position.x, y, position.z);
+		}
+
+		public static Vector3 PositionParentDown(Transform gameObject, Transform parent) {
+			var position = parent.position;
+			var y = position.y - parent.localScale.y / 2 - gameObject.localScale.y;
 			return new Vector3(position.x, y, position.z);
 		}
 	}

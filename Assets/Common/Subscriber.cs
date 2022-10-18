@@ -9,11 +9,11 @@ namespace Common {
 		public event DelegateCreate OnCreate;
 		public event DelegateDestroy OnDestroy;
 
-		protected void CreateHandler() {
+		protected void execCreate() {
 			this.OnCreate?.Invoke();
 		}
 
-		protected void DestroyHandler(GameObject context) {
+		protected void execDestroy(GameObject context) {
 			this.OnDestroy?.Invoke(context);
 		}
 	}
