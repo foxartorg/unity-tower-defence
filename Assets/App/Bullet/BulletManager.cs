@@ -10,10 +10,10 @@ namespace App.Bullet {
 			Instance = this.SingleInstance<BulletManager>(this, Instance);
 		}
 
-		public GameObject Create(Transform parentTransform) {
+		public void Create(Transform parentTransform) {
 			var vector3 = Helper.PositionUpFromParent(this.bulletPrefab.transform, parentTransform);
 			vector3.y /= 1.5f;
-			return Instantiate(this.bulletPrefab, vector3, parentTransform.rotation, this.transform);
+			Instantiate(this.bulletPrefab, vector3, parentTransform.rotation, this.transform);
 		}
 	}
 }
