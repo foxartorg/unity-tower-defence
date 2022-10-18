@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311915, g: 0.3807396, b: 0.35872662, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311918, g: 0.38073987, b: 0.35872698, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -494,6 +494,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 230710434}
     - target: {fileID: 2025623009578889419, guid: 6cd9da9ff00710aeea522846a2470516, type: 3}
+      propertyPath: enemyPrefab
+      value: 
+      objectReference: {fileID: 5231259221201410324, guid: 48bf1f36be2aff9d68fbf709d9178838, type: 3}
+    - target: {fileID: 2025623009578889419, guid: 6cd9da9ff00710aeea522846a2470516, type: 3}
       propertyPath: spawnEndTransform
       value: 
       objectReference: {fileID: 441740422}
@@ -867,6 +871,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4691620062007971948, guid: dfbd0f2f2319abb0f92c0bdea05ead3b, type: 3}
+      propertyPath: towerPrefab
+      value: 
+      objectReference: {fileID: 3818927725049698589, guid: 8cf17a95aa10b4390b44edf4ea70daab, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfbd0f2f2319abb0f92c0bdea05ead3b, type: 3}
 --- !u!1001 &945114921

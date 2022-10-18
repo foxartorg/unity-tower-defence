@@ -1,7 +1,7 @@
 using UnityEngine;
 
 namespace Common {
-	public class Subscriber : MonoBehaviour {
+	public abstract class Subscriber : MonoBehaviour {
 		public delegate void DelegateCreate();
 
 		public delegate void DelegateDestroy(GameObject context);

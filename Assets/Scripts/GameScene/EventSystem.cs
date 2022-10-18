@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace GameScene {
-	public class EventSystem : MonoBehaviour {
+	public sealed class EventSystem : MonoBehaviour {
 		[SerializeField] private Button menuButton;
 		[SerializeField] private Button level1Button;
 		[SerializeField] private Button level2Button;

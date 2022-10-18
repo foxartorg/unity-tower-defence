@@ -5,11 +5,11 @@ using GameScene;
 using UnityEngine;
 
 namespace App.Enemy {
-	public class EnemyManager : Manager {
-		public List<Transform> enemyTransform;
+	public class EnemyManager : Singleton<EnemyManager> {
 		[SerializeField] private Transform spawnStart;
 		[SerializeField] private Transform spawnEnd;
-		[SerializeField] private GameObject enemy;
+		[SerializeField] private GameObject enemyPrefab;
+		public List<Transform> enemyTransform;
 		private int _counter;
 
 		private void Start() {
@@ -25,11 +25,11 @@ namespace App.Enemy {
 
 		private IEnumerator SpawnWave() {
 			for (var i = 0; i < Main.Instance.Enemies; i++) {
-				var enemyGameObject = Instantiate(this.enemy, this.spawnStart.position, this.spawnStart.rotation, this.transform);
+				var enemyGameObject = Instantiate(this.enemyPrefab, this.spawnStart.position, this.spawnStart.rotation, this.transform);
 				var enemyComponent = enemyGameObject.GetComponent<Enemy>();
-				enemyComponent.OnCreate += () => Main.CanvasUI.EnemyCounterText(++this._counter);
+				enemyComponent.OnCreate += () => CanvasUI.Instance.EnemyCounterText(++this._counter);
 				enemyComponent.OnDestroy += context => {
-					Main.CanvasUI.EnemyCounterText(--this._counter);
+					CanvasUI.Instance.EnemyCounterText(--this._counter);
 					Destroy(context);
 				};
 				enemyComponent.Go(this.spawnEnd.position);

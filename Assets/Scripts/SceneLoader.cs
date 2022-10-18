@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneLoader : MonoBehaviour {
+public sealed class SceneLoader : MonoBehaviour {
 	private void OnEnable() {
 		SceneManager.sceneLoaded += OnSceneLoaded;
 	}
