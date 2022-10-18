@@ -23,13 +23,11 @@ namespace App.Tower {
 
 		private void OnMouseOver() {
 			if (Input.GetMouseButtonDown(0)) {
-				Debug.Log("Pressed left click.");
 				this.CreateTower();
 			}
 
 			if (Input.GetMouseButtonDown(1)) {
 				this.DestroyTower();
-				Debug.Log("Pressed right click.");
 			}
 
 			if (Input.GetMouseButtonDown(2)) {

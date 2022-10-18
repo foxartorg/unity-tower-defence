@@ -1,5 +1,5 @@
 namespace Sample {
-	public sealed class Singleton {
+	public class Singleton {
 		private static Singleton _instance;
 		private static readonly object Padlock = new();
 		private Singleton() { }

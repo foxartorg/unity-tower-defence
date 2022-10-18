@@ -1,9 +1,8 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace GameScene {
-	public class CanvasUI : MonoBehaviour {
+	public sealed class CanvasUI : SceneSingleton<CanvasUI> {
 		[SerializeField] private TextMeshProUGUI levelText;
 		[SerializeField] private TextMeshProUGUI towerCounterText;
 		[SerializeField] private TextMeshProUGUI enemyCounterText;
@@ -18,10 +17,6 @@ namespace GameScene {
 
 		public void EnemyCounterText(int count) {
 			this.enemyCounterText.text = $"Enemy: {count}";
-		}
-
-		public static void EnemyHealthSlider(int health, Slider slider) {
-			slider.value = health;
 		}
 	}
 }

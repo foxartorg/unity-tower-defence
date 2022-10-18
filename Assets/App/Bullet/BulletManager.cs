@@ -2,13 +2,8 @@ using Common;
 using UnityEngine;
 
 namespace App.Bullet {
-	public class BulletManager : Manager {
+	public class BulletManager : Singleton<BulletManager> {
 		[SerializeField] private GameObject bulletPrefab;
-		private static BulletManager Instance { get; set; }
-
-		private void Awake() {
-			Instance = this.SingleInstance<BulletManager>(this, Instance);
-		}
 
 		public GameObject Create(Transform parentTransform) {
 			var vector3 = Helper.PositionUpFromParent(this.bulletPrefab.transform, parentTransform);

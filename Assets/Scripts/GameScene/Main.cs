@@ -1,23 +1,18 @@
 using System.Collections;
-using Common;
-using UnityEngine;
 
 namespace GameScene {
-	public sealed class Main : Manager {
+	public sealed class Main : SceneSingleton<Main> {
 		private const int LevelIndex = 2;
-		public static CanvasUI CanvasUI;
-		[SerializeField] public CanvasUI canvasUI;
 		private readonly int[] _enemies = { 2, 3 };
 		private readonly int[] _towers = { 3, 5 };
 		private readonly int[] _waves = { 1, 2 };
 		private int _level;
-		private int Scene { get; set; }
-		public static Main Instance { get; private set; }
+		private int _scene;
 
 		private int Level {
 			set {
 				this._level = value;
-				this.Scene = value + LevelIndex - 1;
+				this._scene = value + LevelIndex - 1;
 			}
 		}
 
@@ -26,23 +21,21 @@ namespace GameScene {
 		public int Towers => this._towers[this._level - 1];
 
 		private void Awake() {
-			Instance = this.SingleInstance<Main>(this, Instance);
-			CanvasUI = this.canvasUI;
-			this.canvasUI.LevelText(this.Level = 1);
-			this.canvasUI.EnemyCounterText(0);
-			this.canvasUI.TowerCountText(0, 0);
+			CanvasUI.Instance.LevelText(this.Level = 1);
+			CanvasUI.Instance.EnemyCounterText(0);
+			CanvasUI.Instance.TowerCountText(0, 0);
 		}
 
 		private IEnumerator Start() {
-			yield return SceneLoader.LoadScene(this.Scene);
+			yield return SceneLoader.LoadScene(this._scene);
 		}
 
 		public IEnumerator SwitchToLevel(int level) {
-			yield return SceneLoader.UnloadSceneAsync(this.Scene);
-			this.canvasUI.LevelText(this.Level = level);
-			this.canvasUI.EnemyCounterText(0);
-			this.canvasUI.TowerCountText(0, 0);
-			yield return SceneLoader.LoadScene(this.Scene);
+			yield return SceneLoader.UnloadSceneAsync(this._scene);
+			CanvasUI.Instance.LevelText(this.Level = level);
+			CanvasUI.Instance.EnemyCounterText(0);
+			CanvasUI.Instance.TowerCountText(0, 0);
+			yield return SceneLoader.LoadScene(this._scene);
 		}
 	}
 }
