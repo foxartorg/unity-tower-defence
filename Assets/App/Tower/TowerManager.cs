@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace App.Tower {
 	public class TowerManager : Manager {
-		[SerializeField] public GameObject towerGameObject;
+		[SerializeField] private GameObject towerGameObject;
 		private int _counter;
 		private Renderer _renderer;
 		public static TowerManager Instance { get; private set; }
