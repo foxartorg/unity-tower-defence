@@ -30,8 +30,7 @@ namespace App.Enemy {
 				return;
 			}
 
-			this.DestroyHandler();
-			Destroy(this.gameObject);
+			this.DestroyHandler(this.gameObject);
 		}
 	}
 }

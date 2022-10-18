@@ -26,7 +26,10 @@ namespace App.Enemy {
 				var enemyGameObject = Instantiate(this.enemy, this.spawnStart.position, this.spawnStart.rotation, this.transform);
 				var enemyComponent = enemyGameObject.GetComponent<Enemy>();
 				enemyComponent.OnCreate += () => Main.CanvasUI.EnemyCounterText(++this._counter);
-				enemyComponent.OnDestroy += () => Main.CanvasUI.EnemyCounterText(--this._counter);
+				enemyComponent.OnDestroy += context => {
+					Main.CanvasUI.EnemyCounterText(--this._counter);
+					Destroy(context);
+				};
 				enemyComponent.Go(this.spawnEnd.position);
 				yield return new WaitForSeconds(0.25f);
 			}
