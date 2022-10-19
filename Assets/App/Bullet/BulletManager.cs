@@ -5,10 +5,8 @@ namespace App.Bullet {
 	public class BulletManager : Singleton<BulletManager> {
 		[SerializeField] private GameObject bulletPrefab;
 
-		public void Create(Transform parentTransform) {
-			var vector3 = Helper.PositionUpFromParent(this.bulletPrefab.transform, parentTransform);
-			vector3.y /= 1.5f;
-			Instantiate(this.bulletPrefab, vector3, parentTransform.rotation, this.transform);
+		public GameObject Create(Transform parent) {
+			return Instantiate(this.bulletPrefab, parent.position, parent.rotation, this.transform);
 		}
 	}
 }

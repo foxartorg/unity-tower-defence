@@ -48,7 +48,7 @@ namespace App.Tower {
 				return;
 			}
 
-			TowerManager.Delete(this._tower);
+			TowerManager.Instance.Delete(this._tower);
 			this._tower = null;
 		}
 	}

@@ -4349,16 +4349,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4691620062007971948, guid: dfbd0f2f2319abb0f92c0bdea05ead3b, type: 3}
-      propertyPath: towerPrefab
-      value: 
-      objectReference: {fileID: 3818927725049698589, guid: 8cf17a95aa10b4390b44edf4ea70daab, type: 3}
-    - target: {fileID: 4691620062007971948, guid: dfbd0f2f2319abb0f92c0bdea05ead3b, type: 3}
-      propertyPath: towerGameObject
-      value: 
-      objectReference: {fileID: 3818927725049698589, guid: 8cf17a95aa10b4390b44edf4ea70daab, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfbd0f2f2319abb0f92c0bdea05ead3b, type: 3}
+--- !u!1 &1699854390818728098 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3822554524393693132, guid: dfbd0f2f2319abb0f92c0bdea05ead3b, type: 3}
+  m_PrefabInstance: {fileID: 1699854390818728097}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1699854390818728099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1699854390818728098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 421af59cb8e5452b956e64ad760b31bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerPrefab: {fileID: 3818927725049698589, guid: 8cf17a95aa10b4390b44edf4ea70daab, type: 3}
 --- !u!1001 &4074602797963613431
 PrefabInstance:
   m_ObjectHideFlags: 0

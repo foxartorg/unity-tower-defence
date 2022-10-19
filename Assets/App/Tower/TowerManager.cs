@@ -8,18 +8,23 @@ namespace App.Tower {
 		private int _counter;
 		private Renderer _renderer;
 
+		private TowerManager() {
+			Debug.Log("TOWER MAN");
+		}
+
 		public GameObject Add(Transform parent) {
 			if (this._counter >= Main.Instance.Towers) {
 				return null;
 			}
 
 			CanvasUI.Instance.TowerCountText(++this._counter, Main.Instance.Towers);
-			var position = Helper.PositionUpFromParent(this.towerPrefab.transform, parent);
+			var position = Helper.PositionParentUp(this.towerPrefab.transform, parent);
 			return Instantiate(this.towerPrefab, position, parent.rotation, this.transform);
 		}
 
-		public static void Delete(GameObject tower) {
+		public void Delete(GameObject tower) {
 			Destroy(tower);
+			CanvasUI.Instance.TowerCountText(--this._counter, Main.Instance.Towers);
 		}
 	}
 }

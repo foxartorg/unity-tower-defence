@@ -3,20 +3,25 @@ using UnityEngine;
 
 namespace GameScene {
 	public sealed class CanvasUI : SceneSingleton<CanvasUI> {
-		[SerializeField] private TextMeshProUGUI levelText;
-		[SerializeField] private TextMeshProUGUI towerCounterText;
-		[SerializeField] private TextMeshProUGUI enemyCounterText;
+		[SerializeField] private TextMeshProUGUI level;
+		[SerializeField] private TextMeshProUGUI towerCounter;
+		[SerializeField] private TextMeshProUGUI enemyCounter;
+		[SerializeField] private TextMeshProUGUI dummy;
 
-		public void LevelText(int level) {
-			this.levelText.text = $"Level: {level}";
+		public void LevelText(int param) {
+			this.level.text = $"Level: {param}";
 		}
 
-		public void TowerCountText(int count, int maxCounterTower) {
-			this.towerCounterText.text = $"Towers: {count} / {maxCounterTower}";
+		public void TowerCountText(int count, int max) {
+			this.towerCounter.text = $"Towers: {count} / {max}";
 		}
 
 		public void EnemyCounterText(int count) {
-			this.enemyCounterText.text = $"Enemy: {count}";
+			this.enemyCounter.text = $"Enemy: {count}";
+		}
+
+		public void DummyText(string text) {
+			this.dummy.text = text;
 		}
 	}
 }
