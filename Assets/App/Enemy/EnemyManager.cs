@@ -9,7 +9,7 @@ namespace App.Enemy {
 		[SerializeField] private Transform spawnStart;
 		[SerializeField] private Transform spawnEnd;
 		[SerializeField] private GameObject enemyPrefab;
-		public List<Transform> enemyList;
+		public List<GameObject> enemyList;
 		private int _counter;
 
 		private void Start() {
@@ -29,7 +29,7 @@ namespace App.Enemy {
 				var enemyComponent = enemyGameObject.GetComponent<Enemy>();
 				enemyComponent.OnCreate += () => {
 					CanvasUI.Instance.EnemyCounterText(++this._counter);
-					this.enemyList.Add(enemyComponent.transform);
+					this.enemyList.Add(enemyComponent.gameObject);
 					CanvasUI.Instance.DummyText(this.enemyList.Count.ToString());
 				};
 				enemyComponent.OnCreate += () => {
@@ -37,9 +37,9 @@ namespace App.Enemy {
 				};
 				enemyComponent.OnDestroy += context => {
 					CanvasUI.Instance.EnemyCounterText(--this._counter);
-					this.enemyList.Remove(enemyComponent.transform);
+					this.enemyList.Remove(enemyComponent.gameObject);
 					CanvasUI.Instance.DummyText(this.enemyList.Count.ToString());
-					Destroy(enemyComponent);
+					Destroy(context);
 				};
 				enemyComponent.Go(this.spawnEnd.position);
 				yield return new WaitForSeconds(0.25f);
