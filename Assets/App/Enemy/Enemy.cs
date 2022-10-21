@@ -13,6 +13,7 @@ namespace App.Enemy {
 			this._navMeshAgent = this.GetComponent<NavMeshAgent>();
 			this._slider = this.GetComponentInChildren<Slider>();
 			this._slider.maxValue = this._health;
+			this._slider.value = this._health;
 		}
 
 		private void Start() {
@@ -20,12 +21,12 @@ namespace App.Enemy {
 		}
 
 		private void Update() {
-			this._slider.value = this._health;
 			this.CheckDestination();
 		}
 
 		public void TakingAwayHp(int damage) {
 			this._health -= damage;
+			this._slider.value = this._health;
 		}
 
 		public void Go(Vector3 position) {
