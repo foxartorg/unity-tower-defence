@@ -1,16 +1,10 @@
+using App.Bullet;
 using UnityEngine;
 
 namespace App.Tower {
 	public class Tower : MonoBehaviour {
 		private const float FireRate = 2f;
-		[SerializeField] private GameObject bulletGameObject;
 		private float _timeout;
-		private Transform _transform;
-
-		private void Awake() {
-			this._transform = this.transform;
-			// _timeout = FireRate;
-		}
 
 		private void FixedUpdate() {
 			this.Shoot();
@@ -18,7 +12,7 @@ namespace App.Tower {
 
 		private void Shoot() {
 			if (this._timeout < 0f) {
-				Instantiate(this.bulletGameObject, this._transform.position, this._transform.rotation, this._transform);
+				BulletManager.Instance.Create(this.transform);
 				this._timeout = FireRate;
 			}
 

@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Common {
@@ -12,15 +13,18 @@ namespace Common {
 			throw new Exception(error);
 		}
 
-		public static T FindComponent<T>(string name) {
+		public static T FindComponent<T>(string name, [CallerFilePath] string path = "") {
 			// var main = gameObject.GetComponent(typeof(Main)) as Main;
 			// var main = GameObject.Find(name).GetComponent<Main>();
-			var component = GameObject.Find(name).GetComponent<T>() as Component;
-			if (component) {
-				return (T)(object)component;
+			try {
+				var component = GameObject.Find(name).GetComponent<T>() as Component;
+				if (component) {
+					return (T)(object)component;
+				}
+			} catch {
+				ThrowError($"Component not found {name} in {path}");
 			}
 
-			ThrowError($"Component not found: {name}");
 			return default;
 		}
 

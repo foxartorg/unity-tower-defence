@@ -1,26 +1,24 @@
-using System.Collections;
+using App.Enemy;
 using UnityEngine;
 
 namespace App.Bullet {
 	public class Bullet : MonoBehaviour {
-		private const int Speed = 10;
+		private const int Speed = 20;
+		private Transform _target;
 
-		private void Awake() {
-			StartCoroutine(DestroyBullet());
-		}
-
-		//TODO can we just once set destination and don't update on each frame
 		private void Update() {
-			Flight();
+			this.CheckTarget();
 		}
 
-		private IEnumerator DestroyBullet() {
-			yield return new WaitForSeconds(0.5f);
-			Destroy(gameObject);
-		}
+		private void CheckTarget() {
+			var dir = EnemyManager.Instance.enemyTransform[0].position - this.transform.position;
+			var distanceThisFrame = Speed * Time.deltaTime;
+			this.transform.Translate(dir.normalized * distanceThisFrame);
+			if (!(dir.magnitude <= distanceThisFrame)) {
+				return;
+			}
 
-		private void Flight() {
-			transform.Translate(transform.forward * (Speed * Time.deltaTime));
+			Destroy(this.gameObject);
 		}
 	}
 }

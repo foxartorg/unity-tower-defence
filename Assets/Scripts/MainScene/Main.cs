@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace MainScene {
-	public class Main : MonoBehaviour { }
+	public sealed class Main : SceneSingleton<Main> { }
 }

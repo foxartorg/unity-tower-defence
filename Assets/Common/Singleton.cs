@@ -1,15 +1,11 @@
-namespace Common {
-	public sealed class Singleton {
-		private static Singleton _instance;
-		private static readonly object Padlock = new();
-		private Singleton() { }
+using UnityEngine;
 
-		public static Singleton Instance {
-			get {
-				lock (Padlock) {
-					return _instance ??= new Singleton();
-				}
-			}
+namespace Common {
+	public abstract class Singleton<T> : MonoBehaviour {
+		protected Singleton() {
+			Instance = (T)(object)this;
 		}
+
+		public static T Instance { get; private set; }
 	}
 }

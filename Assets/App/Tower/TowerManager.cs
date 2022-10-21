@@ -3,22 +3,23 @@ using GameScene;
 using UnityEngine;
 
 namespace App.Tower {
-	public class TowerManager : Manager {
-		[SerializeField] private GameObject towerGameObject;
+	public class TowerManager : Singleton<TowerManager> {
+		[SerializeField] private GameObject towerPrefab;
 		private int _counter;
-		private Main _main;
 		private Renderer _renderer;
-		public static TowerManager Instance { get; private set; }
 
-		private void Awake() {
-			Instance = this.SingleInstance<TowerManager>(this, Instance);
-			this._main = Helper.FindComponent<Main>("Main");
+		public GameObject Add(Transform parent) {
+			if (this._counter >= Main.Instance.Towers) {
+				return null;
+			}
+
+			CanvasUI.Instance.TowerCountText(++this._counter, Main.Instance.Towers);
+			var position = Helper.PositionUpFromParent(this.towerPrefab.transform, parent);
+			return Instantiate(this.towerPrefab, position, parent.rotation, this.transform);
 		}
 
-		public GameObject Create(Transform parentTransform) {
-			this._main.canvasUI.TowerCountText(++this._counter);
-			var vector3 = Helper.PositionUpFromParent(this.towerGameObject.transform, parentTransform);
-			return Instantiate(this.towerGameObject, vector3, parentTransform.rotation, this.transform);
+		public static void Delete(GameObject tower) {
+			Destroy(tower);
 		}
 	}
 }
