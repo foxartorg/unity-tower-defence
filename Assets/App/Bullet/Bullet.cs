@@ -23,6 +23,7 @@ namespace App.Bullet {
 			if (EnemyManager.Instance.enemyList.Count == 0) {
 				return;
 			}
+
 			var dir = this._enemy.transform.position - this.transform.position;
 			var distanceThisFrame = Speed * Time.deltaTime;
 			this.transform.Translate(dir.normalized * distanceThisFrame);
@@ -31,7 +32,7 @@ namespace App.Bullet {
 			}
 
 			this._enemy.TakingAwayHp(50);
-			Destroy(this.gameObject);
+			BulletManager.Instance.DestroyBullet(this.gameObject);
 		}
 	}
 }
