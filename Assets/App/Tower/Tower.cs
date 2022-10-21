@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace App.Tower {
 	public class Tower : MonoBehaviour {
-		private const float FireRate = 2f;
+		private const float FireRate = 0.1f;
 		private float _timeout;
 
 		private void Update() {

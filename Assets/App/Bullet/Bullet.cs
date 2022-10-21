@@ -8,13 +8,13 @@ namespace App.Bullet {
 		private Transform _target;
 
 		private void Awake() {
-			if (EnemyManager.Instance.enemyList.Count == 0) { }
 		}
 
 		private void Update() {
 			this.CheckTarget();
 		}
 
+		// ReSharper disable Unity.PerformanceAnalysis
 		private void CheckTarget() {
 			if (EnemyManager.Instance.enemyList.Count == 0) {
 				BulletManager.Instance.DestroyBullet(this.gameObject);

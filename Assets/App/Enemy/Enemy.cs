@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace App.Enemy {
 	public class Enemy : Subscriber {
-		private int _health = 100;
+		private int _health = 150;
 		private NavMeshAgent _navMeshAgent;
 		private Slider _slider;
 

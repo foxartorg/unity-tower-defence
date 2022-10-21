@@ -42,7 +42,7 @@ namespace App.Enemy {
 					Destroy(context);
 				};
 				enemyComponent.Go(this.spawnEnd.position);
-				yield return new WaitForSeconds(0.25f);
+				yield return new WaitForSeconds(0.1f);
 			}
 		}
 	}
