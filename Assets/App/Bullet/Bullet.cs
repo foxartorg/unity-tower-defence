@@ -8,11 +8,7 @@ namespace App.Bullet {
 		private Transform _target;
 
 		private void Awake() {
-			if (EnemyManager.Instance.enemyList.Count == 0) {
-				return;
-			}
-
-			this._enemy = EnemyManager.Instance.enemyList[0].GetComponent<Enemy.Enemy>();
+			if (EnemyManager.Instance.enemyList.Count == 0) { }
 		}
 
 		private void Update() {
@@ -21,9 +17,11 @@ namespace App.Bullet {
 
 		private void CheckTarget() {
 			if (EnemyManager.Instance.enemyList.Count == 0) {
+				BulletManager.Instance.DestroyBullet(this.gameObject);
 				return;
 			}
 
+			this._enemy = EnemyManager.Instance.enemyList[0].GetComponent<Enemy.Enemy>();
 			var dir = this._enemy.transform.position - this.transform.position;
 			var distanceThisFrame = Speed * Time.deltaTime;
 			this.transform.Translate(dir.normalized * distanceThisFrame);
