@@ -10,7 +10,6 @@ namespace App.Bullet {
 			this._enemy = EnemyManager.Instance.enemyList[0].GetComponent<Enemy.Enemy>();
 			this._dir = this._enemy.transform.position - this.transform.position;
 		}
-
 		private void Update() {
 			this.CheckTarget();
 		}
