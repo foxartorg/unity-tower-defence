@@ -3,7 +3,7 @@ using System.Collections;
 namespace GameScene {
 	public sealed class Main : SceneSingleton<Main> {
 		private const int LevelIndex = 2;
-		private readonly int[] _enemies = { 10000, 10000 };
+		private readonly int[] _enemies = { 100, 100 };
 		private readonly int[] _towers = { 3, 5 };
 		private readonly int[] _waves = { 1, 2 };
 		private int _level;
