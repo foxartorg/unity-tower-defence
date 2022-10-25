@@ -12,14 +12,15 @@ namespace App.Tower {
 				return null;
 			}
 
-			CanvasUI.Instance.TowerCountText(++this._counter, Main.Instance.Towers);
 			var position = Helper.PositionParentUp(this.towerPrefab.transform, parent);
-			return Instantiate(this.towerPrefab, position, parent.rotation, this.transform);
+			var tower = Instantiate(this.towerPrefab, position, parent.rotation, this.transform);
+			CanvasUI.Instance.TowerCount(++this._counter, Main.Instance.Towers);
+			return tower;
 		}
 
 		public void DeleteTower(GameObject tower) {
-			CanvasUI.Instance.TowerCountText(--this._counter, Main.Instance.Towers);
 			Destroy(tower);
+			CanvasUI.Instance.TowerCount(--this._counter, Main.Instance.Towers);
 		}
 	}
 }

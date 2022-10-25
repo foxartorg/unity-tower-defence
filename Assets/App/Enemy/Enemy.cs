@@ -28,7 +28,7 @@ namespace App.Enemy {
 
 		private void OnTriggerEnter(Collider trigger) {
 			var damage = trigger.gameObject.GetComponent<Bullet.Bullet>().damage;
-			Debug.Log($"TRIGGER {damage}");
+			// Debug.Log($"TRIGGER {damage}");
 			this.Damage(damage);
 		}
 
@@ -45,7 +45,7 @@ namespace App.Enemy {
 		}
 
 		private void CheckDestination() {
-			if (this._navMeshAgent.hasPath) {
+			if (this._navMeshAgent.hasPath & (this._health > 0)) {
 				return;
 			}
 

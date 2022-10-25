@@ -21,9 +21,9 @@ namespace GameScene {
 		public int Towers => this._towers[this._level - 1];
 
 		private void Awake() {
-			CanvasUI.Instance.LevelText(this.Level = 1);
-			CanvasUI.Instance.EnemyCounterText(0);
-			CanvasUI.Instance.TowerCountText(0, 0);
+			CanvasUI.Instance.Level(this.Level = 1);
+			CanvasUI.Instance.EnemyCounter(0);
+			CanvasUI.Instance.TowerCount(0, 0);
 		}
 
 		private IEnumerator Start() {
@@ -32,9 +32,9 @@ namespace GameScene {
 
 		public IEnumerator SwitchToLevel(int level) {
 			yield return SceneLoader.UnloadSceneAsync(this._scene);
-			CanvasUI.Instance.LevelText(this.Level = level);
-			CanvasUI.Instance.EnemyCounterText(0);
-			CanvasUI.Instance.TowerCountText(0, 0);
+			CanvasUI.Instance.Level(this.Level = level);
+			CanvasUI.Instance.EnemyCounter(0);
+			CanvasUI.Instance.TowerCount(0, 0);
 			yield return SceneLoader.LoadScene(this._scene);
 		}
 	}

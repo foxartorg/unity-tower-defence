@@ -25,17 +25,15 @@ namespace App.Bullet {
 		}
 
 		private void OnCollisionEnter(Collision collision) {
-			// Debug.Log($"COLLISION {collision.collider.name}");
+			Debug.Log($"COLLISION {collision.collider.name}");
 			// if (collision.gameObject.CompareTag("Bullet")) {
 			// 	return;
 			// }
-			Destroy(this.gameObject);
-			if (!collision.gameObject.CompareTag("Enemy")) {
-				return;
-			}
+			BulletManager.Instance.DestroyBullet(this.gameObject);
+			if (!collision.gameObject.CompareTag("Enemy")) { }
 
-			var damage = Random.Range(25, 50);
-			collision.collider.GetComponent<Enemy.Enemy>().Damage(damage);
+			// var damage = Random.Range(25, 50);
+			// collision.collider.GetComponent<Enemy.Enemy>().Damage(damage);
 		}
 
 		public void SetDestination(Vector3 destination) {
