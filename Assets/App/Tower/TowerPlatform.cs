@@ -40,7 +40,7 @@ namespace App.Tower {
 				return;
 			}
 
-			this._tower = TowerManager.Instance.Add(this.transform);
+			this._tower = TowerManager.Instance.AddTower(this.transform);
 		}
 
 		private void DestroyTower() {
@@ -48,7 +48,7 @@ namespace App.Tower {
 				return;
 			}
 
-			TowerManager.Instance.Delete(this._tower);
+			TowerManager.Instance.DeleteTower(this._tower);
 			this._tower = null;
 		}
 	}

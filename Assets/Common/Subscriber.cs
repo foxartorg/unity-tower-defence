@@ -6,15 +6,15 @@ namespace Common {
 
 		public delegate void DelegateDestroy(GameObject context);
 
-		public event DelegateCreate OnCreate;
-		public event DelegateDestroy OnDestroy;
+		public event DelegateCreate HookCreate;
+		public event DelegateDestroy HookDestroy;
 
-		protected void execCreate() {
-			this.OnCreate?.Invoke();
+		protected void ExecCreate() {
+			this.HookCreate?.Invoke();
 		}
 
-		protected void execDestroy(GameObject context) {
-			this.OnDestroy?.Invoke(context);
+		protected void ExecDestroy(GameObject context) {
+			this.HookDestroy?.Invoke(context);
 		}
 	}
 }

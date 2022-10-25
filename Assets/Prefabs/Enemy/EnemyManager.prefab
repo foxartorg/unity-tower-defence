@@ -48,3 +48,4 @@ MonoBehaviour:
   spawnEnd: {fileID: 0}
   enemyPrefab: {fileID: 5231259221201410324, guid: 48bf1f36be2aff9d68fbf709d9178838, type: 3}
   enemyList: []
+  hasEnemies: 0

@@ -9,7 +9,8 @@ namespace App.Enemy {
 		[SerializeField] private Transform spawnStart;
 		[SerializeField] private Transform spawnEnd;
 		[SerializeField] private GameObject enemyPrefab;
-		public List<Transform> enemyList;
+		public List<GameObject> enemyList;
+		public bool hasEnemies;
 		private int _counter;
 
 		private void Start() {
@@ -19,7 +20,7 @@ namespace App.Enemy {
 		private IEnumerator SpawnWaves() {
 			for (var i = 0; i < Main.Instance.Waves; i++) {
 				this.StartCoroutine(this.SpawnWave());
-				yield return new WaitForSeconds(1.5f);
+				yield return new WaitForSeconds(5f);
 			}
 		}
 
@@ -27,19 +28,24 @@ namespace App.Enemy {
 			for (var i = 0; i < Main.Instance.Enemies; i++) {
 				var enemyGameObject = Instantiate(this.enemyPrefab, this.spawnStart.position, this.spawnStart.rotation, this.transform);
 				var enemyComponent = enemyGameObject.GetComponent<Enemy>();
-				enemyComponent.OnCreate += () => {
+				enemyComponent.HookCreate += () => {
+					this.hasEnemies = true;
+					this.enemyList.Add(enemyComponent.gameObject);
 					CanvasUI.Instance.EnemyCounterText(++this._counter);
-					this.enemyList.Add(enemyComponent.transform);
 					CanvasUI.Instance.DummyText(this.enemyList.Count.ToString());
 				};
-				enemyComponent.OnCreate += () => {
-					Debug.Log("another hook");
+				enemyComponent.HookCreate += () => {
+					// Debug.Log("another hook");
 				};
-				enemyComponent.OnDestroy += context => {
+				enemyComponent.HookDestroy += context => {
+					this.enemyList.Remove(enemyComponent.gameObject);
+					Destroy(context);
+					if (this.enemyList.Count == 0) {
+						this.hasEnemies = false;
+					}
+
 					CanvasUI.Instance.EnemyCounterText(--this._counter);
-					this.enemyList.Remove(enemyComponent.transform);
 					CanvasUI.Instance.DummyText(this.enemyList.Count.ToString());
-					Destroy(enemyComponent);
 				};
 				enemyComponent.Go(this.spawnEnd.position);
 				yield return new WaitForSeconds(0.25f);

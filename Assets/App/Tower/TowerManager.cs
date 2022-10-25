@@ -6,13 +6,8 @@ namespace App.Tower {
 	public class TowerManager : Singleton<TowerManager> {
 		[SerializeField] private GameObject towerPrefab;
 		private int _counter;
-		private Renderer _renderer;
 
-		private TowerManager() {
-			Debug.Log("TOWER MAN");
-		}
-
-		public GameObject Add(Transform parent) {
+		public GameObject AddTower(Transform parent) {
 			if (this._counter >= Main.Instance.Towers) {
 				return null;
 			}
@@ -22,9 +17,9 @@ namespace App.Tower {
 			return Instantiate(this.towerPrefab, position, parent.rotation, this.transform);
 		}
 
-		public void Delete(GameObject tower) {
-			Destroy(tower);
+		public void DeleteTower(GameObject tower) {
 			CanvasUI.Instance.TowerCountText(--this._counter, Main.Instance.Towers);
+			Destroy(tower);
 		}
 	}
 }
