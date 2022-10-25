@@ -1,6 +1,4 @@
-using System.Collections;
-using App.Bullet;
-using App.Enemy;
+using System.Collections.Generic;
 using Common;
 using GameScene;
 using UnityEngine;
@@ -11,23 +9,18 @@ namespace App.Tower {
 		private int _counter;
 		private Renderer _renderer;
 		private float _timeout;
+		private List<GameObject> _turretList;
 
-		// private TowerManager() {
-		// 	Debug.Log("TOWER MAN");
-		// }
-
-		private void Start() {
-			// this.StartCoroutine(this.Shoot(this.transform));
-		}
-
-		// private IEnumerator Shoot(Transform transformTower) {
-		// 	while (EnemyManager.Instance.enemyList.Count >= 0) {
+		// public void Shoot(Transform transformTower) {
+		// 	if (this._timeout < 0f && EnemyManager.Instance.enemyList.Count != 0) {
 		// 		BulletManager.Instance.Create(transformTower);
-		// 		return new ;
+		// 		this._timeout = BulletManager.Instance.TimeBullet(transformTower);
 		// 	}
+		//
+		// 	this._timeout -= Time.deltaTime;
 		// }
 
-		public GameObject Add(Transform parent) {
+		public GameObject AddTower(Transform parent) {
 			if (this._counter >= Main.Instance.Towers) {
 				return null;
 			}
@@ -37,9 +30,9 @@ namespace App.Tower {
 			return Instantiate(this.towerPrefab, position, parent.rotation, this.transform);
 		}
 
-		public void Delete(GameObject tower) {
-			Destroy(tower);
+		public void DeleteTower(GameObject tower) {
 			CanvasUI.Instance.TowerCountText(--this._counter, Main.Instance.Towers);
+			Destroy(tower);
 		}
 	}
 }

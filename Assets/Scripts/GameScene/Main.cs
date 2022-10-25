@@ -3,9 +3,9 @@ using System.Collections;
 namespace GameScene {
 	public sealed class Main : SceneSingleton<Main> {
 		private const int LevelIndex = 2;
-		private readonly int[] _enemies = { 10, 10 };
+		private readonly int[] _enemies = { 2, 50 };
 		private readonly int[] _towers = { 3, 5 };
-		private readonly int[] _waves = { 1, 2 };
+		private readonly int[] _waves = { 2, 2 };
 		private int _level;
 		private int _scene;
 
@@ -16,7 +16,6 @@ namespace GameScene {
 			}
 		}
 
-		public int Health => 100;
 		public int Waves => this._waves[this._level - 1];
 		public int Enemies => this._enemies[this._level - 1];
 		public int Towers => this._towers[this._level - 1];

@@ -13,13 +13,15 @@ namespace App.Enemy {
 		private void Awake() {
 			this._health = Main.Instance.Health;
 			this._navMeshAgent = this.GetComponent<NavMeshAgent>();
+			// this._navMeshAgent.speed = 20;
+			// this._navMeshAgent.acceleration = 64;
 			this._slider = this.GetComponentInChildren<Slider>();
 			this._slider.maxValue = this._health;
 			this._slider.value = this._health;
 		}
 
 		private void Start() {
-			this.execCreate();
+			this.ExecCreate();
 		}
 
 		private void Update() {
@@ -40,7 +42,7 @@ namespace App.Enemy {
 				return;
 			}
 
-			this.execDestroy(this.gameObject);
+			this.ExecDestroy(this.gameObject);
 		}
 	}
 }
