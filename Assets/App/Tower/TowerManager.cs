@@ -27,7 +27,7 @@ namespace App.Tower {
 		// 	}
 		// }
 
-		public GameObject Add(Transform parent) {
+		public GameObject AddTower(Transform parent) {
 			if (this._counter >= Main.Instance.Towers) {
 				return null;
 			}
@@ -37,7 +37,7 @@ namespace App.Tower {
 			return Instantiate(this.towerPrefab, position, parent.rotation, this.transform);
 		}
 
-		public void Delete(GameObject tower) {
+		public void DeleteTower(GameObject tower) {
 			Destroy(tower);
 			CanvasUI.Instance.TowerCountText(--this._counter, Main.Instance.Towers);
 		}

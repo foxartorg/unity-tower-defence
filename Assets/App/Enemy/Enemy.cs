@@ -6,12 +6,11 @@ using UnityEngine.UI;
 
 namespace App.Enemy {
 	public class Enemy : Subscriber {
-		private int _health;
+		private int _health = 150;
 		private NavMeshAgent _navMeshAgent;
 		private Slider _slider;
 
 		private void Awake() {
-			this._health = Main.Instance.Health;
 			this._navMeshAgent = this.GetComponent<NavMeshAgent>();
 			// this._navMeshAgent.speed = 20;
 			// this._navMeshAgent.acceleration = 64;
