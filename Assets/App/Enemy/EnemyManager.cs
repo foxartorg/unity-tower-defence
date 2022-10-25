@@ -36,10 +36,10 @@ namespace App.Enemy {
 					// Debug.Log("another hook");
 				};
 				enemyComponent.HookDestroy += context => {
-					this.enemyList.Remove(enemyComponent.gameObject);
-					Destroy(context);
 					CanvasUI.Instance.EnemyCounter(--this._counter);
+					this.enemyList.Remove(enemyComponent.gameObject);
 					CanvasUI.Instance.Dummy(this.enemyList.Count.ToString());
+					Destroy(context);
 				};
 				enemyComponent.Go(this.spawnEnd.position);
 				yield return new WaitForSeconds(0.25f);

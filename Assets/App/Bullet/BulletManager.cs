@@ -30,8 +30,8 @@ namespace App.Bullet {
 		}
 
 		public void DestroyBullet(GameObject bullet) {
-			Destroy(bullet);
 			CanvasUI.Instance.BulletCounter(--this._counter);
+			Destroy(bullet);
 		}
 
 		public IEnumerator Shoot(Transform towerTransform) {
