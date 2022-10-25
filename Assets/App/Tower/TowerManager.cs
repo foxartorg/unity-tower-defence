@@ -1,3 +1,4 @@
+using System.Collections;
 using App.Bullet;
 using App.Enemy;
 using Common;
@@ -15,14 +16,16 @@ namespace App.Tower {
 		// 	Debug.Log("TOWER MAN");
 		// }
 
-		public void Shoot(Transform transformTower) {
-			if (this._timeout < 0f && EnemyManager.Instance.enemyList.Count != 0) {
-				BulletManager.Instance.Create(transformTower);
-				this._timeout = BulletManager.TimeBullet(transformTower);
-			}
-
-			this._timeout -= Time.deltaTime;
+		private void Start() {
+			// this.StartCoroutine(this.Shoot(this.transform));
 		}
+
+		// private IEnumerator Shoot(Transform transformTower) {
+		// 	while (EnemyManager.Instance.enemyList.Count >= 0) {
+		// 		BulletManager.Instance.Create(transformTower);
+		// 		return new ;
+		// 	}
+		// }
 
 		public GameObject Add(Transform parent) {
 			if (this._counter >= Main.Instance.Towers) {

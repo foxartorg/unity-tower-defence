@@ -1,15 +1,17 @@
 using Common;
+using GameScene;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
 namespace App.Enemy {
 	public class Enemy : Subscriber {
-		private int _health = 150;
+		private int _health;
 		private NavMeshAgent _navMeshAgent;
 		private Slider _slider;
 
 		private void Awake() {
+			this._health = Main.Instance.Health;
 			this._navMeshAgent = this.GetComponent<NavMeshAgent>();
 			this._slider = this.GetComponentInChildren<Slider>();
 			this._slider.maxValue = this._health;

@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace App.Bullet {
 	public class BulletManager : Singleton<BulletManager> {
+		public const int Speed = 50;
 		[SerializeField] private GameObject bulletPrefab;
 		private List<GameObject> _bulletList;
-		public const int Speed = 20;
 
 		private void Awake() {
 			this._bulletList = new List<GameObject>();
