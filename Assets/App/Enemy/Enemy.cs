@@ -1,12 +1,11 @@
 using Common;
-using GameScene;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
 namespace App.Enemy {
 	public class Enemy : Subscriber {
-		private int _health = 150;
+		private int _health = 100;
 		private NavMeshAgent _navMeshAgent;
 		private Slider _slider;
 
@@ -23,13 +22,22 @@ namespace App.Enemy {
 			this.ExecCreate();
 		}
 
-		private void Update() {
+		private void FixedUpdate() {
 			this.CheckDestination();
 		}
 
-		public void TakingAwayHp(int damage) {
+		private void OnTriggerEnter(Collider trigger) {
+			var damage = trigger.gameObject.GetComponent<Bullet.Bullet>().damage;
+			Debug.Log($"TRIGGER {damage}");
+			this.Damage(damage);
+		}
+
+		public void Damage(int damage) {
 			this._health -= damage;
 			this._slider.value = this._health;
+			if (this._health <= 0) {
+				this.ExecDestroy(this.gameObject);
+			}
 		}
 
 		public void Go(Vector3 position) {
@@ -37,7 +45,7 @@ namespace App.Enemy {
 		}
 
 		private void CheckDestination() {
-			if (this._navMeshAgent.hasPath && this._health > 0) {
+			if (this._navMeshAgent.hasPath) {
 				return;
 			}
 

@@ -2437,21 +2437,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfbd0f2f2319abb0f92c0bdea05ead3b, type: 3}
---- !u!1 &632692187025365692 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3822554524393693132, guid: dfbd0f2f2319abb0f92c0bdea05ead3b, type: 3}
-  m_PrefabInstance: {fileID: 632692187025365691}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &632692187025365693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 632692187025365692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 421af59cb8e5452b956e64ad760b31bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 3818927725049698589, guid: 8cf17a95aa10b4390b44edf4ea70daab, type: 3}

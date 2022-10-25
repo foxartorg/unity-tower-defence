@@ -1,43 +1,38 @@
 using System.Collections;
-using System.Collections.Generic;
-using App.Enemy;
 using Common;
 using UnityEngine;
 
 namespace App.Bullet {
 	public class BulletManager : Singleton<BulletManager> {
-		public const int Speed = 20;
+		private const float ShootDelay = 0.25f;
 		[SerializeField] private GameObject bulletPrefab;
-		private List<GameObject> _bulletList;
+
+		// private List<GameObject> _bulletList;
 		private double _timeout;
 
 		private void Awake() {
-			this._bulletList = new List<GameObject>();
+			// this._bulletList = new List<GameObject>();
 		}
 
-		public void Create(Transform parent) {
-			var bullet = Instantiate(this.bulletPrefab, parent.position, parent.rotation, this.transform);
-			this._bulletList.Add(bullet);
+		public void Create(Transform parentTransform) {
+			// var bullet = this.gameObject.AddComponent<Bullet>();
+			// bullet.SetDestination();
+			var pos = Helper.PositionParentUp(this.bulletPrefab.transform, parentTransform);
+			var instantiate = Instantiate(this.bulletPrefab, new Vector3(pos.x, pos.y + 0.5f, pos.z), parentTransform.rotation,
+				this.transform);
+			// Debug.Break();
+			var bullet = instantiate.GetComponent<Bullet>();
+			var destination = new Vector3(0, 0.3f, 0);
+			bullet.SetDestination(destination);
 		}
 
-		public float TimeBullet(Transform transformTower) {
-			var dir = EnemyManager.Instance.enemyList[0].transform.position - transformTower.position;
-			return dir.magnitude / Speed;
-		}
-
-		public void DestroyBullet(GameObject bullet) {
-			this._bulletList.Remove(bullet);
-			Destroy(bullet);
-		}
-
-		public IEnumerator Shoot(Transform tower, float timeout) {
-			if (EnemyManager.Instance.enemyList.Count <= 0) {
-				yield break;
-			}
-
-			this.Create(tower);
-			yield return new WaitForSeconds(timeout);
-			this.StartCoroutine(this.Shoot(tower, timeout));
+		public IEnumerator Shoot(Transform towerTransform) {
+			// if (EnemyManager.Instance.enemyList.Count <= 0) {
+			// 	yield break;
+			// }
+			this.Create(towerTransform);
+			yield return new WaitForSeconds(ShootDelay);
+			this.StartCoroutine(this.Shoot(towerTransform));
 		}
 	}
 }

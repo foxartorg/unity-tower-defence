@@ -4,7 +4,7 @@ namespace GameScene {
 	public sealed class Main : SceneSingleton<Main> {
 		private const int LevelIndex = 2;
 		private readonly int[] _enemies = { 2, 50 };
-		private readonly int[] _towers = { 3, 5 };
+		private readonly int[] _towers = { 5, 5 };
 		private readonly int[] _waves = { 2, 2 };
 		private int _level;
 		private int _scene;

@@ -1,33 +1,47 @@
-using App.Enemy;
 using UnityEngine;
 
 namespace App.Bullet {
-	public class Bullet : MonoBehaviour  {
-		private Enemy.Enemy _enemy;
-		private Vector3 _dir;
+	public class Bullet : MonoBehaviour {
+		private const int Velocity = 1000;
+		private static int _counter;
+		public int damage;
+		private int _id;
+		private Rigidbody _rigidbody;
+		private Transform _transform;
 
 		private void Awake() {
-			this._enemy = EnemyManager.Instance.enemyList[0].GetComponent<Enemy.Enemy>();
-			this._dir = this._enemy.transform.position - this.transform.position;
+			this._transform = this.transform;
+			this._rigidbody = this.GetComponent<Rigidbody>();
+			this._id = _counter++;
+			this.damage = Random.Range(25, 50);
+			// Debug.Log($"BULLET {this._id}");
 		}
+
 		private void Update() {
-			this.CheckTarget();
+			// this._transform.position += this._transform.forward * (Time.deltaTime * Velocity / 50);
+			// this._transform.Translate(Vector3.forward * (Time.deltaTime * Velocity / 100));
+			// this._rigidbody.AddForce(this._transform.forward * (Time.deltaTime * Velocity));
+			// this._rigidbody.velocity = this._transform.forward * (Time.deltaTime * Velocity);
 		}
 
-		private void CheckTarget() {
-			if (EnemyManager.Instance.enemyList.Count == 0) {
-				BulletManager.Instance.DestroyBullet(this.gameObject);
+		private void OnCollisionEnter(Collision collision) {
+			// Debug.Log($"COLLISION {collision.collider.name}");
+			// if (collision.gameObject.CompareTag("Bullet")) {
+			// 	return;
+			// }
+			Destroy(this.gameObject);
+			if (!collision.gameObject.CompareTag("Enemy")) {
 				return;
 			}
 
-			var distanceThisFrame = BulletManager.Speed * Time.deltaTime;
-			this.transform.Translate(this._dir.normalized * distanceThisFrame);
-			if (!(this._dir.magnitude <= distanceThisFrame)) {
-				return;
-			}
+			var damage = Random.Range(25, 50);
+			collision.collider.GetComponent<Enemy.Enemy>().Damage(damage);
+		}
 
-			this._enemy.TakingAwayHp(50);
-			BulletManager.Instance.DestroyBullet(this.gameObject);
+		public void SetDestination(Vector3 destination) {
+			// this._transform.LookAt(destination);
+			// this._rigidbody.AddForce(Vector3.Normalize(destination - this._transform.position) * Velocity / 4);
+			this._rigidbody.velocity = Vector3.Normalize(destination - this._transform.position) * (Time.deltaTime * Velocity);
 		}
 	}
 }
