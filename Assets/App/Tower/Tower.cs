@@ -1,11 +1,19 @@
+using System.Collections.Generic;
 using App.Bullet;
+using GameScene;
 using UnityEngine;
 
 namespace App.Tower {
 	public class Tower : MonoBehaviour {
+		private int _counter;
+		private List<GameObject> _towerEnemyList;
+		private int _id;
 		private LineRenderer _lr;
 
 		private void Awake() {
+			this._towerEnemyList = new List<GameObject>();
+			// this._id = this._counter++;
+			// Debug.Log($"ENEMY {this._id}");
 			// var destination = new Vector3(1, 1, 1);
 			// this._lr = this.AddComponent<LineRenderer>();
 			// this._lr.positionCount = 2;
@@ -29,6 +37,24 @@ namespace App.Tower {
 			this.StartCoroutine(BulletManager.Instance.Shoot(this.transform));
 		}
 
-		private void OnDestroy() { }
+		private void OnTriggerEnter(Collider other) {
+			if (!other.gameObject.CompareTag("Enemy")) {
+				return;
+			}
+
+			Debug.Log($"ENEMY ENTERED!");
+			this._towerEnemyList.Add(other.gameObject);
+			CanvasUI.Instance.TowerEnemyCount(this._towerEnemyList.Count);
+		}
+
+		private void OnTriggerExit(Collider other) {
+			if (!other.gameObject.CompareTag("Enemy")) {
+				return;
+			}
+
+			Debug.Log("ENEMY EXIT!");
+			this._towerEnemyList.Remove(other.gameObject);
+			CanvasUI.Instance.TowerEnemyCount(this._towerEnemyList.Count);
+		}
 	}
 }

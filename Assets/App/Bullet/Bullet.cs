@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace App.Bullet {
 	public class Bullet : MonoBehaviour {
-		private const int Velocity = 1000;
+		private const int Velocity = 10000;
 		private static int _counter;
 		public int damage;
 		private int _id;
@@ -25,7 +25,7 @@ namespace App.Bullet {
 		}
 
 		private void OnCollisionEnter(Collision collision) {
-			Debug.Log($"COLLISION {collision.collider.name}");
+			// Debug.Log($"COLLISION {collision.collider.name}");
 			// if (collision.gameObject.CompareTag("Bullet")) {
 			// 	return;
 			// }

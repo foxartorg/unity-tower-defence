@@ -32,7 +32,7 @@ namespace App.Enemy {
 			this.Damage(damage);
 		}
 
-		public void Damage(int damage) {
+		private void Damage(int damage) {
 			this._health -= damage;
 			this._slider.value = this._health;
 			if (this._health <= 0) {

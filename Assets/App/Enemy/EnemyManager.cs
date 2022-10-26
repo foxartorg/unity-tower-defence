@@ -36,6 +36,7 @@ namespace App.Enemy {
 					// Debug.Log("another hook");
 				};
 				enemyComponent.HookDestroy += context => {
+
 					CanvasUI.Instance.EnemyCounter(--this._counter);
 					this.enemyList.Remove(enemyComponent.gameObject);
 					CanvasUI.Instance.Dummy(this.enemyList.Count.ToString());
