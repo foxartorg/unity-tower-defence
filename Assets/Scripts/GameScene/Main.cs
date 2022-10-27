@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEngine;
 
 namespace GameScene {
 	public sealed class Main : SceneSingleton<Main> {
@@ -21,6 +22,7 @@ namespace GameScene {
 		public int Towers => this._towers[this._level - 1];
 
 		private void Awake() {
+			Application.targetFrameRate = 60;
 			CanvasUI.Instance.Level(this.Level = 1);
 			CanvasUI.Instance.EnemyCounter(0);
 			CanvasUI.Instance.TowerCount(0, 0);
