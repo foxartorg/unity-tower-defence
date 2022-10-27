@@ -24,6 +24,7 @@ namespace GameScene {
 			CanvasUI.Instance.Level(this.Level = 1);
 			CanvasUI.Instance.EnemyCounter(0);
 			CanvasUI.Instance.TowerCount(0, 0);
+			CanvasUI.Instance.TowerEnemyCount(0);
 		}
 
 		private IEnumerator Start() {
@@ -35,6 +36,7 @@ namespace GameScene {
 			CanvasUI.Instance.Level(this.Level = level);
 			CanvasUI.Instance.EnemyCounter(0);
 			CanvasUI.Instance.TowerCount(0, 0);
+			CanvasUI.Instance.TowerEnemyCount(0);
 			yield return SceneLoader.LoadScene(this._scene);
 		}
 	}

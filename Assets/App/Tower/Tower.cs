@@ -42,8 +42,12 @@ namespace App.Tower {
 				return;
 			}
 
-			Debug.Log($"ENEMY ENTERED!");
-			this._towerEnemyList.Add(other.gameObject);
+			var enemy = other.gameObject.GetComponent<Enemy.Enemy>();
+			this._towerEnemyList.Add(enemy.gameObject);
+			enemy.HookDestroy += context => {
+				this._towerEnemyList.Remove(context);
+				CanvasUI.Instance.TowerEnemyCount(this._towerEnemyList.Count);
+			};
 			CanvasUI.Instance.TowerEnemyCount(this._towerEnemyList.Count);
 		}
 
@@ -52,7 +56,6 @@ namespace App.Tower {
 				return;
 			}
 
-			Debug.Log("ENEMY EXIT!");
 			this._towerEnemyList.Remove(other.gameObject);
 			CanvasUI.Instance.TowerEnemyCount(this._towerEnemyList.Count);
 		}
