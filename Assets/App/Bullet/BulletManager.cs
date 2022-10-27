@@ -24,7 +24,7 @@ namespace App.Bullet {
 				this.transform);
 			// Debug.Break();
 			var bullet = instantiate.GetComponent<Bullet>();
-			var destination = new Vector3(0, 0.3f, 0);
+			var destination = new Vector3(0, 0.33f, 0);
 			bullet.SetDestination(destination);
 			CanvasUI.Instance.BulletCounter(++this._counter);
 		}

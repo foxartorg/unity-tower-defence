@@ -1,3 +1,4 @@
+using App.Bullet;
 using Common;
 using UnityEngine;
 using UnityEngine.AI;
@@ -27,9 +28,11 @@ namespace App.Enemy {
 		}
 
 		private void OnTriggerEnter(Collider trigger) {
+			var bullet = trigger.gameObject.GetComponent<Bullet.Bullet>();
 			var damage = trigger.gameObject.GetComponent<Bullet.Bullet>().damage;
 			// Debug.Log($"TRIGGER {damage}");
-			this.Damage(damage);
+			BulletManager.Instance.DestroyBullet(bullet.gameObject);
+			this.Damage(bullet.damage);
 		}
 
 		public void Damage(int damage) {

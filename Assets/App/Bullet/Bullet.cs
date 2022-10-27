@@ -25,7 +25,7 @@ namespace App.Bullet {
 		}
 
 		private void OnCollisionEnter(Collision collision) {
-			Debug.Log($"COLLISION {collision.collider.name}");
+			// Debug.Log($"COLLISION {collision.collider.name}");
 			// if (collision.gameObject.CompareTag("Bullet")) {
 			// 	return;
 			// }
