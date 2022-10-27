@@ -1,4 +1,3 @@
-using App.Bullet;
 using UnityEngine;
 
 namespace App.Tower {
@@ -26,7 +25,7 @@ namespace App.Tower {
 			// } else {
 			// 	this.StartCoroutine(BulletManager.Instance.Shoot(this.transform, 1f));
 			// }
-			this.StartCoroutine(BulletManager.Instance.Shoot(this.transform));
+			// this.StartCoroutine(BulletManager.Instance.Shoot(this.transform));
 		}
 
 		private void OnDestroy() { }
