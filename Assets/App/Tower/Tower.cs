@@ -6,9 +6,9 @@ using UnityEngine;
 namespace App.Tower {
 	public class Tower : MonoBehaviour {
 		private int _counter;
-		private List<GameObject> _towerEnemyList;
 		private int _id;
 		private LineRenderer _lr;
+		private List<GameObject> _towerEnemyList;
 
 		private void Awake() {
 			this._towerEnemyList = new List<GameObject>();
