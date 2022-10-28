@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace App.Tower {
 	public class Tower : MonoBehaviour {
+		private Bullet.Bullet _bullet;
 		private int _counter;
 		private int _id;
 		private LineRenderer _lr;
@@ -34,7 +35,6 @@ namespace App.Tower {
 			// } else {
 			// 	this.StartCoroutine(BulletManager.Instance.Shoot(this.transform, 1f));
 			// }
-			this.StartCoroutine(BulletManager.Instance.Shoot(this.transform));
 		}
 
 		private void OnTriggerEnter(Collider other) {
@@ -44,6 +44,7 @@ namespace App.Tower {
 
 			var enemy = other.gameObject.GetComponent<Enemy.Enemy>();
 			this._towerEnemyList.Add(enemy.gameObject);
+			this.StartCoroutine(BulletManager.Instance.Shoot(this.transform, enemy.transform.position));
 			enemy.HookDestroy += context => {
 				this._towerEnemyList.Remove(context);
 				CanvasUI.Instance.TowerEnemyCount(this._towerEnemyList.Count);
@@ -57,7 +58,15 @@ namespace App.Tower {
 			}
 
 			this._towerEnemyList.Remove(other.gameObject);
+			this.StopCoroutine(BulletManager.Instance.Shoot(this.transform, this._towerEnemyList[0].transform.position));
 			CanvasUI.Instance.TowerEnemyCount(this._towerEnemyList.Count);
+		}
+
+		private void OnTriggerStay(Collider other) {
+			if (!other.gameObject.CompareTag("Enemy")) {
+				return;
+			}
+
 		}
 	}
 }

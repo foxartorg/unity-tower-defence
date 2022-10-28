@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace App.Bullet {
 	public class BulletManager : Singleton<BulletManager> {
-		private const float ShootDelay = 0.25f;
+		private const float ShootDelay = 1f;
 		[SerializeField] private GameObject bulletPrefab;
 		private int _counter;
 
@@ -16,7 +16,7 @@ namespace App.Bullet {
 			// this._bulletList = new List<GameObject>();
 		}
 
-		public void CreateBullet(Transform parentTransform) {
+		private Bullet CreateBullet(Transform parentTransform) {
 			// var bullet = this.gameObject.AddComponent<Bullet>();
 			// bullet.SetDestination();
 			var pos = Helper.PositionParentUp(this.bulletPrefab.transform, parentTransform);
@@ -24,9 +24,10 @@ namespace App.Bullet {
 				this.transform);
 			// Debug.Break();
 			var bullet = instantiate.GetComponent<Bullet>();
-			var destination = new Vector3(0, 0.3f, 0);
-			bullet.SetDestination(destination);
 			CanvasUI.Instance.BulletCounter(++this._counter);
+			// var destination = new Vector3(0, 0.3f, 0);
+			// bullet.SetDestination(destination);
+			return bullet;
 		}
 
 		public void DestroyBullet(GameObject bullet) {
@@ -34,13 +35,13 @@ namespace App.Bullet {
 			Destroy(bullet);
 		}
 
-		public IEnumerator Shoot(Transform towerTransform) {
+		public IEnumerator Shoot(Transform towerTransform, Vector3 target) {
 			// if (EnemyManager.Instance.enemyList.Count <= 0) {
 			// 	yield break;
 			// }
 			yield return new WaitForSeconds(ShootDelay);
-			this.CreateBullet(towerTransform);
-			this.StartCoroutine(this.Shoot(towerTransform));
+			this.CreateBullet(towerTransform).SetDestination(target);
+			this.StartCoroutine(this.Shoot(towerTransform, target));
 		}
 	}
 }

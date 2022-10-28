@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9193366829765397898}
   - component: {fileID: 3085440237970725079}
   - component: {fileID: 2938399358593218570}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
+  V: 0
 --- !u!135 &3085440237970725079
 SphereCollider:
   m_ObjectHideFlags: 0
