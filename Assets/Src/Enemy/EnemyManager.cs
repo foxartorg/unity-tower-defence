@@ -28,14 +28,14 @@ namespace Src.Enemy {
 		}
 
 		private IEnumerator Spawn() {
-			for (var i = 0; i < App.Instance.Waves; i++) {
-				for (var j = 0; j < App.Instance.Enemies; j++) {
+			for (var i = 0; i < App.Instance.waves; i++) {
+				for (var j = 0; j < App.Instance.enemies; j++) {
 					var enemy = Instantiate(this.enemyPrefab, this.spawnStart.position, this.spawnStart.rotation, this.transform);
 					this.CreateEnemy(enemy);
-					yield return new WaitForSeconds(App.Instance.EnemiesTimeout);
+					yield return new WaitForSeconds(App.Instance.enemiesTimeout);
 				}
 
-				yield return new WaitForSeconds(App.Instance.WavesTimeout);
+				yield return new WaitForSeconds(App.Instance.wavesTimeout);
 			}
 		}
 

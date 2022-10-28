@@ -6,7 +6,7 @@ namespace MainScene {
 		[SerializeField] private Button startButton;
 
 		private void Start() {
-			this.startButton.onClick.AddListener(() => this.StartCoroutine(Main.SwitchToGame()));
+			this.startButton.onClick.AddListener(() => this.StartCoroutine(Main.LoadGameScene()));
 		}
 	}
 }

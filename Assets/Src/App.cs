@@ -1,5 +1,7 @@
+using System.Collections;
 using Common;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Src {
 	public sealed class App : Singleton<App> {
@@ -9,24 +11,29 @@ namespace Src {
 		private static readonly float[] EnemyListTimeout = { 0.25f, 0.25f };
 		private static readonly int[] TowerList = { 5, 5 };
 		private static readonly float[] WaveListTimeout = { 0.5f, 0.5f };
-		private readonly int _level = Main.Level;
-		public int Enemies => EnemyList[this._level - 1];
-		public float EnemiesTimeout => EnemyListTimeout[this._level - 1];
-		public int Towers => TowerList[this._level - 1];
-		public int Waves => WaveList[this._level - 1];
-		public float WavesTimeout => WaveListTimeout[this._level - 1];
+		public int enemies;
+		public float enemiesTimeout;
+		public int towers;
+		public int waves;
+		public float wavesTimeout;
 
 		private void Awake() {
+			var scene = SceneManager.GetActiveScene();
+			Debug.Log("Active Scene name is: " + scene.name + "\nActive Scene index: " + scene.buildIndex);
 			Application.targetFrameRate = 60;
-			// CanvasUI.Instance.Level(Level = 1);
-			// CanvasUI.Instance.EnemyCounter(0);
-			// CanvasUI.Instance.TowerCount(0, 0);
+			var level = Main.Level - 1;
+			Debug.Log($"APP {Main.Level} {level}");
+			this.enemies = EnemyList[level];
+			this.enemiesTimeout = EnemyListTimeout[level];
+			this.towers = TowerList[level];
+			this.waves = WaveList[level];
+			this.wavesTimeout = WaveListTimeout[level];
 		}
 
-		private void Start() {
-			if (Main.Level < 2) {
-				Debug.Log($"{Main.Level}");
-				// yield return Main.LoadLevel(1);
+		private IEnumerator Start() {
+			if (Main.Level == 0) {
+				// yield return Main.LoadGameScene(2);
+				yield return null;
 			}
 		}
 	}

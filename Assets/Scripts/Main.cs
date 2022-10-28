@@ -1,22 +1,23 @@
 using System.Collections;
-using Common;
 using GameScene;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Scene = UnityEngine.SceneManagement.Scene;
 
-public sealed class Main : Singleton<Main> {
+public sealed class Main {
+	// public static Instance { get; private set; }
 	private const int Index = 2;
 	private static int _level;
-	private static int _scene;
 
 	public static int Level {
 		get => _level;
 		private set {
 			_level = value;
-			_scene = value + Index - 1;
+			LevelIndex = value + Index - 1;
 		}
 	}
+
+	public static int LevelIndex { get; private set; }
 
 	private void OnEnable() {
 		SceneManager.sceneLoaded += OnEnableHook;
@@ -54,22 +55,25 @@ public sealed class Main : Singleton<Main> {
 		CanvasUI.Instance.TowerCount(0, 0);
 	}
 
-	public static IEnumerator SwitchToMenu() {
+	public static IEnumerator LoadMainScene() {
+		Level = 0;
 		yield return LoadScene(0, false);
 	}
 
-	public static IEnumerator SwitchToGame() {
+	public static IEnumerator LoadGameScene(int level = 1) {
+		Level = level;
 		yield return LoadScene(1, false);
 	}
 
-	public static IEnumerator LoadLevel(int level) {
-		Level = level;
-		yield return LoadScene(_scene);
-		UpdateCanvasUI(level);
-	}
-
 	public static IEnumerator SwitchToLevel(int level) {
-		yield return UnloadScene(_scene);
-		yield return LoadLevel(level);
+		Debug.Log($"SwitchToLevel {level}");
+		var prev = LevelIndex;
+		Level = level;
+		if (SceneManager.GetSceneByBuildIndex(prev).isLoaded) {
+			yield return UnloadScene(prev);
+		}
+
+		yield return LoadScene(LevelIndex);
+		UpdateCanvasUI(level);
 	}
 }
