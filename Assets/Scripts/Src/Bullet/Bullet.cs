@@ -15,7 +15,7 @@ namespace Src.Bullet {
 			this._transform = this.transform;
 			this._rigidbody = this.GetComponent<Rigidbody>();
 			this._id = _counter++;
-			this.damage = Random.Range(50, 100);
+			this.damage = Random.Range(25, 50);
 		}
 
 		private void Update() {
