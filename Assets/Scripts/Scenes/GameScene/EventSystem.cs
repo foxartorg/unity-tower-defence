@@ -28,10 +28,8 @@ namespace Scenes.GameScene {
 		}
 
 		private static IEnumerator LoadLevel(int level) {
-			if (SceneHelper.IsLoaded(App.CurrentLevelSceneIndex)) {
-				yield return SceneHelper.Unload(App.CurrentLevelSceneIndex);
-			}
-
+			// if (SceneHelper.IsLoaded(App.CurrentLevelSceneIndex)) { }
+			yield return SceneHelper.Unload(App.CurrentLevelSceneIndex);
 			App.CurrentLevelSceneIndex = App.GetLevelSceneIndex(level);
 			yield return SceneHelper.Load(App.CurrentLevelSceneIndex, true);
 		}
