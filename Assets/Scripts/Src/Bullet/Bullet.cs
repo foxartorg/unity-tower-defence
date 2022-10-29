@@ -1,6 +1,4 @@
-using App.Bullet;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Src.Bullet {
 	public class Bullet : MonoBehaviour {
@@ -8,10 +6,10 @@ namespace Src.Bullet {
 		private static int _counter;
 		public int damage;
 		[SerializeField] private float v;
+		private Vector3 _destination;
 		private int _id;
 		private Rigidbody _rigidbody;
 		private Transform _transform;
-		private Vector3 _destination;
 
 		private void Awake() {
 			this._transform = this.transform;
@@ -22,7 +20,6 @@ namespace Src.Bullet {
 		}
 
 		private void Update() {
-
 			// this._transform.position += this._transform.forward * (Time.deltaTime * Velocity / 50);
 			// this._transform.Translate(Vector3.forward * (Time.deltaTime * Velocity / 100));
 			// this._rigidbody.AddForce(this._transform.forward * (Time.deltaTime * Velocity));
@@ -43,7 +40,7 @@ namespace Src.Bullet {
 		}
 
 		public void SetDestination(GameObject destination) {
-			this._transform.LookAt(destination.transform.position);
+			this._transform.LookAt(destination.transform.localPosition);
 			// this._rigidbody.AddForce(Vector3.Normalize(destination - this._transform.position) * Velocity / 4);
 			// this._rigidbody.velocity = Vector3.Normalize(destination - this._transform.position) * (Time.deltaTime * Velocity);
 		}

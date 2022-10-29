@@ -1,4 +1,3 @@
-using System.Collections;
 using Common;
 using Scenes.GameScene;
 using UnityEngine;
@@ -23,7 +22,7 @@ namespace Src.Bullet {
 			var instantiate = Instantiate(this.bulletPrefab, new Vector3(pos.x, pos.y + 0.5f, pos.z), parentTransform.rotation,
 				this.transform);
 			// Debug.Break();
-			var bullet = instantiate.GetComponent<Src.Bullet.Bullet>();
+			var bullet = instantiate.GetComponent<Bullet>();
 			// var destination = new Vector3(0, 0.33f, 0);
 			bullet.SetDestination(destination);
 			CanvasUI.Instance.BulletCounter(++this._counter);
@@ -34,13 +33,12 @@ namespace Src.Bullet {
 			Destroy(bullet);
 		}
 
-		public IEnumerator Shoot(Transform towerTransform, GameObject destination) {
+		public void Shoot(Transform towerTransform, GameObject destination) {
 			// if (EnemyManager.Instance.enemyList.Count <= 0) {
 			// 	yield break;
 			// }
-			yield return new WaitForSeconds(ShootDelay);
 			this.CreateBullet(towerTransform, destination);
-			this.StartCoroutine(this.Shoot(towerTransform, destination));
+			// this.StartCoroutine(this.Shoot(towerTransform, destination));
 		}
 	}
 }

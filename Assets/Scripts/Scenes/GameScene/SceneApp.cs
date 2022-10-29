@@ -7,6 +7,11 @@ namespace Scenes.GameScene {
 	public sealed class SceneApp : Singleton<SceneApp> {
 		private int _scene;
 
+		private void Awake() {
+			Application.targetFrameRate = 60;
+			// Debug.Log("XXX");
+		}
+
 		private IEnumerator Start() {
 			// yield return Main.SwitchToLevel(1);
 			Debug.Log($"SCENE {App.Level}");
