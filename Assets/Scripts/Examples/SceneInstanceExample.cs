@@ -1,9 +1,9 @@
 using Common;
 using UnityEngine;
 
-namespace Sample {
-	public abstract class SceneSingleton : MonoBehaviour {
-		protected T OnAwake<T>(MonoBehaviour context, MonoBehaviour instance) {
+namespace Examples {
+	internal abstract class SceneInstanceExample : MonoBehaviour {
+		private T OnAwake<T>(MonoBehaviour context, Object instance) {
 			if (instance == null) {
 				return (T)(object)context;
 			}

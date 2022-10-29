@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace GameScene {
+namespace Scenes.GameScene {
 	public sealed class MainCamera : MonoBehaviour {
 		private Camera _camera;
 		private float _speed;

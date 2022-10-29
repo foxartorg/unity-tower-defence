@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Common;
-using GameScene;
+using Scenes.GameScene;
 using UnityEngine;
 
 namespace Src.Enemy {
@@ -41,7 +41,7 @@ namespace Src.Enemy {
 
 		private void CreateEnemy(GameObject enemy) {
 			CanvasUI.Instance.EnemyCounter(++this._counter);
-			enemy.GetComponent<global::App.Enemy.Enemy>().Create(this.spawnEnd.position);
+			enemy.GetComponent<Enemy>().Create(this.spawnEnd.position);
 			this._enemyList.Add(enemy);
 		}
 

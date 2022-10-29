@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-namespace App.Enemy {
+namespace Src.Enemy {
 	public class Enemy : MonoBehaviour {
 		private int _health = 100;
 		private NavMeshAgent _navMeshAgent;

@@ -1,9 +1,9 @@
 using System.Collections;
 using Common;
-using GameScene;
+using Scenes.GameScene;
 using UnityEngine;
 
-namespace App.Bullet {
+namespace Src.Bullet {
 	public class BulletManager : Singleton<BulletManager> {
 		private const float ShootDelay = 0.25f;
 		[SerializeField] private GameObject bulletPrefab;

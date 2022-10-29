@@ -1,5 +1,5 @@
 using Common;
-using GameScene;
+using Scenes.GameScene;
 using UnityEngine;
 
 namespace Src.Tower {
