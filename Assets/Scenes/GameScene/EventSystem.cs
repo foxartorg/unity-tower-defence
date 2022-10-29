@@ -12,19 +12,16 @@ namespace Scenes.GameScene {
 		[SerializeField] private Button level2Button;
 
 		private void Awake() {
-			this.menuButton.onClick.AddListener(this.MainMenu);
-			this.level1Button.onClick.AddListener(() => this.StartCoroutine(LoadLevel(1)));
-			this.level2Button.onClick.AddListener(() => this.StartCoroutine(LoadLevel(2)));
+			CanvasUI.Instance.Level(App.Level);
 		}
 
 		private void Start() {
+			this.menuButton.onClick.AddListener(() => this.StartCoroutine(SceneHelper.Load(App.MainSceneIndex)));
+			this.level1Button.onClick.AddListener(() => this.StartCoroutine(LoadLevel(1)));
+			this.level2Button.onClick.AddListener(() => this.StartCoroutine(LoadLevel(2)));
 			if (Autoload) {
 				this.StartCoroutine(SceneHelper.Load(App.LevelSceneIndex, true));
 			}
-		}
-
-		private void MainMenu() {
-			this.StartCoroutine(SceneHelper.Load(App.MainSceneIndex));
 		}
 
 		private static IEnumerator LoadLevel(int level) {
@@ -32,6 +29,7 @@ namespace Scenes.GameScene {
 			yield return SceneHelper.Unload(App.CurrentLevelSceneIndex);
 			App.CurrentLevelSceneIndex = App.GetLevelSceneIndex(level);
 			yield return SceneHelper.Load(App.CurrentLevelSceneIndex, true);
+			CanvasUI.Instance.Level(App.Level);
 		}
 	}
 }
