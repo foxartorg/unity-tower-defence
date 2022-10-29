@@ -1,8 +1,8 @@
 using UnityEngine;
 
 namespace Common {
-	public abstract class Singleton<T> : MonoBehaviour {
-		protected Singleton() {
+	public abstract class MonoBehaviourSingleton<T> : MonoBehaviour {
+		protected MonoBehaviourSingleton() {
 			Instance = (T)(object)this;
 		}
 

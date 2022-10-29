@@ -5,7 +5,7 @@ namespace Src.Tower {
 		private LineRenderer _lr;
 
 		private void Awake() {
-			// var destination = new Vector3(1, 1, 1);
+			var destination = new Vector3(1, 1, 1);
 			// this._lr = this.AddComponent<LineRenderer>();
 			// this._lr.positionCount = 2;
 			// this._lr.startWidth = 0.5f;
