@@ -1,8 +1,9 @@
+using Common;
 using TMPro;
 using UnityEngine;
 
 namespace GameScene {
-	public sealed class CanvasUI : SceneSingleton<CanvasUI> {
+	public sealed class CanvasUI : Singleton<CanvasUI> {
 		[SerializeField] private TextMeshProUGUI level;
 		[SerializeField] private TextMeshProUGUI towerCounter;
 		[SerializeField] private TextMeshProUGUI enemyCounter;

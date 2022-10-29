@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 1214470135300230411}
   - component: {fileID: 4816394289508852182}
   - component: {fileID: 629667011559477589}
-  - component: {fileID: 7110935983559905025}
-  - component: {fileID: 1545986251475359687}
+  - component: {fileID: 8034708127060801985}
+  - component: {fileID: -6857799665578927060}
   m_Layer: 2
   m_Name: Tower
   m_TagString: Untagged
@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361234fb6db744d6299263fac7bb5cd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &7110935983559905025
+--- !u!135 &8034708127060801985
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,9 +124,9 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 9
+  m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &1545986251475359687
+--- !u!54 &-6857799665578927060
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
