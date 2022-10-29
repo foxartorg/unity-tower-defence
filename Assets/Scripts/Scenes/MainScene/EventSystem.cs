@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MainScene {
+namespace Scenes.MainScene {
 	public sealed class EventSystem : MonoBehaviour {
 		[SerializeField] private Button startButton;
 

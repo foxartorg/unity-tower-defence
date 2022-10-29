@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace App.Tower {
+namespace Src.Tower {
 	public class Tower : MonoBehaviour {
 		private LineRenderer _lr;
 

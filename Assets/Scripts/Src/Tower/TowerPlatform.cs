@@ -1,7 +1,6 @@
-using Src.Tower;
 using UnityEngine;
 
-namespace App.Tower {
+namespace Src.Tower {
 	public class TowerPlatform : MonoBehaviour {
 		private Color _hoverColor;
 		private Color _initColor;

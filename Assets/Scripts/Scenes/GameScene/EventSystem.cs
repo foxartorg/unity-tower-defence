@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace GameScene {
+namespace Scenes.GameScene {
 	public sealed class EventSystem : MonoBehaviour {
 		[SerializeField] private Button menuButton;
 		[SerializeField] private Button level1Button;

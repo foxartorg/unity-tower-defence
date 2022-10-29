@@ -1,7 +1,7 @@
 using System;
 
-namespace Sample {
-	internal class MyClass {
+namespace Examples {
+	internal class EventDelegateExample {
 		protected event EventHandler OnEvent;
 		protected event DelegateHandler OnDelegate;
 
@@ -16,7 +16,7 @@ namespace Sample {
 		protected delegate void DelegateHandler(object source);
 	}
 
-	internal class MyClassTest : MyClass {
+	internal class EventDelegateExampleTest : EventDelegateExample {
 		public void Main() {
 			this.OnEvent += MyEvent;
 			this.OnEvent += (o, e) => { };

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace App.Bullet {
+namespace Src.Bullet {
 	public class Bullet : MonoBehaviour {
 		private const int Velocity = 1000;
 		private static int _counter;
