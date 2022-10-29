@@ -15,7 +15,7 @@ namespace Src.Bullet {
 			this._transform = this.transform;
 			this._rigidbody = this.GetComponent<Rigidbody>();
 			this._id = _counter++;
-			this.damage = Random.Range(100, 200);
+			this.damage = Random.Range(50, 100);
 			// Debug.Log($"BULLET {this._id}");
 		}
 
@@ -33,14 +33,17 @@ namespace Src.Bullet {
 			// 	return;
 			// }
 			BulletManager.Instance.DestroyBullet(this.gameObject);
-			if (!collision.gameObject.CompareTag("Enemy")) { }
+			if (!collision.gameObject.CompareTag("Enemy")) {
+				return;
+			}
 
-			// var damage = Random.Range(25, 50);
-			// collision.collider.GetComponent<Enemy.Enemy>().Damage(damage);
+			var damage = Random.Range(50, 100);
+			collision.gameObject.GetComponent<Enemy.Enemy>().Damage(damage);
+			Debug.Log("-_-");
 		}
 
 		public void SetDestination(GameObject destination) {
-			this._transform.LookAt(destination.transform.localPosition);
+			this._transform.LookAt(destination.transform.position);
 			// this._rigidbody.AddForce(Vector3.Normalize(destination - this._transform.position) * Velocity / 4);
 			// this._rigidbody.velocity = Vector3.Normalize(destination - this._transform.position) * (Time.deltaTime * Velocity);
 		}

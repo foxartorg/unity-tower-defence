@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -7,14 +8,15 @@ namespace Src.Enemy {
 		private int _health = 100;
 		private NavMeshAgent _navMeshAgent;
 		private Slider _slider;
+		public List<GameObject> enemies;
 
 		private void Awake() {
 			this._navMeshAgent = this.GetComponent<NavMeshAgent>();
 			// this._navMeshAgent.speed = 20;
 			// this._navMeshAgent.acceleration = 64;
 			this._slider = this.GetComponentInChildren<Slider>();
-			this._slider.value = this._slider.maxValue = this._health;
-			// this._slider.value = this._health;
+			this._slider.maxValue = this._health;
+			this._slider.value = this._health;
 		}
 
 		private void Start() {
@@ -37,14 +39,18 @@ namespace Src.Enemy {
 			this._navMeshAgent.SetDestination(position);
 		}
 
-		private void Destroy() { }
+		public void OnDestroy() {
+		}
 
 		public void Damage(int damage) {
 			this._health -= damage;
 			this._slider.value = this._health;
-			if (this._health <= 0) {
-				// this.ExecDestroy(this.gameObject);
+			if (this._health > 0) {
+				return;
 			}
+
+			this.enemies.Remove(this.gameObject);
+			Destroy(this.gameObject);
 		}
 
 		private void CheckDestination() {
