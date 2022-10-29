@@ -16,15 +16,13 @@ namespace Src.Bullet {
 			this._rigidbody = this.GetComponent<Rigidbody>();
 			this._id = _counter++;
 			this.damage = Random.Range(50, 100);
-			// Debug.Log($"BULLET {this._id}");
 		}
 
 		private void Update() {
 			// this._transform.position += this._transform.forward * (Time.deltaTime * Velocity / 50);
 			// this._transform.Translate(Vector3.forward * (Time.deltaTime * Velocity / 100));
 			// this._rigidbody.AddForce(this._transform.forward * (Time.deltaTime * Velocity));
-			this._rigidbody.velocity = this._transform.forward * (Time.deltaTime * Velocity);
-			// this.v = Time.deltaTime;
+			// this._rigidbody.velocity = this._transform.forward * (Time.deltaTime * Velocity);
 		}
 
 		private void OnCollisionEnter(Collision collision) {
@@ -37,15 +35,14 @@ namespace Src.Bullet {
 				return;
 			}
 
-			var damage = Random.Range(50, 100);
-			collision.gameObject.GetComponent<Enemy.Enemy>().Damage(damage);
-			Debug.Log("-_-");
+			collision.gameObject.GetComponent<Enemy.Enemy>().Damage(this.damage);
+			// Debug.Log("-_-");
 		}
 
-		public void SetDestination(GameObject destination) {
-			this._transform.LookAt(destination.transform.position);
+		public void SetDestination(Vector3 destination) {
+			// this._transform.LookAt(destination.transform.position);
 			// this._rigidbody.AddForce(Vector3.Normalize(destination - this._transform.position) * Velocity / 4);
-			// this._rigidbody.velocity = Vector3.Normalize(destination - this._transform.position) * (Time.deltaTime * Velocity);
+			this._rigidbody.velocity = Vector3.Normalize(destination - this._transform.position) * (Time.deltaTime * Velocity);
 		}
 	}
 }

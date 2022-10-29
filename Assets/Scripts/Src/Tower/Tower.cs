@@ -5,11 +5,11 @@ using UnityEngine;
 
 namespace Src.Tower {
 	public class Tower : MonoBehaviour {
+		private const float Radius = 5;
+		private const float Timeout = 0.5f;
 		private readonly List<GameObject> _enemies;
-		private LineRenderer _lr;
-		private float _timeout;
-		private const float Radius = 7;
 		private SphereCollider _collider;
+		private float _timeout;
 
 		private Tower() {
 			this._enemies = new List<GameObject>();
@@ -18,7 +18,16 @@ namespace Src.Tower {
 		private void Awake() {
 			this._collider = this.GetComponent<SphereCollider>();
 			this._collider.radius = Radius;
-			this._timeout = 3f;
+			// this._timeout = Timeout;
+		}
+
+		private void OnDrawGizmos() {
+			Gizmos.color = Color.red;
+			Gizmos.DrawWireSphere(this.transform.position, Radius / 2);
+		}
+
+		private void OnMouseEnter() {
+			Debug.Log("Tower OnMouseEnter");
 		}
 
 		private void OnTriggerEnter(Collider other) {
@@ -26,10 +35,10 @@ namespace Src.Tower {
 				return;
 			}
 
+			CanvasUI.Instance.TowerEnemyCount(this._enemies.Count);
 			this._enemies.Add(other.gameObject);
 			other.gameObject.GetComponent<Enemy.Enemy>().enemies = this._enemies;
-			CanvasUI.Instance.TowerEnemyCount(this._enemies.Count);
-			Debug.Log("ENEMY ENTERED!");
+			// Debug.Log("ENEMY ENTERED!");
 		}
 
 		private void OnTriggerExit(Collider other) {
@@ -37,9 +46,9 @@ namespace Src.Tower {
 				return;
 			}
 
-			this._enemies.Remove(other.gameObject);
 			CanvasUI.Instance.TowerEnemyCount(this._enemies.Count);
-			Debug.Log("ENEMY EXIT!");
+			this._enemies.Remove(other.gameObject);
+			// Debug.Log("ENEMY EXIT!");
 		}
 
 		private void OnTriggerStay(Collider other) {
@@ -49,15 +58,11 @@ namespace Src.Tower {
 			}
 
 			if (other.CompareTag("Enemy")) {
-				BulletManager.Instance.Shoot(this.transform, this._enemies[0]);
 				CanvasUI.Instance.TowerEnemyCount(this._enemies.Count);
+				BulletManager.Instance.Shoot(this.transform, this._enemies[0].transform);
 			}
-			this._timeout = 1f;
-		}
 
-		private void OnDrawGizmos() {
-			Gizmos.color = Color.red;
-			Gizmos.DrawWireSphere(this.transform.position, Radius/2);
+			this._timeout = Timeout;
 		}
 	}
 }

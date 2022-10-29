@@ -15,7 +15,7 @@ namespace Src.Bullet {
 			// this._bulletList = new List<GameObject>();
 		}
 
-		public void CreateBullet(Transform parentTransform, GameObject destination) {
+		public void CreateBullet(Transform parentTransform, Transform destination) {
 			// var bullet = this.gameObject.AddComponent<Bullet>();
 			// bullet.SetDestination();
 			var pos = Helper.PositionParentUp(this.bulletPrefab.transform, parentTransform);
@@ -24,7 +24,7 @@ namespace Src.Bullet {
 			// Debug.Break();
 			var bullet = instantiate.GetComponent<Bullet>();
 			// var destination = new Vector3(0, 0.33f, 0);
-			bullet.SetDestination(destination);
+			bullet.SetDestination(destination.position);
 			CanvasUI.Instance.BulletCounter(++this._counter);
 		}
 
@@ -33,7 +33,7 @@ namespace Src.Bullet {
 			Destroy(bullet);
 		}
 
-		public void Shoot(Transform towerTransform, GameObject destination) {
+		public void Shoot(Transform towerTransform, Transform destination) {
 			// if (EnemyManager.Instance.enemyList.Count <= 0) {
 			// 	yield break;
 			// }
