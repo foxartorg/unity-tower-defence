@@ -1,4 +1,3 @@
-using System.Collections;
 using Common;
 using Scenes.GameScene;
 using UnityEngine;
@@ -16,7 +15,7 @@ namespace Src.Bullet {
 			// this._bulletList = new List<GameObject>();
 		}
 
-		public void CreateBullet(Transform parentTransform) {
+		public void CreateBullet(Transform parentTransform, GameObject destination) {
 			// var bullet = this.gameObject.AddComponent<Bullet>();
 			// bullet.SetDestination();
 			var pos = Helper.PositionParentUp(this.bulletPrefab.transform, parentTransform);
@@ -24,7 +23,7 @@ namespace Src.Bullet {
 				this.transform);
 			// Debug.Break();
 			var bullet = instantiate.GetComponent<Bullet>();
-			var destination = new Vector3(0, 0.33f, 0);
+			// var destination = new Vector3(0, 0.33f, 0);
 			bullet.SetDestination(destination);
 			CanvasUI.Instance.BulletCounter(++this._counter);
 		}
@@ -34,13 +33,12 @@ namespace Src.Bullet {
 			Destroy(bullet);
 		}
 
-		public IEnumerator Shoot(Transform towerTransform) {
+		public void Shoot(Transform towerTransform, GameObject destination) {
 			// if (EnemyManager.Instance.enemyList.Count <= 0) {
 			// 	yield break;
 			// }
-			yield return new WaitForSeconds(ShootDelay);
-			this.CreateBullet(towerTransform);
-			this.StartCoroutine(this.Shoot(towerTransform));
+			this.CreateBullet(towerTransform, destination);
+			// this.StartCoroutine(this.Shoot(towerTransform, destination));
 		}
 	}
 }
