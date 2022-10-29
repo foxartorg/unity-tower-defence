@@ -57,7 +57,7 @@ namespace Src.Tower {
 
 			if (other.CompareTag("Enemy")) {
 				// CanvasUI.Instance.TowerEnemyCount(this._enemies.Count);
-				BulletManager.Instance.Shoot(this.transform, this._enemies[0].transform);
+				BulletManager.Instance.Shoot(this.transform, this._enemies[^1].transform);
 			}
 
 			this._timeout = Timeout;
