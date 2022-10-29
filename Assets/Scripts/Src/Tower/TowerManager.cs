@@ -15,6 +15,8 @@ namespace Src.Tower {
 			CanvasUI.Instance.TowerCount(++this._counter, App.Towers);
 			var position = Helper.PositionParentUp(this.towerPrefab.transform, parent.transform);
 			var tower = Instantiate(this.towerPrefab, position, Quaternion.identity, this.transform);
+			tower.GetComponent<Tower>().SetRange(5);
+			;
 			return tower;
 		}
 

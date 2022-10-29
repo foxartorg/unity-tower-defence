@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace Src.Tower {
 	public class Tower : MonoBehaviour {
-		private const float Radius = 5;
 		private const float Timeout = 0.5f;
 		private readonly List<GameObject> _enemies;
 		private SphereCollider _collider;
+		private float _range;
 		private float _timeout;
 
 		private Tower() {
@@ -16,14 +16,12 @@ namespace Src.Tower {
 		}
 
 		private void Awake() {
-			this._collider = this.GetComponent<SphereCollider>();
-			this._collider.radius = Radius;
-			// this._timeout = Timeout;
+			// this.GetComponent<SphereCollider>().radius = this._range;
 		}
 
 		private void OnDrawGizmos() {
 			Gizmos.color = Color.red;
-			Gizmos.DrawWireSphere(this.transform.position, Radius / 2);
+			Gizmos.DrawWireSphere(this.transform.position, this._range / 2);
 		}
 
 		private void OnMouseEnter() {
@@ -35,9 +33,9 @@ namespace Src.Tower {
 				return;
 			}
 
-			CanvasUI.Instance.TowerEnemyCount(this._enemies.Count);
 			this._enemies.Add(other.gameObject);
 			other.gameObject.GetComponent<Enemy.Enemy>().enemies = this._enemies;
+			CanvasUI.Instance.TowerEnemyCount(this._enemies.Count);
 			// Debug.Log("ENEMY ENTERED!");
 		}
 
@@ -46,8 +44,8 @@ namespace Src.Tower {
 				return;
 			}
 
-			CanvasUI.Instance.TowerEnemyCount(this._enemies.Count);
 			this._enemies.Remove(other.gameObject);
+			CanvasUI.Instance.TowerEnemyCount(this._enemies.Count);
 			// Debug.Log("ENEMY EXIT!");
 		}
 
@@ -58,11 +56,16 @@ namespace Src.Tower {
 			}
 
 			if (other.CompareTag("Enemy")) {
-				CanvasUI.Instance.TowerEnemyCount(this._enemies.Count);
+				// CanvasUI.Instance.TowerEnemyCount(this._enemies.Count);
 				BulletManager.Instance.Shoot(this.transform, this._enemies[0].transform);
 			}
 
 			this._timeout = Timeout;
+		}
+
+		public void SetRange(int range) {
+			this._range = range;
+			this.GetComponent<SphereCollider>().radius = this._range;
 		}
 	}
 }
