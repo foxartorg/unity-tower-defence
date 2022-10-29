@@ -32,7 +32,7 @@ namespace Scenes.GameScene {
 		}
 
 		public void TowerEnemyCount(int count) {
-			this.towerEnemyCounter.text = $"TowerEnemyCounter: {count}";
+			this.towerEnemyCounter.text = $"TowerEnemies: {count}";
 		}
 	}
 }
