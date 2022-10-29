@@ -8,11 +8,10 @@ namespace Src.Level {
 
 		private void Awake() {
 			EventSystem.Autoload = false;
-			App.CurrentLevelSceneIndex = App.GetLevelSceneIndex(this.level);
+			App.CurrentLevelSceneIndex = App.GetLevelSceneIndex(App.Level = this.level);
 		}
 
 		private void Start() {
-			App.Level = this.level;
 			if (Camera.main) {
 				return;
 			}

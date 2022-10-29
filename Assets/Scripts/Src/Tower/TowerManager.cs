@@ -7,20 +7,21 @@ namespace Src.Tower {
 		[SerializeField] private GameObject towerPrefab;
 		private int _counter;
 
-		public GameObject AddTower(Transform parent) {
+		public GameObject AddTower(GameObject parent) {
 			if (this._counter >= App.Towers) {
 				return null;
 			}
 
-			var position = Helper.PositionParentUp(this.towerPrefab.transform, parent);
-			var tower = Instantiate(this.towerPrefab, position, parent.rotation, this.transform);
 			CanvasUI.Instance.TowerCount(++this._counter, App.Towers);
+			var position = Helper.PositionParentUp(this.towerPrefab.transform, parent.transform);
+			var tower = Instantiate(this.towerPrefab, position, Quaternion.identity, this.transform);
 			return tower;
 		}
 
-		public void DeleteTower(GameObject tower) {
-			Destroy(tower);
+		public GameObject DeleteTower(GameObject tower) {
 			CanvasUI.Instance.TowerCount(--this._counter, App.Towers);
+			Destroy(tower);
+			return null;
 		}
 	}
 }

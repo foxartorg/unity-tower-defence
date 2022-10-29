@@ -1,4 +1,3 @@
-using System.Collections;
 using Common;
 using Src;
 using UnityEngine;
@@ -13,17 +12,12 @@ namespace Scenes.MainScene {
 		}
 
 		private void Start() {
-			this.startButton.onClick.AddListener(() => this.StartCoroutine(this.StartGame()));
+			this.startButton.onClick.AddListener(this.StartGame);
 		}
 
-		private IEnumerator StartGame() {
+		private void StartGame() {
 			this.StartCoroutine(SceneHelper.Load(App.GameSceneIndex));
-			// var scene = SceneHelper.Get(App.GameSceneIndex);
 			this.StartCoroutine(SceneHelper.Load(App.LevelSceneIndex, true));
-			var scene = SceneHelper.Get(App.LevelSceneIndex);
-			while (!scene.isLoaded) {
-				yield return null;
-			}
 		}
 	}
 }

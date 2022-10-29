@@ -40,7 +40,7 @@ namespace Src.Tower {
 				return;
 			}
 
-			this._tower = TowerManager.Instance.AddTower(this.transform);
+			this._tower = TowerManager.Instance.AddTower(this.gameObject);
 		}
 
 		private void DestroyTower() {
@@ -48,8 +48,7 @@ namespace Src.Tower {
 				return;
 			}
 
-			TowerManager.Instance.DeleteTower(this._tower);
-			this._tower = null;
+			this._tower = TowerManager.Instance.DeleteTower(this._tower);
 		}
 	}
 }

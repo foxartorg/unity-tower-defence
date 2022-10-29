@@ -1,4 +1,3 @@
-using System.Collections;
 using Common;
 using Src;
 using UnityEngine;
@@ -16,19 +15,26 @@ namespace Scenes.GameScene {
 		}
 
 		private void Start() {
-			this.menuButton.onClick.AddListener(() => this.StartCoroutine(SceneHelper.Load(App.MainSceneIndex)));
-			this.level1Button.onClick.AddListener(() => this.StartCoroutine(LoadLevel(1)));
-			this.level2Button.onClick.AddListener(() => this.StartCoroutine(LoadLevel(2)));
 			if (Autoload) {
 				this.StartCoroutine(SceneHelper.Load(App.LevelSceneIndex, true));
 			}
+
+			this.menuButton.onClick.AddListener(this.LoadMain);
+			this.level1Button.onClick.AddListener(() => this.LoadLevel(1));
+			this.level2Button.onClick.AddListener(() => this.LoadLevel(2));
 		}
 
-		private static IEnumerator LoadLevel(int level) {
-			// if (SceneHelper.IsLoaded(App.CurrentLevelSceneIndex)) { }
-			yield return SceneHelper.Unload(App.CurrentLevelSceneIndex);
+		private void LoadMain() {
+			this.StartCoroutine(SceneHelper.Load(App.MainSceneIndex));
+		}
+
+		private void LoadLevel(int level) {
+			// if (SceneHelper.IsLoaded(App.CurrentLevelSceneIndex)) {
+			// this.StartCoroutine(SceneHelper.Unload(App.CurrentLevelSceneIndex));
+			// }
+			this.StartCoroutine(SceneHelper.Unload(App.CurrentLevelSceneIndex));
 			App.CurrentLevelSceneIndex = App.GetLevelSceneIndex(level);
-			yield return SceneHelper.Load(App.CurrentLevelSceneIndex, true);
+			this.StartCoroutine(SceneHelper.Load(App.CurrentLevelSceneIndex, true));
 			CanvasUI.Instance.Level(App.Level);
 		}
 	}
