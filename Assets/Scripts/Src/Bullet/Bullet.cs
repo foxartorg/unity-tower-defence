@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Src.Bullet {
 	public sealed class Bullet : MonoBehaviour {
@@ -28,7 +26,12 @@ namespace Src.Bullet {
 		}
 
 		private void OnTriggerEnter(Collider other) {
-			Destroy(this.gameObject);
+			BulletManager.Instance.DestroyBullet(this.gameObject);
+			if (!other.CompareTag("Enemy")) {
+				return;
+			}
+
+			other.gameObject.GetComponent<Enemy.Enemy>().Damage(this.damage);
 		}
 
 		public void SetDestination(Vector3 destination) {
