@@ -4,7 +4,7 @@ using Common;
 using UnityEngine;
 
 namespace Src.Enemy {
-	public class EnemyManager : MonoBehaviourSingleton<EnemyManager> {
+	public sealed class EnemyManager : MonoBehaviourSingleton<EnemyManager> {
 		[SerializeField] private List<Transform> start;
 		[SerializeField] private List<Transform> stop = new();
 		[SerializeField] private Transform spawnStart;

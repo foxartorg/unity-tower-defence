@@ -4,11 +4,11 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 
 namespace Src.Enemy {
-	public class Enemy : MonoBehaviour {
+	public sealed class Enemy : MonoBehaviour {
+		public List<GameObject> enemies;
 		private int _health = 100;
 		private NavMeshAgent _navMeshAgent;
 		private Slider _slider;
-		public List<GameObject> enemies;
 
 		private void Awake() {
 			this._navMeshAgent = this.GetComponent<NavMeshAgent>();
@@ -27,6 +27,8 @@ namespace Src.Enemy {
 			// this.CheckDestination();
 		}
 
+		public void OnDestroy() { }
+
 		private void OnTriggerEnter(Collider trigger) {
 			// var bullet = trigger.gameObject.GetComponent<Bullet.Bullet>();
 			// var damage = trigger.gameObject.GetComponent<Bullet.Bullet>().damage;
@@ -37,9 +39,6 @@ namespace Src.Enemy {
 
 		public void Create(Vector3 position) {
 			this._navMeshAgent.SetDestination(position);
-		}
-
-		public void OnDestroy() {
 		}
 
 		public void Damage(int damage) {

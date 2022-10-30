@@ -1,7 +1,7 @@
 using UnityEngine;
 
 namespace Src.Bullet {
-	public class Bullet : MonoBehaviour {
+	public sealed class Bullet : MonoBehaviour {
 		private const int Velocity = 1000;
 		private static int _counter;
 		public int damage;

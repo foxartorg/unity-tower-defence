@@ -3,7 +3,7 @@ using Scenes.GameScene;
 using UnityEngine;
 
 namespace Src.Bullet {
-	public class BulletManager : MonoBehaviourSingleton<BulletManager> {
+	public sealed class BulletManager : MonoBehaviourSingleton<BulletManager> {
 		private const float ShootDelay = 0.25f;
 		[SerializeField] private GameObject bulletPrefab;
 		private int _counter;
