@@ -1,7 +1,7 @@
 using UnityEngine;
 
 namespace Src.Tower {
-	public class TowerPlatform : MonoBehaviour {
+	public sealed class TowerPlatform : MonoBehaviour {
 		private Color _hoverColor;
 		private Color _initColor;
 		private Renderer _renderer;
@@ -14,7 +14,6 @@ namespace Src.Tower {
 		}
 
 		private void OnMouseEnter() {
-			Debug.Log("TowerPlatform OnMouseEnter");
 			if (this._tower == null) {
 				this._renderer.material.color = this._hoverColor;
 			}

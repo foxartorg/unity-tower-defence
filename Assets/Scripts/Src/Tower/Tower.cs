@@ -7,7 +7,6 @@ namespace Src.Tower {
 	public class Tower : MonoBehaviour {
 		private const float Timeout = 0.5f;
 		private readonly List<GameObject> _enemies;
-		private SphereCollider _collider;
 		private float _range;
 		private float _timeout;
 
