@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Src.Bullet {
 	public sealed class Bullet : MonoBehaviour {
@@ -25,18 +27,8 @@ namespace Src.Bullet {
 			// this._rigidbody.velocity = this._transform.forward * (Time.deltaTime * Velocity);
 		}
 
-		private void OnCollisionEnter(Collision collision) {
-			// Debug.Log($"COLLISION {collision.collider.name}");
-			// if (collision.gameObject.CompareTag("Bullet")) {
-			// 	return;
-			// }
-			BulletManager.Instance.DestroyBullet(this.gameObject);
-			if (!collision.gameObject.CompareTag("Enemy")) {
-				return;
-			}
-
-			collision.gameObject.GetComponent<Enemy.Enemy>().Damage(this.damage);
-			// Debug.Log("-_-");
+		private void OnTriggerEnter(Collider other) {
+			Destroy(this.gameObject);
 		}
 
 		public void SetDestination(Vector3 destination) {
