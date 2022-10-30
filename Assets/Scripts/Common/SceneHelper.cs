@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 namespace Common {
-	public sealed class SceneHelper : MonoBehaviourSingleton<SceneHelper> {
+	public static class SceneHelper {
 		public static Scene Get(int index) {
 			return SceneManager.GetSceneByBuildIndex(index);
 		}

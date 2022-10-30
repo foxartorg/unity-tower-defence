@@ -3,7 +3,7 @@ using Scenes.GameScene;
 using UnityEngine;
 
 namespace Src.Tower {
-	public class TowerManager : MonoBehaviourSingleton<TowerManager> {
+	public sealed class TowerManager : MonoBehaviourSingleton<TowerManager> {
 		[SerializeField] private GameObject towerPrefab;
 		private int _counter;
 
