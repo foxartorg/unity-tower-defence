@@ -1,21 +1,20 @@
+using System.Collections.Generic;
 using Common;
 using Scenes.GameScene;
 using UnityEngine;
 
 namespace Src.Bullet {
 	public sealed class BulletManager : MonoBehaviourSingleton<BulletManager> {
-		private const float ShootDelay = 0.25f;
 		[SerializeField] private GameObject bulletPrefab;
+		private List<GameObject> _bulletList;
 		private int _counter;
-
-		// private List<GameObject> _bulletList;
 		private double _timeout;
 
 		private void Awake() {
-			// this._bulletList = new List<GameObject>();
+			this._bulletList = new List<GameObject>();
 		}
 
-		public void CreateBullet(Transform parentTransform, Transform destination) {
+		private void CreateBullet(Transform parentTransform, Transform destination) {
 			// var bullet = this.gameObject.AddComponent<Bullet>();
 			// bullet.SetDestination();
 			var pos = Helper.PositionParentUp(this.bulletPrefab.transform, parentTransform);
@@ -24,12 +23,14 @@ namespace Src.Bullet {
 			// Debug.Break();
 			var bullet = instantiate.GetComponent<Bullet>();
 			// var destination = new Vector3(0, 0.33f, 0);
+			this._bulletList.Add(instantiate);
 			bullet.SetDestination(destination.position);
-			CanvasUI.Instance.BulletCounter(++this._counter);
+			CanvasUI.Instance.BulletCounter(this._bulletList.Count);
 		}
 
 		public void DestroyBullet(GameObject bullet) {
-			CanvasUI.Instance.BulletCounter(--this._counter);
+			this._bulletList.Remove(bullet);
+			CanvasUI.Instance.BulletCounter(this._bulletList.Count);
 			Destroy(bullet);
 		}
 
