@@ -1,9 +1,9 @@
 using UnityEngine;
 
 namespace Src.Enemy {
-	public class EnemyEnd : MonoBehaviour {
+	public sealed class EnemyEnd : MonoBehaviour {
 		private void OnTriggerEnter(Collider other) {
-			Debug.Log(other.tag);
+			// Debug.Log(other.tag);
 		}
 	}
 }
