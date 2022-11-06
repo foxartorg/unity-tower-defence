@@ -6,7 +6,6 @@ namespace Src.Bullet {
 		private static int _counter;
 		public int damage;
 		private Vector3 _destination;
-		private Renderer _renderer;
 		private Rigidbody _rigidbody;
 		private Transform _transform;
 
