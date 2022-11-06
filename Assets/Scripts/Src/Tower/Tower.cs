@@ -64,7 +64,7 @@ namespace Src.Tower {
 
 		public void SetRange(int range) {
 			this._range = range;
-			this.GetComponent<SphereCollider>().radius = this._range;
+			this.GetComponent<CapsuleCollider>().radius = this._range;
 		}
 	}
 }
