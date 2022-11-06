@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -30,8 +31,11 @@ namespace Src.Enemy {
 				return;
 			}
 
-			this.enemies.Remove(this.gameObject);
 			EnemyManager.Instance.DestroyEnemy(this.gameObject);
+		}
+
+		private void OnDestroy() {
+			this.enemies.Remove(this.gameObject);
 		}
 	}
 }

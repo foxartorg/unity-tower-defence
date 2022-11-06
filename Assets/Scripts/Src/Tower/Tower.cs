@@ -56,9 +56,7 @@ namespace Src.Tower {
 			}
 
 			if (other.CompareTag("Enemy")) {
-				if (this._enemies.First()) {
-					BulletManager.Instance.Shoot(this.transform, this._enemies[0].transform);
-				}
+				BulletManager.Instance.Shoot(this.transform, this._enemies.First().transform);
 			}
 
 			this._timeout = Timeout;
