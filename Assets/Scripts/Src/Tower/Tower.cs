@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Scenes.GameScene;
 using Src.Bullet;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace Src.Tower {
 		private readonly List<GameObject> _enemies;
 		private float _range;
 		private float _timeout;
+		private Transform _transform;
 
 		private Tower() {
 			this._enemies = new List<GameObject>();
@@ -16,6 +18,7 @@ namespace Src.Tower {
 
 		private void Awake() {
 			// this.GetComponent<SphereCollider>().radius = this._range;
+			this._transform = this.transform.Find("FirePoint");
 		}
 
 		private void OnDrawGizmos() {
@@ -49,6 +52,10 @@ namespace Src.Tower {
 		}
 
 		private void OnTriggerStay(Collider other) {
+			var dir = this.transform.position - this._enemies.First().transform.position;
+			var lookRotation = Quaternion.LookRotation(dir);
+			var rotation = lookRotation.eulerAngles;
+			this.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 			if (this._timeout > 0) {
 				this._timeout -= Time.deltaTime;
 				return;
@@ -56,7 +63,7 @@ namespace Src.Tower {
 
 			if (other.CompareTag("Enemy")) {
 				// CanvasUI.Instance.TowerEnemyCount(this._enemies.Count);
-				BulletManager.Instance.Shoot(this.transform, this._enemies[^1].transform);
+				BulletManager.Instance.Shoot(this._transform, this._enemies[^1].transform);
 			}
 
 			this._timeout = Timeout;
