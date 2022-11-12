@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Scenes.GameScene;
 using Src.Bullet;
+using TMPro;
 using UnityEngine;
 
 namespace Src.Tower {
@@ -10,6 +11,7 @@ namespace Src.Tower {
 		private readonly List<GameObject> _enemies;
 		private float _range;
 		private float _timeout;
+		private TextMeshProUGUI _towerCounterEnemy;
 
 		private Tower() {
 			this._enemies = new List<GameObject>();
@@ -17,6 +19,7 @@ namespace Src.Tower {
 
 		private void Awake() {
 			// this.GetComponent<SphereCollider>().radius = this._range;
+			this._towerCounterEnemy = this.GetComponentInChildren<TextMeshProUGUI>();
 		}
 
 		private void OnDrawGizmos() {
@@ -35,7 +38,7 @@ namespace Src.Tower {
 
 			this._enemies.Add(other.gameObject);
 			other.gameObject.GetComponent<Enemy.Enemy>().enemies = this._enemies;
-			CanvasUI.Instance.TowerEnemyCount(this._enemies.Count);
+			this._towerCounterEnemy.text = $"Enemies: {this._enemies.Count.ToString()}";
 			// Debug.Log("ENEMY ENTERED!");
 		}
 
@@ -45,11 +48,12 @@ namespace Src.Tower {
 			}
 
 			this._enemies.Remove(other.gameObject);
-			CanvasUI.Instance.TowerEnemyCount(this._enemies.Count);
+			this._towerCounterEnemy.text = $"Enemies: {this._enemies.Count.ToString()}";
 			// Debug.Log("ENEMY EXIT!");
 		}
 
 		private void OnTriggerStay(Collider other) {
+			this._towerCounterEnemy.text = $"Enemies: {this._enemies.Count.ToString()}";
 			if (this._timeout > 0) {
 				this._timeout -= Time.deltaTime;
 				return;
