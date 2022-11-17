@@ -20,7 +20,7 @@ namespace Src.Tower {
 			// this.GetComponent<SphereCollider>().radius = this._range;
 			this._transform = this.transform.Find("FirePoint");
 		}
-
+		
 		private void OnDrawGizmos() {
 			Gizmos.color = Color.red;
 			Gizmos.DrawWireSphere(this.transform.position, this._range / 2);
@@ -52,7 +52,7 @@ namespace Src.Tower {
 		}
 
 		private void OnTriggerStay(Collider other) {
-			var dir = this.transform.position - this._enemies.First().transform.position;
+   			var dir = this.transform.position - this._enemies.First().transform.position;
 			var lookRotation = Quaternion.LookRotation(dir);
 			var rotation = lookRotation.eulerAngles;
 			this.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
@@ -62,8 +62,7 @@ namespace Src.Tower {
 			}
 
 			if (other.CompareTag("Enemy")) {
-				// CanvasUI.Instance.TowerEnemyCount(this._enemies.Count);
-				BulletManager.Instance.Shoot(this._transform, this._enemies[^1].transform);
+				BulletManager.Instance.Shoot(this._transform, this._enemies.First().transform);
 			}
 
 			this._timeout = Timeout;

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Src.Tower;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -27,8 +28,6 @@ namespace Src.Enemy {
 			// this.CheckDestination();
 		}
 
-		public void OnDestroy() { }
-
 		private void OnTriggerEnter(Collider trigger) {
 			// var bullet = trigger.gameObject.GetComponent<Bullet.Bullet>();
 			// var damage = trigger.gameObject.GetComponent<Bullet.Bullet>().damage;
@@ -51,7 +50,7 @@ namespace Src.Enemy {
 			this.enemies.Remove(this.gameObject);
 			Destroy(this.gameObject);
 		}
-
+		
 		private void CheckDestination() {
 			if (this._navMeshAgent.hasPath & (this._health > 0)) {
 				return;
