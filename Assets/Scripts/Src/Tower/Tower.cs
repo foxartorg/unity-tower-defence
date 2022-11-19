@@ -47,7 +47,7 @@ namespace Src.Tower {
 			}
 
 			this._enemies.Remove(other.gameObject);
-			CanvasUI.Instance.TowerEnemyCount(this._enemies.Count);
+			CanvasUI.Instance.TowerEnemyCount(this._enemies.Count); 
 			// Debug.Log("ENEMY EXIT!");
 		}
 
