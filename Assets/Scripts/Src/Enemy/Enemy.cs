@@ -34,12 +34,8 @@ namespace Src.Enemy {
 			EnemyManager.Instance.DestroyEnemy(this.gameObject);
 		}
 
-		public void Test() {
-			
-		}
-
-		public void OnDestroy() {
-			this.Test();
+		private void OnDestroy() {
+			this.enemies.Remove(this.gameObject);
 		}
 	}
 }

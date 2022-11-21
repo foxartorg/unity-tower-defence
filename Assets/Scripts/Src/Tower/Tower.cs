@@ -35,10 +35,9 @@ namespace Src.Tower {
 			if (!other.CompareTag("Enemy")) {
 				return;
 			}
-
+			
 			this._enemies.Add(other.gameObject);
 			other.gameObject.GetComponent<Enemy.Enemy>().enemies = this._enemies;
-			
 			this._towerCounterEnemy.text = $"Enemies: {this._enemies.Count.ToString()}";
 			// Debug.Log("ENEMY ENTERED!");
 		}
