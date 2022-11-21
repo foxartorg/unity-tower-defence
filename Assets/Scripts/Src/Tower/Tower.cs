@@ -15,10 +15,6 @@ namespace Src.Tower {
 			this._enemies = new List<GameObject>();
 		}
 
-		private void Awake() {
-			// this.GetComponent<SphereCollider>().radius = this._range;
-		}
-
 		private void OnDrawGizmos() {
 			Gizmos.color = Color.red;
 			Gizmos.DrawWireSphere(this.transform.position, this._range / 2);
@@ -56,10 +52,16 @@ namespace Src.Tower {
 			}
 
 			if (other.CompareTag("Enemy")) {
-				BulletManager.Instance.Shoot(this.transform, this._enemies.First().transform);
-			}
+				// BulletManager.Instance.Shoot(this.transform, this._enemies[^1].transform);
+				var enemy = this._enemies.First();
+				if (enemy) {
+					BulletManager.Instance.Shoot(this.transform, enemy.transform);
+				} else {
+					Debug.Log("destroyed");
+				}
 
-			this._timeout = Timeout;
+				this._timeout = Timeout;
+			}
 		}
 
 		public void SetRange(int range) {

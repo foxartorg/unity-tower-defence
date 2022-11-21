@@ -41,10 +41,10 @@ namespace Scenes.GameScene {
 			this.StartCoroutine(SceneHelper.Load(App.LevelScene, true));
 			this._prev = App.LevelScene;
 			CanvasUI.Instance.Level(App.Level);
-			CanvasUI.Instance.TowerCount(0,0);
+			CanvasUI.Instance.TowerCount(0, 0);
 			CanvasUI.Instance.EnemyCounter(0);
-			CanvasUI.Instance.TowerEnemyCount(0);
 			CanvasUI.Instance.BulletCounter(0);
+			CanvasUI.Instance.TowerEnemyCount(0);
 		}
 	}
 }
