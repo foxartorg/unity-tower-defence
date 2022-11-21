@@ -38,7 +38,9 @@ namespace Src.Bullet {
 			// if (EnemyManager.Instance.enemyList.Count <= 0) {
 			// 	yield break;
 			// }
-			this.CreateBullet(towerTransform, destination);
+			if (destination) {
+				this.CreateBullet(towerTransform, destination);
+			}
 			// this.StartCoroutine(this.Shoot(towerTransform, destination));
 		}
 	}

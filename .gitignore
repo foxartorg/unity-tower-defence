@@ -60,5 +60,6 @@ crashlytics-build.properties
 
 # my
 [Uu]ser[Ss]ettings/
-.idea
 .DS_Store
+.idea
+mono_crash.*

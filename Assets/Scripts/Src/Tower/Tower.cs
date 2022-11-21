@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Scenes.GameScene;
 using Src.Bullet;
 using UnityEngine;
@@ -12,10 +13,6 @@ namespace Src.Tower {
 
 		private Tower() {
 			this._enemies = new List<GameObject>();
-		}
-
-		private void Awake() {
-			// this.GetComponent<SphereCollider>().radius = this._range;
 		}
 
 		private void OnDrawGizmos() {
@@ -55,11 +52,16 @@ namespace Src.Tower {
 			}
 
 			if (other.CompareTag("Enemy")) {
-				// CanvasUI.Instance.TowerEnemyCount(this._enemies.Count);
-				BulletManager.Instance.Shoot(this.transform, this._enemies[^1].transform);
-			}
+				// BulletManager.Instance.Shoot(this.transform, this._enemies[^1].transform);
+				var enemy = this._enemies.First();
+				if (enemy) {
+					BulletManager.Instance.Shoot(this.transform, enemy.transform);
+				} else {
+					Debug.Log("destroyed");
+				}
 
-			this._timeout = Timeout;
+				this._timeout = Timeout;
+			}
 		}
 
 		public void SetRange(int range) {

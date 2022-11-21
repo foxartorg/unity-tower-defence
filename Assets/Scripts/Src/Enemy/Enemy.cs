@@ -12,29 +12,11 @@ namespace Src.Enemy {
 
 		private void Awake() {
 			this._navMeshAgent = this.GetComponent<NavMeshAgent>();
-			// this._navMeshAgent.speed = 20;
-			// this._navMeshAgent.acceleration = 64;
+			this._navMeshAgent.speed = (float)(3.5 / 2);
+			this._navMeshAgent.acceleration = 4;
 			this._slider = this.GetComponentInChildren<Slider>();
 			this._slider.maxValue = this._health;
 			this._slider.value = this._health;
-		}
-
-		private void Start() {
-			// this.ExecCreate();
-		}
-
-		private void FixedUpdate() {
-			// this.CheckDestination();
-		}
-
-		public void OnDestroy() { }
-
-		private void OnTriggerEnter(Collider trigger) {
-			// var bullet = trigger.gameObject.GetComponent<Bullet.Bullet>();
-			// var damage = trigger.gameObject.GetComponent<Bullet.Bullet>().damage;
-			// Debug.Log($"TRIGGER {damage}");
-			// BulletManager.Instance.DestroyBullet(bullet.gameObject);
-			// this.Damage(bullet.damage);
 		}
 
 		public void Create(Vector3 position) {
@@ -49,16 +31,7 @@ namespace Src.Enemy {
 			}
 
 			this.enemies.Remove(this.gameObject);
-			Destroy(this.gameObject);
-		}
-
-		private void CheckDestination() {
-			if (this._navMeshAgent.hasPath & (this._health > 0)) {
-				return;
-			}
-
-			Debug.Log("DESTROY");
-			// this.ExecDestroy(this.gameObject);
+			EnemyManager.Instance.DestroyEnemy(this.gameObject);
 		}
 	}
 }
