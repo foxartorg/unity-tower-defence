@@ -12,8 +12,8 @@ namespace Src.Enemy {
 
 		private void Awake() {
 			this._navMeshAgent = this.GetComponent<NavMeshAgent>();
-			// this._navMeshAgent.speed = 20;
-			// this._navMeshAgent.acceleration = 64;
+			this._navMeshAgent.speed = (float)(3.5 / 2);
+			this._navMeshAgent.acceleration = 4;
 			this._slider = this.GetComponentInChildren<Slider>();
 			this._slider.maxValue = this._health;
 			this._slider.value = this._health;

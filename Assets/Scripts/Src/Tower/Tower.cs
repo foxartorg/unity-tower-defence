@@ -59,9 +59,9 @@ namespace Src.Tower {
 				} else {
 					Debug.Log("destroyed");
 				}
-			}
 
-			this._timeout = Timeout;
+				this._timeout = Timeout;
+			}
 		}
 
 		public void SetRange(int range) {
