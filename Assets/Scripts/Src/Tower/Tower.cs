@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Scenes.GameScene;
@@ -16,8 +15,6 @@ namespace Src.Tower {
 		private Tower() {
 			this._enemies = new List<GameObject>();
 		}
-
-		
 		
 		private void Awake() {
 			this.GetComponent<SphereCollider>().radius = this._range;
