@@ -17,7 +17,7 @@ namespace Src.Tower {
 		}
 		
 		private void Awake() {
-			this.GetComponent<SphereCollider>().radius = this._range;
+			this.GetComponentInChildren<SphereCollider>().radius = this._range;
 			this._gunTransform = this.transform.Find("FirePoint");
 		}
 		
@@ -70,7 +70,7 @@ namespace Src.Tower {
 
 		public void SetRange(int range) {
 			this._range = range;
-			this.GetComponent<SphereCollider>().radius = this._range;
+			this.GetComponentInChildren<SphereCollider>().radius = this._range;
 		}
 	}
 }
