@@ -10,11 +10,17 @@ namespace Src.Tower {
 		private readonly List<GameObject> _enemies;
 		private float _range;
 		private float _timeout;
+		private Transform _gunTransform;
 
 		private Tower() {
 			this._enemies = new List<GameObject>();
 		}
-
+		
+		private void Awake() {
+			this.GetComponent<SphereCollider>().radius = this._range;
+			this._gunTransform = this.transform.Find("FirePoint");
+		}
+		
 		private void OnDrawGizmos() {
 			Gizmos.color = Color.red;
 			Gizmos.DrawWireSphere(this.transform.position, this._range / 2);
@@ -41,27 +47,25 @@ namespace Src.Tower {
 			}
 
 			this._enemies.Remove(other.gameObject);
-			CanvasUI.Instance.TowerEnemyCount(this._enemies.Count);
+			CanvasUI.Instance.TowerEnemyCount(this._enemies.Count); 
 			// Debug.Log("ENEMY EXIT!");
 		}
 
 		private void OnTriggerStay(Collider other) {
+   			var dir = this.transform.position - this._enemies.First().transform.position;
+			var lookRotation = Quaternion.LookRotation(dir);
+			var rotation = lookRotation.eulerAngles;
+			this.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 			if (this._timeout > 0) {
 				this._timeout -= Time.deltaTime;
 				return;
 			}
 
 			if (other.CompareTag("Enemy")) {
-				// BulletManager.Instance.Shoot(this.transform, this._enemies[^1].transform);
-				var enemy = this._enemies.First();
-				if (enemy) {
-					BulletManager.Instance.Shoot(this.transform, enemy.transform);
-				} else {
-					Debug.Log("destroyed");
-				}
-
-				this._timeout = Timeout;
+				BulletManager.Instance.Shoot(this._gunTransform, this._enemies.First().transform);
 			}
+
+			this._timeout = Timeout;
 		}
 
 		public void SetRange(int range) {
