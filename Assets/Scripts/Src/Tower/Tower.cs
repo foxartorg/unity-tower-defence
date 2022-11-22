@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Scenes.GameScene;
@@ -10,15 +11,17 @@ namespace Src.Tower {
 		private readonly List<GameObject> _enemies;
 		private float _range;
 		private float _timeout;
-		private Transform _transform;
+		private Transform _gunTransform;
 
 		private Tower() {
 			this._enemies = new List<GameObject>();
 		}
 
+		
+		
 		private void Awake() {
-			// this.GetComponent<SphereCollider>().radius = this._range;
-			this._transform = this.transform.Find("FirePoint");
+			this.GetComponent<SphereCollider>().radius = this._range;
+			this._gunTransform = this.transform.Find("FirePoint");
 		}
 		
 		private void OnDrawGizmos() {
@@ -62,7 +65,7 @@ namespace Src.Tower {
 			}
 
 			if (other.CompareTag("Enemy")) {
-				BulletManager.Instance.Shoot(this._transform, this._enemies.First().transform);
+				BulletManager.Instance.Shoot(this._gunTransform, this._enemies.First().transform);
 			}
 
 			this._timeout = Timeout;
@@ -70,7 +73,7 @@ namespace Src.Tower {
 
 		public void SetRange(int range) {
 			this._range = range;
-			this.GetComponent<CapsuleCollider>().radius = this._range;
+			this.GetComponent<SphereCollider>().radius = this._range;
 		}
 	}
 }
