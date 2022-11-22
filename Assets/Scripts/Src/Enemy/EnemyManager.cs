@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Common;
+using Scenes.GameScene;
 using UnityEngine;
 
 namespace Src.Enemy {
@@ -39,15 +40,15 @@ namespace Src.Enemy {
 		}
 
 		private void CreateEnemy(GameObject enemy) {
-			// CanvasUI.Instance.EnemyCounter(++this._counter);
 			enemy.GetComponent<Enemy>().Create(this.spawnEnd.position);
 			this._enemyList.Add(enemy);
+			CanvasUI.Instance.EnemyCounter(this._enemyList.Count);
 		}
 
 		public void DestroyEnemy(GameObject enemy) {
-			// CanvasUI.Instance.EnemyCounter(--this._counter);
 			Destroy(enemy);
 			this._enemyList.Remove(enemy);
+			CanvasUI.Instance.EnemyCounter(this._enemyList.Count);
 		}
 	}
 }
