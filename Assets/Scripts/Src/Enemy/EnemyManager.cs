@@ -45,7 +45,10 @@ namespace Src.Enemy {
 			CanvasUI.Instance.EnemyCounter(this._enemyList.Count);
 		}
 
-		public void DestroyEnemy(GameObject enemy) {
+		public void DestroyEnemy(GameObject enemy,List<GameObject> towerList) {
+			foreach (var tower in towerList) {
+				tower.GetComponent<Tower.Tower>().enemies.Remove(enemy);
+			}
 			Destroy(enemy);
 			this._enemyList.Remove(enemy);
 			CanvasUI.Instance.EnemyCounter(this._enemyList.Count);

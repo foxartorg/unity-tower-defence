@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Scenes.GameScene;
@@ -8,13 +9,13 @@ using UnityEngine;
 namespace Src.Tower {
 	public class Tower : MonoBehaviour {
 		private const float Timeout = 0.5f;
-		private readonly List<GameObject> _enemies;
+		public List<GameObject> enemies;
 		private float _range;
 		private float _timeout;
 		private TextMeshProUGUI _towerCounterEnemy;
 
 		private Tower() {
-			this._enemies = new List<GameObject>();
+			this.enemies = new List<GameObject>();
 		}
 
 		private void Awake() {
@@ -36,9 +37,8 @@ namespace Src.Tower {
 				return;
 			}
 			
-			this._enemies.Add(other.gameObject);
-			other.gameObject.GetComponent<Enemy.Enemy>().enemies = this._enemies;
-			this._towerCounterEnemy.text = $"Enemies: {this._enemies.Count.ToString()}";
+			this.enemies.Add(other.gameObject);
+			this.TextCounterEnemy();
 			// Debug.Log("ENEMY ENTERED!");
 		}
 
@@ -47,34 +47,46 @@ namespace Src.Tower {
 				return;
 			}
 
-			this._enemies.Remove(other.gameObject);
-			this._towerCounterEnemy.text = $"Enemies: {this._enemies.Count.ToString()}";
+			this.enemies.Remove(other.gameObject);
+			this.TextCounterEnemy();
 			// Debug.Log("ENEMY EXIT!");
 		}
 
 		private void OnTriggerStay(Collider other) {
-			this._towerCounterEnemy.text = $"Enemies: {this._enemies.Count.ToString()}";
+			this.TextCounterEnemy();
 			if (this._timeout > 0) {
 				this._timeout -= Time.deltaTime;
 				return;
 			}
 
-			if (other.CompareTag("Enemy")) {
-				// BulletManager.Instance.Shoot(this.transform, this._enemies[^1].transform);
-				var enemy = this._enemies.First();
-				if (enemy) {
-					BulletManager.Instance.Shoot(this.transform, enemy.transform);
-				} else {
-					Debug.Log("destroyed");
-				}
+			if (!other.CompareTag("Enemy")) {
+				return;
+			}
 
-				this._timeout = Timeout;
+			// BulletManager.Instance.Shoot(this.transform, this._enemies[^1].transform);
+			var enemy = this.enemies.First();
+			if (enemy) {
+				BulletManager.Instance.Shoot(this.transform, enemy.transform);
+			} else {
+				Debug.Log("destroyed");
+			}
+
+			this._timeout = Timeout;
+		}
+
+		private void OnDestroy() {
+			foreach (var enemy in this.enemies) {
+				enemy.GetComponent<Enemy.Enemy>().towerList.Remove(this.gameObject);
 			}
 		}
 
 		public void SetRange(int range) {
 			this._range = range;
 			this.GetComponent<SphereCollider>().radius = this._range;
+		}
+
+		private void TextCounterEnemy() {
+			this._towerCounterEnemy.text = $"Enemies: {this.enemies.Count.ToString()}";
 		}
 	}
 }

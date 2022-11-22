@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Src.Enemy {
 	public sealed class Enemy : MonoBehaviour {
-		public List<GameObject> enemies;
+		public List<GameObject> towerList;
 		private int _health = 100;
 		private NavMeshAgent _navMeshAgent;
 		private Slider _slider;
@@ -23,7 +23,7 @@ namespace Src.Enemy {
 		public void Create(Vector3 position) {
 			this._navMeshAgent.SetDestination(position);
 		}
-
+		
 		public void Damage(int damage) {
 			this._health -= damage;
 			this._slider.value = this._health;
@@ -31,11 +31,23 @@ namespace Src.Enemy {
 				return;
 			}
 
-			EnemyManager.Instance.DestroyEnemy(this.gameObject);
+			EnemyManager.Instance.DestroyEnemy(this.gameObject,this.towerList);
 		}
 
-		private void OnDestroy() {
-			this.enemies.Remove(this.gameObject);
+		private void OnTriggerEnter(Collider other) {
+			if (other.gameObject.CompareTag("Tower")) {
+				this.towerList.Add(other.gameObject);
+			}
+			if (other.gameObject.CompareTag("SpawnEnd")) {
+				EnemyManager.Instance.DestroyEnemy(this.gameObject,this.towerList);
+			}
 		}
+
+		private void OnTriggerExit(Collider other) {
+			if (other.gameObject.CompareTag("Tower")) {
+				this.towerList.Remove(other.gameObject);
+			}
+		}
+
 	}
 }

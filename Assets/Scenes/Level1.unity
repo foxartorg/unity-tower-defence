@@ -4374,6 +4374,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnEnd
       objectReference: {fileID: 0}
+    - target: {fileID: 4074602797714146545, guid: 7b74e5d2cdc5daa1e92b1b8659a7704e, type: 3}
+      propertyPath: m_TagString
+      value: SpawnEnd
+      objectReference: {fileID: 0}
     - target: {fileID: 4074602797714146557, guid: 7b74e5d2cdc5daa1e92b1b8659a7704e, type: 3}
       propertyPath: m_RootOrder
       value: 1
