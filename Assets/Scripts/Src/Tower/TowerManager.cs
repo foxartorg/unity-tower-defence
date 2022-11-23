@@ -14,9 +14,10 @@ namespace Src.Tower {
 
 			CanvasUI.Instance.TowerCount(++this._counter, App.Towers);
 			var parentPosition = parent.transform.position;
-			var position = new Vector3(parentPosition.x, parentPosition.y + parent.transform.localScale.y / 2 + this.gameObject.transform.localScale.y / 2, parentPosition.z);
+			var position = new Vector3(parentPosition.x,
+				parentPosition.y + parent.transform.localScale.y / 2 + this.gameObject.transform.localScale.y / 2, parentPosition.z);
 			var tower = Instantiate(this.towerPrefab, position, Quaternion.identity, this.transform);
-			tower.GetComponent<Tower>().SetRange(6);
+			tower.GetComponent<Tower>().SetRange(3);
 			return tower;
 		}
 

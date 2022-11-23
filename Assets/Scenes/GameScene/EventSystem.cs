@@ -1,3 +1,4 @@
+using System;
 using Common;
 using Src;
 using UnityEngine;
@@ -13,6 +14,10 @@ namespace Scenes.GameScene {
 
 		private EventSystem() {
 			_autoload = true;
+		}
+
+		private void Awake() {
+			Application.targetFrameRate = 60;
 		}
 
 		private void Start() {
