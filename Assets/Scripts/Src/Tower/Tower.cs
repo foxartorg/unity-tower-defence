@@ -23,6 +23,8 @@ namespace Src.Tower {
 			this.turret = this.transform.Find("Head").Find("Turret");
 			this._gunTransform = this.transform.Find("Head").Find("Gun");
 			this._muzzleTransform = this.transform.Find("Head").Find("Muzzle");
+			var position = this._gunTransform.position;
+			this._muzzleTransform.position = new Vector3(position.x, position.y, position.z - this._gunTransform.localScale.z * 3);
 		}
 
 		private void OnDrawGizmos() {
@@ -59,8 +61,6 @@ namespace Src.Tower {
 			var dir = this.turret.position - this._enemies.First().transform.position;
 			var lookRotation = Quaternion.LookRotation(dir);
 			var rotation = lookRotation.eulerAngles;
-			var position = this._gunTransform.position;
-			this._muzzleTransform.position = new Vector3(position.x, position.y, position.z - this._gunTransform.localScale.z);
 			this.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 			if (this._timeout > 0) {
 				this._timeout -= Time.deltaTime;
