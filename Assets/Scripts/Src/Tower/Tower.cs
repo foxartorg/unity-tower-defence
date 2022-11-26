@@ -14,6 +14,7 @@ namespace Src.Tower {
 		private Button _buttonUpgrade;
 		private Transform _gunTransform;
 		private Transform _muzzleTransform;
+		private Transform _head;
 		private float _range;
 		private Renderer _renderer;
 		private float _timeout;
@@ -31,6 +32,7 @@ namespace Src.Tower {
 			this._buttonUpgrade = this.transform.Find("TowerCanvas").Find("Buttons").Find("Upgrade").GetComponent<Button>();
 			this._buttonSell = this.transform.Find("TowerCanvas").Find("Buttons").Find("Sell").GetComponent<Button>();
 			this._button = this.transform.Find("TowerCanvas").Find("Buttons").Find("Hide").GetComponent<Button>();
+			this._head = this.transform.Find("Head");
 			this.turret = this.transform.Find("Head").Find("Turret");
 			this._gunTransform = this.transform.Find("Head").Find("Gun");
 			this._muzzleTransform = this.transform.Find("Head").Find("Muzzle");
@@ -41,7 +43,7 @@ namespace Src.Tower {
 		private void Start() {
 			this._button.onClick.AddListener(() => this.canvas.SetActive(false));
 			this._buttonSell.onClick.AddListener(() => TowerManager.Instance.DeleteTower(this.gameObject));
-			this._buttonUpgrade.onClick.AddListener(() => this.Upgrade());
+			this._buttonUpgrade.onClick.AddListener(this.Upgrade);
 		}
 
 		private void OnDrawGizmos() {
@@ -78,7 +80,7 @@ namespace Src.Tower {
 			var dir = this.turret.position - this._enemies.First().transform.position;
 			var lookRotation = Quaternion.LookRotation(dir);
 			var rotation = lookRotation.eulerAngles;
-			this.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+			this._head.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 			if (this._timeout > 0) {
 				this._timeout -= Time.deltaTime;
 				return;
@@ -92,12 +94,12 @@ namespace Src.Tower {
 		}
 
 		private void Upgrade() {
-			this._range += 2f;
+			this.SetRange(1);
 			this._renderer.material.color = Color.green;
 		}
 
 		public void SetRange(int range) {
-			this._range = range;
+			this._range += range;
 			this.GetComponent<SphereCollider>().radius = this._range;
 		}
 	}
