@@ -13,12 +13,13 @@ namespace Src.Tower {
 		private Button _buttonSell;
 		private Button _buttonUpgrade;
 		private Transform _gunTransform;
-		private Transform _muzzleTransform;
 		private Transform _head;
+		private Transform _muzzleTransform;
 		private float _range;
 		private Renderer _renderer;
 		private float _timeout;
 		private GameObject canvas;
+		private int counter;
 		private Transform turret;
 
 		private Tower() {
@@ -43,7 +44,7 @@ namespace Src.Tower {
 		private void Start() {
 			this._button.onClick.AddListener(() => this.canvas.SetActive(false));
 			this._buttonSell.onClick.AddListener(() => TowerManager.Instance.DeleteTower(this.gameObject));
-			this._buttonUpgrade.onClick.AddListener(this.Upgrade);
+			this._buttonUpgrade.onClick.AddListener(() => this.Upgrade(3));
 		}
 
 		private void OnDrawGizmos() {
@@ -93,9 +94,14 @@ namespace Src.Tower {
 			this._timeout = Timeout;
 		}
 
-		private void Upgrade() {
+		private void Upgrade(int counter2) {
+			if (counter2 <= this.counter) {
+				return;
+			}
+
+			this.counter++;
 			this.SetRange(1);
-			this._renderer.material.color = Color.green;
+			this._renderer.material.color = new Color(0, 255, 0);
 		}
 
 		public void SetRange(int range) {
