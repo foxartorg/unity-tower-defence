@@ -9,7 +9,7 @@ namespace Scenes.GameScene {
 		[SerializeField] private TextMeshProUGUI enemyCounter;
 		[SerializeField] private TextMeshProUGUI bulletCounter;
 		[SerializeField] private TextMeshProUGUI dummy;
-		[SerializeField] private TextMeshProUGUI towerEnemyCounter;
+		[SerializeField] private TextMeshProUGUI coinCounter;
 
 		public void Level(int param) {
 			this.level.text = $"Level: {param}";
@@ -31,8 +31,8 @@ namespace Scenes.GameScene {
 			this.dummy.text = text;
 		}
 
-		public void TowerEnemyCount(int count) {
-			this.towerEnemyCounter.text = $"TowerEnemies: {count}";
+		public void CoinCounterText(int count) {
+			this.coinCounter.text = $"Coins: {count}";
 		}
 	}
 }

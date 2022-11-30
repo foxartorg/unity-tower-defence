@@ -12,17 +12,12 @@ namespace Src.Enemy {
 		[SerializeField] private Transform spawnEnd;
 		[SerializeField] private GameObject enemyPrefab;
 		private readonly List<GameObject> _enemyList;
-		private int _counter;
+		private int _counterCoin;
 
 		private EnemyManager() {
 			this._enemyList = new List<GameObject>();
 			this.start = new List<Transform>();
 		}
-
-		private void Awake() {
-			// Helper.FindComponent<>(spawnStart);
-		}
-
 		private void Start() {
 			this.StartCoroutine(this.Spawn());
 		}
@@ -52,6 +47,10 @@ namespace Src.Enemy {
 			Destroy(enemy);
 			this._enemyList.Remove(enemy);
 			CanvasUI.Instance.EnemyCounter(this._enemyList.Count);
+		}
+
+		public void CoinCounter(int counter) {
+			CanvasUI.Instance.CoinCounterText(this._counterCoin+=counter);
 		}
 	}
 }

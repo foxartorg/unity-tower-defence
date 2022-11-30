@@ -44,7 +44,7 @@ namespace Scenes.GameScene {
 			CanvasUI.Instance.TowerCount(0, 0);
 			CanvasUI.Instance.EnemyCounter(0);
 			CanvasUI.Instance.BulletCounter(0);
-			CanvasUI.Instance.TowerEnemyCount(0);
+			CanvasUI.Instance.CoinCounterText(0);
 		}
 	}
 }
