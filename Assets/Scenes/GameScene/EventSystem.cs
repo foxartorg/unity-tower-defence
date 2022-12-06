@@ -1,3 +1,4 @@
+using Common;
 using Src;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,15 +10,31 @@ namespace Scenes.GameScene {
 		[SerializeField] private Button level2Button;
 
 		private void Awake() {
-			if (App.Autoload) {
-				Debug.Log("AUTOLOAD");
+			if (App.Level == 0) {
+				this.LoadLevelScene(1);
 			}
 		}
 
 		private void Start() {
-			this.menuButton.onClick.AddListener(() => App.Instance.LoadMainScene());
-			this.level1Button.onClick.AddListener(() => App.Instance.LoadLevelScene(1));
-			this.level2Button.onClick.AddListener(() => App.Instance.LoadLevelScene(2));
+			this.menuButton.onClick.AddListener(this.LoadMainScene);
+			this.level1Button.onClick.AddListener(() => this.LoadLevelScene(1));
+			this.level2Button.onClick.AddListener(() => this.LoadLevelScene(2));
+		}
+
+		private void LoadMainScene() {
+			App.Level = 0;
+			this.StartCoroutine(SceneHelper.Load(App.MainSceneIndex));
+		}
+
+		private void LoadLevelScene(int level) {
+			// Debug.Log($"UNLOAD {LevelManager.PrevLevelScene}");
+			if (SceneHelper.IsLoaded(App.PrevLevelScene)) {
+				this.StartCoroutine(SceneHelper.Unload(App.PrevLevelScene));
+			}
+
+			App.Level = level;
+			// Debug.Log($"LOAD {LevelManager.CurrLevelScene}");
+			this.StartCoroutine(SceneHelper.Load(App.CurrLevelScene, true));
 		}
 	}
 }

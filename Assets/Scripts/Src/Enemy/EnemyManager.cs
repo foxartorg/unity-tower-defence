@@ -20,19 +20,18 @@ namespace Src.Enemy {
 		}
 
 		private void Start() {
-			// Debug.Log($"EnemyManager {App.Level}");
 			// this.StartCoroutine(this.Spawn());
 		}
 
-		private IEnumerator Spawn() {
-			for (var i = 0; i < App.Instance.Waves; i++) {
-				for (var j = 0; j < App.Instance.Enemies; j++) {
+		public IEnumerator Spawn() {
+			for (var i = 0; i < App.Waves; i++) {
+				for (var j = 0; j < App.Enemies; j++) {
 					var enemy = Instantiate(this.enemyPrefab, this.spawnStart.position, this.spawnStart.rotation, this.transform);
 					this.CreateEnemy(enemy);
-					yield return new WaitForSeconds(App.Instance.EnemiesTimeout);
+					yield return new WaitForSeconds(App.EnemiesTimeout);
 				}
 
-				yield return new WaitForSeconds(App.Instance.WavesTimeout);
+				yield return new WaitForSeconds(App.WavesTimeout);
 			}
 		}
 
