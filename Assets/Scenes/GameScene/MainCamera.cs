@@ -21,8 +21,7 @@ namespace Scenes.GameScene {
 			var fromFOV = camera.fieldOfView;
 			while (counter < duration) {
 				counter += Time.deltaTime;
-				var fOvTime = counter / duration;
-				camera.fieldOfView = Mathf.Lerp(fromFOV, toFOV, fOvTime);
+				camera.fieldOfView = Mathf.Lerp(fromFOV, toFOV, counter / duration);
 				yield return null;
 			}
 		}

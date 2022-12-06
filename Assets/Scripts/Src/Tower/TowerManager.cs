@@ -8,20 +8,21 @@ namespace Src.Tower {
 		private int _counter;
 
 		public GameObject AddTower(GameObject parent) {
-			if (this._counter >= App.Towers) {
+			if (this._counter >= App.Instance.Towers) {
 				return null;
 			}
 
-			CanvasUI.Instance.TowerCount(++this._counter, App.Towers);
+			CanvasUI.Instance.TowerCount(++this._counter, App.Instance.Towers);
 			var parentPosition = parent.transform.position;
-			var position = new Vector3(parentPosition.x, parentPosition.y + parent.transform.localScale.y / 2 + this.gameObject.transform.localScale.y / 2, parentPosition.z);
+			var position = new Vector3(parentPosition.x,
+				parentPosition.y + parent.transform.localScale.y / 2 + this.gameObject.transform.localScale.y / 2, parentPosition.z);
 			var tower = Instantiate(this.towerPrefab, position, Quaternion.identity, this.transform);
 			tower.GetComponent<Tower>().SetRange(3);
 			return tower;
 		}
 
 		public GameObject DeleteTower(GameObject tower) {
-			CanvasUI.Instance.TowerCount(--this._counter, App.Towers);
+			CanvasUI.Instance.TowerCount(--this._counter, App.Instance.Towers);
 			Destroy(tower);
 			return null;
 		}
