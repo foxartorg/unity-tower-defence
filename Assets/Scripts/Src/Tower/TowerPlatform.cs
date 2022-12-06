@@ -29,11 +29,6 @@ namespace Src.Tower {
 				this._tower = TowerManager.Instance.AddTower(this.gameObject);
 			}
 
-			if (Input.GetMouseButtonDown(1) && this._tower != null) {
-				this._renderer.material.color = this._hoverColor;
-				this._tower = TowerManager.Instance.DeleteTower(this._tower);
-			}
-
 			if (Input.GetMouseButtonDown(2)) {
 				Debug.Log("Pressed middle click.");
 			}

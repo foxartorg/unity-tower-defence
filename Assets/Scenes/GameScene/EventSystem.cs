@@ -15,6 +15,10 @@ namespace Scenes.GameScene {
 			_autoload = true;
 		}
 
+		private void Awake() {
+			Application.targetFrameRate = 60;
+		}
+
 		private void Start() {
 			if (_autoload) {
 				_autoload = false;

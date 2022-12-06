@@ -1,7 +1,7 @@
 using UnityEngine;
 
 namespace Src {
-	public sealed class App : MonoBehaviour {
+	public static class App {
 		private static readonly int[] EnemyList = { 4, 2 };
 		private static readonly float[] EnemyTimeoutList = { 0.25f, 0.25f };
 		private static readonly int[] TowerList = { 5, 5 };
@@ -26,6 +26,6 @@ namespace Src {
 
 		public static int MainSceneIndex => 0;
 		public static int GameSceneIndex => 1;
-		public static int LevelSceneIndex => 2;
+		private static int LevelSceneIndex => 2;
 	}
 }
