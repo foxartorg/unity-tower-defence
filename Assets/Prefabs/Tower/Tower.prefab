@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4082993425514170795}
   - component: {fileID: 1665960052609647473}
   - component: {fileID: 3220542157073921131}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 6358691717699619650}
   - component: {fileID: 363143431021167142}
   - component: {fileID: 7240014337096031032}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 4583540194093164902}
   - component: {fileID: 9043293142745376942}
   - component: {fileID: 8277568427137494340}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -365,7 +365,7 @@ GameObject:
   - component: {fileID: 1501332240331409086}
   - component: {fileID: 5967251873314978217}
   - component: {fileID: 4088111965451549683}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Sell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -486,7 +486,7 @@ GameObject:
   - component: {fileID: 8395666450575107656}
   - component: {fileID: 3610886232666340150}
   - component: {fileID: 6426919802218540810}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -622,7 +622,7 @@ GameObject:
   - component: {fileID: 6371726880327197549}
   - component: {fileID: 5264492789081989201}
   - component: {fileID: 2943976634599943131}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Upgrade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -744,7 +744,7 @@ GameObject:
   - component: {fileID: 4277276874603333468}
   - component: {fileID: 830253507460666177}
   - component: {fileID: 696413097777245287}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -842,7 +842,7 @@ GameObject:
   - component: {fileID: 8057040559471146775}
   - component: {fileID: 3118732340863843555}
   - component: {fileID: 2582527713382168999}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: TowerCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -940,7 +940,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4620808533838557137}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -974,7 +974,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8541882477479277845}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
@@ -1007,7 +1007,7 @@ GameObject:
   - component: {fileID: 8540124728373234850}
   - component: {fileID: 1505799839762655865}
   - component: {fileID: 3874174998030568932}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Buttons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1086,7 +1086,7 @@ GameObject:
   - component: {fileID: 4301728018244083525}
   - component: {fileID: 1478888697001767189}
   - component: {fileID: 1930009388017337339}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1167,7 +1167,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2148432214896455340}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1202,7 +1202,7 @@ GameObject:
   - component: {fileID: 7163013177101608327}
   - component: {fileID: 3315757137814380955}
   - component: {fileID: 4195785218653589488}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Hide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1323,9 +1323,9 @@ GameObject:
   - component: {fileID: 8257764144080811910}
   - component: {fileID: 5258327395785617504}
   - component: {fileID: 768412932338301704}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Tower
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1373,3 +1373,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361234fb6db744d6299263fac7bb5cd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemies: []

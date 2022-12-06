@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Src {
 	public static class App {
 		private static readonly int[] EnemyList = { 4, 2 };

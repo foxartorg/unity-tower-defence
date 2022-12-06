@@ -8,7 +8,7 @@ using UnityEngine.UI;
 namespace Src.Tower {
 	public class Tower : MonoBehaviour {
 		private const float Timeout = 0.5f;
-		private readonly List<GameObject> _enemies;
+		public List<GameObject> enemies;
 		private Button _button;
 		private Button _buttonSell;
 		private Button _buttonUpgrade;
@@ -23,7 +23,7 @@ namespace Src.Tower {
 		private Transform turret;
 
 		private Tower() {
-			this._enemies = new List<GameObject>();
+			this.enemies = new List<GameObject>();
 		}
 
 		private void Awake() {
@@ -47,6 +47,12 @@ namespace Src.Tower {
 			this._buttonUpgrade.onClick.AddListener(() => this.Upgrade(3));
 		}
 
+		private void OnDestroy() {
+			foreach (var i in this.enemies) {
+				i.GetComponent<Enemy.Enemy>().enemies.Remove(this.gameObject);
+			}
+		}
+
 		private void OnDrawGizmos() {
 			Gizmos.color = Color.red;
 			Gizmos.DrawWireSphere(this.transform.position, this._range);
@@ -63,9 +69,8 @@ namespace Src.Tower {
 				return;
 			}
 
-			this._enemies.Add(other.gameObject);
-			other.gameObject.GetComponent<Enemy.Enemy>().enemies = this._enemies;
-			CanvasUI.Instance.TowerEnemyCount(this._enemies.Count);
+			this.enemies.Add(other.gameObject);
+			CanvasUI.Instance.TowerEnemyCount(this.enemies.Count);
 		}
 
 		private void OnTriggerExit(Collider other) {
@@ -73,12 +78,16 @@ namespace Src.Tower {
 				return;
 			}
 
-			this._enemies.Remove(other.gameObject);
-			CanvasUI.Instance.TowerEnemyCount(this._enemies.Count);
+			this.enemies.Remove(other.gameObject);
+			CanvasUI.Instance.TowerEnemyCount(this.enemies.Count);
 		}
 
 		private void OnTriggerStay(Collider other) {
-			var dir = this.turret.position - this._enemies.First().transform.position;
+			if (this.enemies.Count == 0) {
+				return;
+			}
+
+			var dir = this.turret.position - this.enemies[0].transform.position;
 			var lookRotation = Quaternion.LookRotation(dir);
 			var rotation = lookRotation.eulerAngles;
 			this._head.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
@@ -88,7 +97,7 @@ namespace Src.Tower {
 			}
 
 			if (other.CompareTag("Enemy")) {
-				BulletManager.Instance.Shoot(this._muzzleTransform, this._enemies.First().transform);
+				BulletManager.Instance.Shoot(this._muzzleTransform, this.enemies.First().transform);
 			}
 
 			this._timeout = Timeout;
