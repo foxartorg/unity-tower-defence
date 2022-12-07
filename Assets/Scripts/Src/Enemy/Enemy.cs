@@ -20,8 +20,7 @@ namespace Src.Enemy {
 			this._navMeshAgent.stoppingDistance = 0;
 			this._navMeshAgent.autoBraking = false;
 			this._slider = this.GetComponentInChildren<Slider>();
-			this._slider.maxValue = this._health;
-			this._slider.value = this._health;
+			this._slider.value = this._slider.maxValue = this._health;
 		}
 
 		private void OnTriggerEnter(Collider other) {
@@ -30,7 +29,7 @@ namespace Src.Enemy {
 			}
 
 			if (other.gameObject.CompareTag("SpawnEnd")) {
-				EnemyManager.Instance.DestroyEnemy(this.gameObject);
+				EnemyManager.Instance.RemoveEnemy(this.gameObject);
 			}
 		}
 
@@ -38,11 +37,11 @@ namespace Src.Enemy {
 			if (other.gameObject.CompareTag("Tower")) { }
 		}
 
-		public static GameObject Add(GameObject prefab, Transform parent, Transform start) {
-			return Instantiate(prefab, start.position, start.rotation, parent);
+		public static GameObject Add(GameObject prefab, Vector3 position, Transform parent) {
+			return Instantiate(prefab, position, Quaternion.identity, parent);
 		}
 
-		public void Delete() {
+		public void Remove() {
 			Destroy(this.gameObject);
 		}
 
@@ -57,7 +56,7 @@ namespace Src.Enemy {
 				return;
 			}
 
-			EnemyManager.Instance.DestroyEnemy(this.gameObject);
+			EnemyManager.Instance.RemoveEnemy(this.gameObject);
 			Destroy(this.gameObject);
 		}
 	}

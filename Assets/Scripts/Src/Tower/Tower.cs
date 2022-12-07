@@ -7,50 +7,45 @@ using UnityEngine.UI;
 
 namespace Src.Tower {
 	public class Tower : MonoBehaviour {
-		private const float Timeout = 0.5f;
+		private const float ShootTimeout = 0.5f;
 		public List<GameObject> enemies;
-		private Button _button;
+		private Button _buttonHide;
 		private Button _buttonSell;
 		private Button _buttonUpgrade;
-		private Transform _gunTransform;
-		private Transform _head;
+		private GameObject _canvas;
+		private Transform _headTransform;
 		private Transform _muzzleTransform;
 		private float _range;
 		private Renderer _renderer;
 		private float _timeout;
-		private GameObject canvas;
-		private int counter;
-		private Transform turret;
+		private Transform _turretTransform;
 
 		private Tower() {
 			this.enemies = new List<GameObject>();
 		}
 
 		private void Awake() {
+			this._range = 3;
 			this.GetComponent<SphereCollider>().radius = this._range;
 			this._renderer = this.GetComponentInChildren<Renderer>();
-			this.canvas = GameObject.Find("TowerCanvas");
-			this._buttonUpgrade = this.transform.Find("TowerCanvas").Find("Buttons").Find("Upgrade").GetComponent<Button>();
-			this._buttonSell = this.transform.Find("TowerCanvas").Find("Buttons").Find("Sell").GetComponent<Button>();
-			this._button = this.transform.Find("TowerCanvas").Find("Buttons").Find("Hide").GetComponent<Button>();
-			this._head = this.transform.Find("Head");
-			this.turret = this.transform.Find("Head").Find("Turret");
-			this._gunTransform = this.transform.Find("Head").Find("Gun");
+			this._canvas = GameObject.Find("Canvas");
+			// var buttons = this._canvas.transform.Find("Buttons");
+			// var head = this._canvas.transform.Find("Head");
+			// this._buttonUpgrade = this._canvas.transform.Find("Buttons").Find("Upgrade").GetComponent<Button>();
+			// this._buttonSell = this._canvas.transform.Find("Buttons").Find("Sell").GetComponent<Button>();
+			// this._buttonHide = this.gameObject.transform.Find("Hide").GetComponent<Button>();
+			this._headTransform = this.transform.Find("Head");
+			this._turretTransform = this.transform.Find("Head").Find("Turret");
+			// Debug.LogWarning(this._turretTransform.position);
 			this._muzzleTransform = this.transform.Find("Head").Find("Muzzle");
-			var position = this._gunTransform.position;
-			this._muzzleTransform.position = new Vector3(position.x, position.y, position.z - this._gunTransform.localScale.z * 3);
+			// var position = this._gunTransform.position;
+			// this._muzzleTransform.position = new Vector3(position.x, position.y, position.z - this._gunTransform.localScale.z * 3);
 		}
 
 		private void Start() {
-			this._button.onClick.AddListener(() => this.canvas.SetActive(false));
-			this._buttonSell.onClick.AddListener(() => TowerManager.Instance.DeleteTower(this.gameObject));
-			this._buttonUpgrade.onClick.AddListener(() => this.Upgrade(3));
-		}
-
-		private void OnDestroy() {
-			foreach (var i in this.enemies) {
-				// i.GetComponent<Enemy.Enemy>().enemies.Remove(this.gameObject);
-			}
+			// this._buttonHide.onClick.AddListener(() => this._canvas.SetActive(false));
+			// this._buttonSell.onClick.AddListener(() => TowerManager.Instance.RemoveTower(this.gameObject));
+			// this._buttonUpgrade.onClick.AddListener(this.Upgrade);
 		}
 
 		private void OnDrawGizmos() {
@@ -60,7 +55,7 @@ namespace Src.Tower {
 
 		private void OnMouseDown() {
 			if (Input.GetMouseButtonDown(0)) {
-				this.canvas.SetActive(true);
+				this._canvas.SetActive(true);
 			}
 		}
 
@@ -87,35 +82,33 @@ namespace Src.Tower {
 				return;
 			}
 
-			var dir = this.turret.position - this.enemies[0].transform.position;
-			var lookRotation = Quaternion.LookRotation(dir);
-			var rotation = lookRotation.eulerAngles;
-			this._head.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+			if (!other.CompareTag("Enemy")) {
+				return;
+			}
+
 			if (this._timeout > 0) {
 				this._timeout -= Time.deltaTime;
 				return;
 			}
 
-			if (other.CompareTag("Enemy")) {
-				BulletManager.Instance.Shoot(this._muzzleTransform, this.enemies.First().transform);
-			}
-
-			this._timeout = Timeout;
+			this._timeout = ShootTimeout;
+			var dir = this._turretTransform.position - this.enemies[0].transform.position;
+			var lookRotation = Quaternion.LookRotation(dir);
+			var rotation = lookRotation.eulerAngles;
+			this._headTransform.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+			BulletManager.Instance.Shoot(this._muzzleTransform, this.enemies.First().transform);
 		}
 
-		private void Upgrade(int counter2) {
-			if (counter2 <= this.counter) {
-				return;
-			}
-
-			this.counter++;
-			this.SetRange(1);
-			this._renderer.material.color = new Color(0, 255, 0);
+		public static GameObject Add(GameObject prefab, Vector3 position, Transform parent) {
+			return Instantiate(prefab, position, Quaternion.identity, parent);
 		}
 
-		public void SetRange(int range) {
-			this._range += range;
-			this.GetComponent<SphereCollider>().radius = this._range;
+		public void Remove() {
+			Destroy(this.gameObject);
+		}
+
+		private void Upgrade() {
+			this._renderer.material.color = Color.green;
 		}
 	}
 }

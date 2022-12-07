@@ -8,7 +8,7 @@ namespace Src.Tower {
 		private GameObject _tower;
 
 		private void Awake() {
-			this._renderer = this.GetComponent<Renderer>();
+			this._renderer = this.GetComponentInChildren<Renderer>();
 			this._hoverColor = new Color(0, 255, 255, 127);
 			this._initColor = this._renderer.material.color;
 		}
@@ -27,10 +27,11 @@ namespace Src.Tower {
 			if (Input.GetMouseButtonDown(0) && this._tower == null) {
 				this._renderer.material.color = this._initColor;
 				this._tower = TowerManager.Instance.AddTower(this.gameObject);
+				Debug.Log("TowerPlatform left");
 			}
 
 			if (Input.GetMouseButtonDown(2)) {
-				Debug.Log("Pressed middle click.");
+				Debug.Log("TowerPlatform middle");
 			}
 		}
 	}
