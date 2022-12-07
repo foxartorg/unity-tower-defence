@@ -5,14 +5,18 @@ using Scenes.GameScene;
 using UnityEngine;
 
 namespace Src.Enemy {
-	public sealed class EnemyManager : MonoBehaviourSingleton<EnemyManager> {
+	public sealed class EnemyManager : MonoComponent<EnemyManager> {
 		[SerializeField] private GameObject enemyPrefab;
-		[SerializeField] private Transform spawnStart;
 		[SerializeField] private Transform spawnEnd;
+		[SerializeField] private Transform spawnStart;
 		private List<GameObject> _enemyList;
 
 		private void Awake() {
 			this._enemyList = new List<GameObject>();
+		}
+
+		private static Enemy GetEnemy(GameObject enemy) {
+			return enemy.GetComponent<Enemy>();
 		}
 
 		public IEnumerator Spawn() {
@@ -35,11 +39,11 @@ namespace Src.Enemy {
 		public void DestroyEnemy(GameObject enemy) {
 			this._enemyList.Remove(enemy);
 			CanvasUI.Instance.EnemyCounter(this._enemyList.Count);
-			Enemy.Delete(enemy);
+			GetEnemy(enemy).Delete();
 		}
 
-		public void MoveEnemy() {
-			Enemy.Instance.MoveTo(this.spawnEnd.position);
+		public void MoveEnemy(GameObject enemy) {
+			GetEnemy(enemy).MoveTo(this.spawnEnd.position);
 		}
 	}
 }

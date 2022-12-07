@@ -3,7 +3,7 @@ using Src.Enemy;
 using UnityEngine;
 
 namespace Src {
-	public class App : MonoBehaviourSingleton<App> {
+	public class App : MonoComponent<App> {
 		public const int MainSceneIndex = 0;
 		public const int GameSceneIndex = 1;
 		private const int LevelSceneIndex = 2;

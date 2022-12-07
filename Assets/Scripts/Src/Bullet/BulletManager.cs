@@ -4,7 +4,7 @@ using Scenes.GameScene;
 using UnityEngine;
 
 namespace Src.Bullet {
-	public sealed class BulletManager : MonoBehaviourSingleton<BulletManager> {
+	public sealed class BulletManager : MonoComponent<BulletManager> {
 		[SerializeField] private GameObject bulletPrefab;
 		private List<GameObject> _bulletList;
 		private int _counter;
