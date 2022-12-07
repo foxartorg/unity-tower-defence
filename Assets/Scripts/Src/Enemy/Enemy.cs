@@ -27,12 +27,20 @@ namespace Src.Enemy {
 			// this.CheckDestination();
 		}
 
-		private void OnTriggerEnter(Collider trigger) {
-			// var bullet = trigger.gameObject.GetComponent<Bullet.Bullet>();
-			// var damage = trigger.gameObject.GetComponent<Bullet.Bullet>().damage;
-			// Debug.Log($"TRIGGER {damage}");
-			// BulletManager.Instance.DestroyBullet(bullet.gameObject);
-			// this.Damage(bullet.damage);
+		private void OnTriggerEnter(Collider other) {
+			if (other.gameObject.CompareTag("Tower")) {
+				this.enemies.Add(other.gameObject);
+			}
+
+			if (other.gameObject.CompareTag("SpawnEnd")) {
+				EnemyManager.Instance.DestroyEnemy(this.gameObject, this.enemies);
+			}
+		}
+
+		private void OnTriggerExit(Collider other) {
+			if (other.gameObject.CompareTag("Tower")) {
+				this.enemies.Remove(other.gameObject);
+			}
 		}
 
 		public void Create(Vector3 position) {
@@ -47,17 +55,8 @@ namespace Src.Enemy {
 			}
 
 			this.enemies.Remove(this.gameObject);
-			EnemyManager.Instance.DestroyEnemy(this.gameObject);
+			EnemyManager.Instance.DestroyEnemy(this.gameObject, this.enemies);
 			Destroy(this.gameObject);
-		}
-		
-		private void CheckDestination() {
-			if (this._navMeshAgent.hasPath & (this._health > 0)) {
-				return;
-			}
-
-			Debug.Log("DESTROY");
-			// this.ExecDestroy(this.gameObject);
 		}
 	}
 }
