@@ -6,28 +6,19 @@ using UnityEngine;
 
 namespace Src.Enemy {
 	public sealed class EnemyManager : MonoBehaviourSingleton<EnemyManager> {
-		[SerializeField] private List<Transform> start;
-		[SerializeField] private List<Transform> stop = new();
+		[SerializeField] private GameObject enemyPrefab;
 		[SerializeField] private Transform spawnStart;
 		[SerializeField] private Transform spawnEnd;
-		[SerializeField] private GameObject enemyPrefab;
-		private readonly List<GameObject> _enemyList;
-		private int _counter;
+		private List<GameObject> _enemyList;
 
-		private EnemyManager() {
+		private void Awake() {
 			this._enemyList = new List<GameObject>();
-			this.start = new List<Transform>();
-		}
-
-		private void Start() {
-			// this.StartCoroutine(this.Spawn());
 		}
 
 		public IEnumerator Spawn() {
 			for (var i = 0; i < App.Waves; i++) {
 				for (var j = 0; j < App.Enemies; j++) {
-					var enemy = Instantiate(this.enemyPrefab, this.spawnStart.position, this.spawnStart.rotation, this.transform);
-					this.CreateEnemy(enemy);
+					this.CreateEnemy();
 					yield return new WaitForSeconds(App.EnemiesTimeout);
 				}
 
@@ -35,20 +26,20 @@ namespace Src.Enemy {
 			}
 		}
 
-		private void CreateEnemy(GameObject enemy) {
-			enemy.GetComponent<Enemy>().Create(this.spawnEnd.position);
+		private void CreateEnemy() {
+			var enemy = Enemy.Add(this.enemyPrefab, this.transform, this.spawnStart);
 			this._enemyList.Add(enemy);
 			CanvasUI.Instance.EnemyCounter(this._enemyList.Count);
 		}
 
-		public void DestroyEnemy(GameObject enemy, List<GameObject> tower) {
-			foreach (var i in tower) {
-				i.GetComponent<Tower.Tower>().enemies.Remove(enemy);
-			}
-
-			Destroy(enemy);
+		public void DestroyEnemy(GameObject enemy) {
 			this._enemyList.Remove(enemy);
 			CanvasUI.Instance.EnemyCounter(this._enemyList.Count);
+			Enemy.Delete(enemy);
+		}
+
+		public void MoveEnemy() {
+			Enemy.Instance.MoveTo(this.spawnEnd.position);
 		}
 	}
 }

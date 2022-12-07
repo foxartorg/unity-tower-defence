@@ -49,7 +49,7 @@ namespace Src.Tower {
 
 		private void OnDestroy() {
 			foreach (var i in this.enemies) {
-				i.GetComponent<Enemy.Enemy>().enemies.Remove(this.gameObject);
+				// i.GetComponent<Enemy.Enemy>().enemies.Remove(this.gameObject);
 			}
 		}
 
@@ -83,7 +83,7 @@ namespace Src.Tower {
 		}
 
 		private void OnTriggerStay(Collider other) {
-			if (this.enemies.Count == 0) {
+			if (!this.enemies[0]) {
 				return;
 			}
 

@@ -1,9 +1,13 @@
 using System;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using SystemRandom = System.Random;
 
 namespace Common {
 	public static class Helper {
+		private static readonly SystemRandom Random = new();
+
 		public static void ThrowError(string error) {
 			if (!Application.isEditor) {
 				Application.Quit();
@@ -11,6 +15,12 @@ namespace Common {
 
 			Debug.Break();
 			throw new Exception(error);
+		}
+
+		public static string RandomString(int length) {
+			const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+			return new string(Enumerable.Repeat(chars, length)
+				.Select(s => s[Random.Next(s.Length)]).ToArray());
 		}
 
 		public static T FindComponent<T>(string name, [CallerFilePath] string path = "") {

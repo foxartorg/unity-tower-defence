@@ -2882,14 +2882,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnStart
       objectReference: {fileID: 0}
-    - target: {fileID: 5833354906299907988, guid: 7a19586a13bf84453b7b438c5684dfb0, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5833354906299907988, guid: 7a19586a13bf84453b7b438c5684dfb0, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5833354906299907989, guid: 7a19586a13bf84453b7b438c5684dfb0, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -4358,11 +4350,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae815604265046fbada6e52e4bfa5cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: []
-  stop: []
+  enemyPrefab: {fileID: 5231259221201410324, guid: 48bf1f36be2aff9d68fbf709d9178838, type: 3}
   spawnStart: {fileID: 1574021958}
   spawnEnd: {fileID: 4074602797963613432}
-  enemyPrefab: {fileID: 5231259221201410324, guid: 48bf1f36be2aff9d68fbf709d9178838, type: 3}
 --- !u!1001 &4074602797963613431
 PrefabInstance:
   m_ObjectHideFlags: 0

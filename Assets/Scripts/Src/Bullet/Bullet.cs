@@ -28,7 +28,7 @@ namespace Src.Bullet {
 				return;
 			}
 
-			other.gameObject.GetComponent<Enemy.Enemy>().Damage(this.damage);
+			other.gameObject.GetComponent<Enemy.Enemy>().MakeDamage(this.damage);
 		}
 
 		public void SetDestination(Vector3 destination) {

@@ -1,18 +1,20 @@
-# [unity-tower-defence](https://github.com/foxartorg/unity-tower-defence)
-
 [//]: # (https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 
-## Instructions
+# [unity-tower-defence](https://github.com/foxartorg/unity-tower-defence)
 
 ## Request for Comments
 
 ### classes
-all classes that can instantiate dynamic object
-should be extended from **Assets/Scripts/Common/MonoBehaviourSingleton.cs**
-and use getter **Instance** to access public properties
+
+All classes that can instantiate dynamic object should be extended from **Assets/Scripts/Common/MonoBehaviourSingleton.cs**
+
+To access public properties use getter **Instance** from outside
 
 ### fields
+
 [SerializeField] should be used only to connect prefabs or expose foreign variables
+
+### structure
 
 ```c#
 public class MyClass : MonoBehaviourSingleton {

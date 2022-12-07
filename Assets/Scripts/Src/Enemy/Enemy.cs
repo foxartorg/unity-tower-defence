@@ -1,61 +1,63 @@
 using System.Collections.Generic;
+using Common;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
 namespace Src.Enemy {
-	public sealed class Enemy : MonoBehaviour {
-		public List<GameObject> enemies;
-		private int _health = 100;
+	public sealed class Enemy : MonoBehaviourSingleton<Enemy> {
+		private readonly List<GameObject> _enemiesList;
+		private int _health;
 		private NavMeshAgent _navMeshAgent;
 		private Slider _slider;
 
 		private void Awake() {
+			this._health = 100;
 			this._navMeshAgent = this.GetComponent<NavMeshAgent>();
-			this._navMeshAgent.speed = (float)(5.5 / 2);
-			this._navMeshAgent.acceleration = 4;
+			this._navMeshAgent.speed = 3f;
+			this._navMeshAgent.acceleration = 50;
+			this._navMeshAgent.angularSpeed = 100;
+			this._navMeshAgent.stoppingDistance = 0;
+			this._navMeshAgent.autoBraking = false;
 			this._slider = this.GetComponentInChildren<Slider>();
 			this._slider.maxValue = this._health;
 			this._slider.value = this._health;
 		}
 
-		private void Start() {
-			// this.ExecCreate();
-		}
-
-		private void FixedUpdate() {
-			// this.CheckDestination();
-		}
-
 		private void OnTriggerEnter(Collider other) {
-			if (other.gameObject.CompareTag("Tower")) {
-				this.enemies.Add(other.gameObject);
+			if (other.gameObject.CompareTag("SpawnStart")) {
+				EnemyManager.Instance.MoveEnemy();
 			}
 
 			if (other.gameObject.CompareTag("SpawnEnd")) {
-				EnemyManager.Instance.DestroyEnemy(this.gameObject, this.enemies);
+				EnemyManager.Instance.DestroyEnemy(this.gameObject);
 			}
 		}
 
 		private void OnTriggerExit(Collider other) {
-			if (other.gameObject.CompareTag("Tower")) {
-				this.enemies.Remove(other.gameObject);
-			}
+			if (other.gameObject.CompareTag("Tower")) { }
 		}
 
-		public void Create(Vector3 position) {
+		public static GameObject Add(GameObject prefab, Transform parent, Transform start) {
+			return Instantiate(prefab, start.position, start.rotation, parent);
+		}
+
+		public static void Delete(GameObject enemy) {
+			Destroy(enemy);
+		}
+
+		public void MoveTo(Vector3 position) {
 			this._navMeshAgent.SetDestination(position);
 		}
 
-		public void Damage(int damage) {
+		public void MakeDamage(int damage) {
 			this._health -= damage;
 			this._slider.value = this._health;
 			if (this._health > 0) {
 				return;
 			}
 
-			this.enemies.Remove(this.gameObject);
-			EnemyManager.Instance.DestroyEnemy(this.gameObject, this.enemies);
+			EnemyManager.Instance.DestroyEnemy(this.gameObject);
 			Destroy(this.gameObject);
 		}
 	}
