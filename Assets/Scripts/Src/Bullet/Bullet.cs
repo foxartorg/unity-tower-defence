@@ -4,15 +4,15 @@ namespace Src.Bullet {
 	public sealed class Bullet : MonoBehaviour {
 		private const int Velocity = 1000;
 		private static int _counter;
-		public int damage;
+		private int _damage;
 		private Vector3 _destination;
 		private Rigidbody _rigidbody;
 		private Transform _transform;
 
 		private void Awake() {
+			this._damage = Random.Range(25, 50);
 			this._transform = this.transform;
 			this._rigidbody = this.GetComponent<Rigidbody>();
-			this.damage = Random.Range(25, 50);
 		}
 
 		private void Update() {
@@ -23,12 +23,11 @@ namespace Src.Bullet {
 		}
 
 		private void OnTriggerEnter(Collider other) {
-			BulletManager.Instance.DestroyBullet(this.gameObject);
-			if (!other.CompareTag("Enemy")) {
-				return;
+			if (other.CompareTag("Enemy")) {
+				other.gameObject.GetComponent<Enemy.Enemy>().Damage(this._damage);
 			}
 
-			other.gameObject.GetComponent<Enemy.Enemy>().Damage(this.damage);
+			BulletManager.Instance.DestroyBullet(this.gameObject);
 		}
 
 		public void SetDestination(Vector3 destination) {
