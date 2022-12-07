@@ -19,15 +19,11 @@ namespace Src.Enemy {
 			this.start = new List<Transform>();
 		}
 
-		private void Awake() {
-			// Helper.FindComponent<>(spawnStart);
-		}
-
 		private void Start() {
-			this.StartCoroutine(this.Spawn());
+			// this.StartCoroutine(this.Spawn());
 		}
 
-		private IEnumerator Spawn() {
+		public IEnumerator Spawn() {
 			for (var i = 0; i < App.Waves; i++) {
 				for (var j = 0; j < App.Enemies; j++) {
 					var enemy = Instantiate(this.enemyPrefab, this.spawnStart.position, this.spawnStart.rotation, this.transform);

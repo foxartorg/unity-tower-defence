@@ -5,50 +5,36 @@ using UnityEngine.UI;
 
 namespace Scenes.GameScene {
 	public sealed class EventSystem : MonoBehaviour {
-		private static bool _autoload;
 		[SerializeField] private Button menuButton;
 		[SerializeField] private Button level1Button;
 		[SerializeField] private Button level2Button;
-		private int _prev;
-
-		private EventSystem() {
-			_autoload = true;
-		}
 
 		private void Awake() {
-			Application.targetFrameRate = 60;
+			if (App.Level == 0) {
+				this.LoadLevelScene(1);
+			}
 		}
 
 		private void Start() {
-			if (_autoload) {
-				_autoload = false;
-				App.Level = 1;
-				this._prev = App.LevelScene;
-				this.LoadLevel(App.Level);
-			}
-
-			this.menuButton.onClick.AddListener(() => this.StartCoroutine(SceneHelper.Load(App.MainSceneIndex)));
-			this.level1Button.onClick.AddListener(() => this.LoadLevel(1));
-			this.level2Button.onClick.AddListener(() => this.LoadLevel(2));
+			this.menuButton.onClick.AddListener(this.LoadMainScene);
+			this.level1Button.onClick.AddListener(() => this.LoadLevelScene(1));
+			this.level2Button.onClick.AddListener(() => this.LoadLevelScene(2));
 		}
 
-		public static void EnableAutoload() {
-			_autoload = true;
+		private void LoadMainScene() {
+			App.Level = 0;
+			this.StartCoroutine(SceneHelper.Load(App.MainSceneIndex));
 		}
 
-		private void LoadLevel(int level) {
-			if (SceneHelper.IsLoaded(this._prev)) {
-				this.StartCoroutine(SceneHelper.Unload(this._prev));
+		private void LoadLevelScene(int level) {
+			// Debug.Log($"UNLOAD {LevelManager.PrevLevelScene}");
+			if (SceneHelper.IsLoaded(App.PrevLevelScene)) {
+				this.StartCoroutine(SceneHelper.Unload(App.PrevLevelScene));
 			}
 
 			App.Level = level;
-			this.StartCoroutine(SceneHelper.Load(App.LevelScene, true));
-			this._prev = App.LevelScene;
-			CanvasUI.Instance.Level(App.Level);
-			CanvasUI.Instance.TowerCount(0, 0);
-			CanvasUI.Instance.EnemyCounter(0);
-			CanvasUI.Instance.BulletCounter(0);
-			CanvasUI.Instance.TowerEnemyCount(0);
+			// Debug.Log($"LOAD {LevelManager.CurrLevelScene}");
+			this.StartCoroutine(SceneHelper.Load(App.CurrLevelScene, true));
 		}
 	}
 }

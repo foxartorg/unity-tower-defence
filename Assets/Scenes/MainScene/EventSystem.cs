@@ -8,11 +8,10 @@ namespace Scenes.MainScene {
 		[SerializeField] private Button startButton;
 
 		private void Start() {
-			this.startButton.onClick.AddListener(this.StartGame);
+			this.startButton.onClick.AddListener(this.LoadGameScene);
 		}
 
-		private void StartGame() {
-			GameScene.EventSystem.EnableAutoload();
+		private void LoadGameScene() {
 			this.StartCoroutine(SceneHelper.Load(App.GameSceneIndex));
 		}
 	}
