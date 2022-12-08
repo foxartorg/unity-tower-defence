@@ -22,7 +22,7 @@ namespace Src.Enemy {
 		public IEnumerator Spawn() {
 			for (var i = 0; i < App.Waves; i++) {
 				for (var j = 0; j < App.Enemies; j++) {
-					this.CreateEnemy();
+					this.AddEnemy();
 					yield return new WaitForSeconds(App.EnemiesTimeout);
 				}
 
@@ -30,16 +30,16 @@ namespace Src.Enemy {
 			}
 		}
 
-		private void CreateEnemy() {
-			var enemy = Enemy.Add(this.enemyPrefab, this.transform, this.spawnStart);
+		private void AddEnemy() {
+			var enemy = Enemy.Add(this.enemyPrefab, this.spawnStart.position, this.transform);
 			this._enemyList.Add(enemy);
 			CanvasUI.Instance.EnemyCounter(this._enemyList.Count);
 		}
 
-		public void DestroyEnemy(GameObject enemy) {
+		public void RemoveEnemy(GameObject enemy) {
 			this._enemyList.Remove(enemy);
 			CanvasUI.Instance.EnemyCounter(this._enemyList.Count);
-			GetEnemy(enemy).Delete();
+			GetEnemy(enemy).Remove();
 		}
 
 		public void MoveEnemy(GameObject enemy) {
