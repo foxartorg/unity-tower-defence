@@ -12,7 +12,7 @@ namespace Src.Tower {
 		private Button _buttonHide;
 		private Button _buttonSell;
 		private Button _buttonUpgrade;
-		private GameObject _canvas;
+		private GameObject towerCanvas;
 		private Transform _gunTransform;
 		private Transform _headTransform;
 		private Transform _muzzleTransform;
@@ -29,7 +29,7 @@ namespace Src.Tower {
 			this._range = 3;
 			this.GetComponent<SphereCollider>().radius = this._range;
 			this._renderer = this.GetComponentInChildren<Renderer>();
-			this._canvas = GameObject.Find("Canvas");
+			this.towerCanvas = TowerManager.Instance.towerCanvas;
 			// var buttons = this._canvas.transform.Find("Buttons");
 			// var head = this._canvas.transform.Find("Head");
 			// this._buttonUpgrade = this._canvas.transform.Find("Buttons").Find("Upgrade").GetComponent<Button>();
@@ -38,7 +38,6 @@ namespace Src.Tower {
 			this._headTransform = this.transform.Find("Head");
 			this._gunTransform = this.transform.Find("Head").Find("Gun");
 			this._turretTransform = this.transform.Find("Head").Find("Turret");
-			// Debug.LogWarning(this._turretTransform.position);
 			this._muzzleTransform = this.transform.Find("Head").Find("Muzzle");
 			var position = this._gunTransform.position;
 			this._muzzleTransform.position = new Vector3(position.x - this._gunTransform.localScale.x, position.y, position.z);
@@ -57,7 +56,7 @@ namespace Src.Tower {
 
 		private void OnMouseDown() {
 			if (Input.GetMouseButtonDown(0)) {
-				this._canvas.SetActive(true);
+				Instantiate(this.towerCanvas, this.transform.position, Quaternion.identity, this.transform);
 			}
 		}
 

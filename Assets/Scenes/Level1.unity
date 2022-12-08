@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311918, g: 0.38073987, b: 0.35872698, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311915, g: 0.3807396, b: 0.35872662, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -255,6 +255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerPrefab: {fileID: 9141055176018091899, guid: 828b536d1363348a880de0da7cecf67b, type: 3}
+  towerCanvas: {fileID: 9114128477177090593, guid: d8d8ac3f5e487402f8610f1c5f6d2c6f, type: 3}
 --- !u!4 &43296519
 Transform:
   m_ObjectHideFlags: 0
@@ -4351,8 +4352,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 5231259221201410324, guid: 48bf1f36be2aff9d68fbf709d9178838, type: 3}
-  spawnStart: {fileID: 1574021958}
   spawnEnd: {fileID: 4074602797963613432}
+  spawnStart: {fileID: 1574021958}
 --- !u!1001 &4074602797963613431
 PrefabInstance:
   m_ObjectHideFlags: 0
