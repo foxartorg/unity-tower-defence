@@ -6,9 +6,6 @@ TagManager:
   tags:
   - Bullet
   - Enemy
-  - Wall
-  - Plane
-  - TowerPlatform
   - Tower
   - SpawnEnd
   - SpawnStart
@@ -19,7 +16,7 @@ TagManager:
   - 
   - Water
   - UI
-  - Tower
+  - 
   - 
   - 
   - 

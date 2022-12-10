@@ -14,7 +14,7 @@ namespace Src.Tower {
 		}
 
 		private void OnMouseEnter() {
-			if (!this._tower) {
+			if (!this._tower && TowerManager.Instance.CheckTower()) {
 				this._renderer.material.color = this._hoverColor;
 			}
 		}
@@ -26,10 +26,10 @@ namespace Src.Tower {
 		}
 
 		private void OnMouseOver() {
-			if (Input.GetMouseButtonDown(0) && !this._tower) {
+			if (Input.GetMouseButtonDown(0) && !this._tower && TowerManager.Instance.CheckTower()) {
 				this._tower = true;
 				this._renderer.material.color = this._initColor;
-				TowerManager.Instance.AddTower(this.gameObject);
+				TowerManager.Instance.CreateTower(this.gameObject);
 				Debug.Log("TowerPlatform left");
 			}
 

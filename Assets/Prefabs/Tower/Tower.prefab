@@ -374,7 +374,7 @@ GameObject:
   - component: {fileID: 768412932338301704}
   m_Layer: 6
   m_Name: Tower
-  m_TagString: Tower
+  m_TagString: Undefined
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -421,4 +421,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361234fb6db744d6299263fac7bb5cd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies: []

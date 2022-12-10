@@ -1,3 +1,4 @@
+using System.Collections;
 using Common;
 using Src.Enemy;
 using UnityEngine;
@@ -36,19 +37,28 @@ namespace Src {
 		}
 
 		private void Start() {
-			if (Camera.main) {
-				this.Run();
-				return;
+			if (!Camera.main) {
+				Level = this.level;
+				this.StartCoroutine(SceneHelper.Load(GameSceneIndex, true));
+				this.StartCoroutine(SceneHelper.SetActive(GameSceneIndex));
 			}
 
-			Level = this.level;
-			this.StartCoroutine(SceneHelper.Load(GameSceneIndex, true));
-			this.StartCoroutine(SceneHelper.SetActive(GameSceneIndex));
-			this.Run();
+			this.StartCoroutine(Run());
 		}
 
-		private void Run() {
-			this.StartCoroutine(EnemyManager.Instance.Spawn());
+		public static bool IsEnemyTag(Component component) {
+			return component.CompareTag("Enemy");
+		}
+
+		private static IEnumerator Run() {
+			for (var i = 0; i < Waves; i++) {
+				for (var j = 0; j < Enemies; j++) {
+					EnemyManager.Instance.CreateEnemy();
+					yield return new WaitForSeconds(EnemiesTimeout);
+				}
+
+				yield return new WaitForSeconds(WavesTimeout);
+			}
 		}
 	}
 }

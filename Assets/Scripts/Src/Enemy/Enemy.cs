@@ -20,25 +20,25 @@ namespace Src.Enemy {
 			this._slider.value = this._slider.maxValue = this._health;
 		}
 
+		private void Start() {
+			this.MoveTo(EnemyManager.Instance.GetDestination());
+		}
+
 		private void OnTriggerEnter(Collider other) {
 			if (other.gameObject.CompareTag("Bullet")) {
 				// Debug.Log("bullet");
 			}
 
-			if (other.gameObject.CompareTag("SpawnStart")) {
-				EnemyManager.Instance.MoveEnemy(this.gameObject);
-			}
-
-			if (other.gameObject.CompareTag("SpawnEnd")) {
+			if (other.gameObject.CompareTag("Finish")) {
 				EnemyManager.Instance.DestroyEnemy(this.gameObject);
 			}
 		}
 
 		private void OnTriggerExit(Collider other) {
-			if (other.gameObject.CompareTag("Tower")) { }
+			// if (other.gameObject.CompareTag("Tower")) { }
 		}
 
-		public void MoveTo(Vector3 position) {
+		private void MoveTo(Vector3 position) {
 			this._navMeshAgent.SetDestination(position);
 		}
 
@@ -50,7 +50,6 @@ namespace Src.Enemy {
 			}
 
 			EnemyManager.Instance.DestroyEnemy(this.gameObject);
-			Destroy(this.gameObject);
 		}
 	}
 }
