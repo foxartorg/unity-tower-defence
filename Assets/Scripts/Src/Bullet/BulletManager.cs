@@ -4,13 +4,13 @@ using Scenes.GameScene;
 using UnityEngine;
 
 namespace Src.Bullet {
-	public sealed class BulletManager : MonoComponent<BulletManager> {
+	public sealed class BulletManager : MonoInstance<BulletManager> {
 		[SerializeField] private GameObject bulletPrefab;
-		private List<GameObject> _bulletList;
+		private readonly List<GameObject> _bulletList;
 		private int _counter;
 		private double _timeout;
 
-		private void Awake() {
+		private BulletManager() {
 			this._bulletList = new List<GameObject>();
 		}
 
@@ -22,7 +22,8 @@ namespace Src.Bullet {
 			// var bullet = this.gameObject.AddComponent<Bullet>();
 			// this._bulletList.Add(bullet.gameObject);
 			var bullet = Instantiate(this.bulletPrefab, parent.position, Quaternion.identity, this.transform);
-			GetBullet(bullet).SetDestination(destination.position);
+			GetBullet(bullet).MoveTo(destination.position);
+			// this.MoveBullet(bullet, destination.position);
 			this._bulletList.Add(bullet);
 			CanvasUI.Instance.BulletCounter(this._bulletList.Count);
 		}
@@ -31,6 +32,10 @@ namespace Src.Bullet {
 			this._bulletList.Remove(bullet);
 			Destroy(bullet);
 			CanvasUI.Instance.BulletCounter(this._bulletList.Count);
+		}
+
+		public void MoveBullet(GameObject bullet, Vector3 position) {
+			GetBullet(bullet).MoveTo(position);
 		}
 
 		public void Shoot(Transform towerTransform, Transform destination) {

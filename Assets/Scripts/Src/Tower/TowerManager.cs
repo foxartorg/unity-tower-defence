@@ -3,7 +3,7 @@ using Scenes.GameScene;
 using UnityEngine;
 
 namespace Src.Tower {
-	public sealed class TowerManager : MonoComponent<TowerManager> {
+	public sealed class TowerManager : MonoInstance<TowerManager> {
 		[SerializeField] private GameObject towerPrefab;
 		[SerializeField] public GameObject towerCanvas;
 		private int _counter;
@@ -24,12 +24,12 @@ namespace Src.Tower {
 				return;
 			}
 
-			Tower.Add(this.towerPrefab, this.GetPosition(platform.transform), this.transform);
+			Instantiate(this.towerPrefab, this.GetPosition(platform.transform), Quaternion.identity, this.transform);
 			CanvasUI.Instance.TowerCount(++this._counter, App.Towers);
 		}
 
 		public void RemoveTower(GameObject tower) {
-			GetTower(tower).Remove();
+			Destroy(this.gameObject);
 			CanvasUI.Instance.TowerCount(--this._counter, App.Towers);
 		}
 	}

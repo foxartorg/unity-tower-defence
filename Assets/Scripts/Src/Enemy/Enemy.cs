@@ -1,12 +1,9 @@
-using System.Collections.Generic;
-using Common;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
 namespace Src.Enemy {
-	public sealed class Enemy : MonoComponent<Enemy> {
-		private readonly List<GameObject> _enemiesList;
+	public sealed class Enemy : MonoBehaviour {
 		private int _health;
 		private NavMeshAgent _navMeshAgent;
 		private Slider _slider;

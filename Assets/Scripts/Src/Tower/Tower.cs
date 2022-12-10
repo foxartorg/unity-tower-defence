@@ -8,28 +8,28 @@ using UnityEngine.UI;
 namespace Src.Tower {
 	public class Tower : MonoBehaviour {
 		private const float ShootTimeout = 0.5f;
-		public List<GameObject> enemies;
+		private readonly List<GameObject> _enemyList;
 		private Button _buttonHide;
 		private Button _buttonSell;
 		private Button _buttonUpgrade;
-		private GameObject towerCanvas;
 		private Transform _gunTransform;
 		private Transform _headTransform;
 		private Transform _muzzleTransform;
 		private float _range;
 		private Renderer _renderer;
 		private float _timeout;
+		private GameObject _towerCanvas;
 		private Transform _turretTransform;
 
 		private Tower() {
-			this.enemies = new List<GameObject>();
+			this._enemyList = new List<GameObject>();
 		}
 
 		private void Awake() {
 			this._range = 3;
 			this.GetComponent<SphereCollider>().radius = this._range;
 			this._renderer = this.GetComponentInChildren<Renderer>();
-			this.towerCanvas = TowerManager.Instance.towerCanvas;
+			this._towerCanvas = TowerManager.Instance.towerCanvas;
 			// var buttons = this._canvas.transform.Find("Buttons");
 			// var head = this._canvas.transform.Find("Head");
 			// this._buttonUpgrade = this._canvas.transform.Find("Buttons").Find("Upgrade").GetComponent<Button>();
@@ -56,7 +56,7 @@ namespace Src.Tower {
 
 		private void OnMouseDown() {
 			if (Input.GetMouseButtonDown(0)) {
-				Instantiate(this.towerCanvas, this.transform.position, Quaternion.identity, this.transform);
+				Instantiate(this._towerCanvas, this.transform.position, Quaternion.identity, this.transform);
 			}
 		}
 
@@ -65,8 +65,8 @@ namespace Src.Tower {
 				return;
 			}
 
-			this.enemies.Add(other.gameObject);
-			CanvasUI.Instance.TowerEnemyCount(this.enemies.Count);
+			this._enemyList.Add(other.gameObject);
+			CanvasUI.Instance.TowerEnemyCount(this._enemyList.Count);
 		}
 
 		private void OnTriggerExit(Collider other) {
@@ -74,16 +74,16 @@ namespace Src.Tower {
 				return;
 			}
 
-			this.enemies.Remove(other.gameObject);
-			CanvasUI.Instance.TowerEnemyCount(this.enemies.Count);
+			this._enemyList.Remove(other.gameObject);
+			CanvasUI.Instance.TowerEnemyCount(this._enemyList.Count);
 		}
 
 		private void OnTriggerStay(Collider other) {
-			if (!this.enemies[0]) {
+			if (!other.CompareTag("Enemy")) {
 				return;
 			}
 
-			if (!other.CompareTag("Enemy")) {
+			if (!this._enemyList[0]) {
 				return;
 			}
 
@@ -93,18 +93,14 @@ namespace Src.Tower {
 			}
 
 			this._timeout = ShootTimeout;
-			var direction = this._turretTransform.position - this.enemies[0].transform.position;
+			this.RotateHead(this._enemyList[0].transform.position);
+			BulletManager.Instance.Shoot(this._muzzleTransform, this._enemyList.First().transform);
+		}
+
+		private void RotateHead(Vector3 position) {
+			var direction = this._turretTransform.position - position;
 			var rotation = Quaternion.LookRotation(direction).eulerAngles;
 			this._headTransform.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
-			BulletManager.Instance.Shoot(this._muzzleTransform, this.enemies.First().transform);
-		}
-
-		public static GameObject Add(GameObject prefab, Vector3 position, Transform parent) {
-			return Instantiate(prefab, position, Quaternion.identity, parent);
-		}
-
-		public void Remove() {
-			Destroy(this.gameObject);
 		}
 
 		private void Upgrade() {

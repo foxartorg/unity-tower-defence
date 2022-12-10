@@ -5,13 +5,13 @@ using Scenes.GameScene;
 using UnityEngine;
 
 namespace Src.Enemy {
-	public sealed class EnemyManager : MonoComponent<EnemyManager> {
+	public sealed class EnemyManager : MonoInstance<EnemyManager> {
 		[SerializeField] private GameObject enemyPrefab;
 		[SerializeField] private Transform spawnEnd;
 		[SerializeField] private Transform spawnStart;
-		private List<GameObject> _enemyList;
+		private readonly List<GameObject> _enemyList;
 
-		private void Awake() {
+		private EnemyManager() {
 			this._enemyList = new List<GameObject>();
 		}
 
@@ -38,7 +38,6 @@ namespace Src.Enemy {
 		}
 
 		public void DestroyEnemy(GameObject enemy) {
-			// GetEnemy(enemy).Remove();
 			this._enemyList.Remove(enemy);
 			Destroy(enemy);
 			CanvasUI.Instance.EnemyCounter(this._enemyList.Count);
