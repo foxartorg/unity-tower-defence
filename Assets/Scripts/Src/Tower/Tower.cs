@@ -12,7 +12,6 @@ namespace Src.Tower {
 		private Button _buttonHide;
 		private Button _buttonSell;
 		private Button _buttonUpgrade;
-		private GameObject towerCanvas;
 		private Transform _gunTransform;
 		private Transform _headTransform;
 		private Transform _muzzleTransform;
@@ -20,7 +19,8 @@ namespace Src.Tower {
 		private Renderer _renderer;
 		private float _timeout;
 		private Transform _turretTransform;
-		private bool _towerCanvas;
+		private GameObject towerCanvasPrefab;
+		private GameObject instantiate;
 
 		private Tower() {
 			this.enemies = new List<GameObject>();
@@ -29,25 +29,23 @@ namespace Src.Tower {
 		private void Awake() {
 			this._range = 3;
 			this.GetComponent<SphereCollider>().radius = this._range;
-			this._renderer = this.GetComponent<Renderer>();
-			this.towerCanvas = TowerManager.Instance.towerCanvas;
-			// var buttons = this._canvas.transform.Find("Buttons");
-			// var head = this._canvas.transform.Find("Head");
-			this._buttonUpgrade = this.towerCanvas.transform.Find("Buttons").Find("Upgrade").GetComponent<Button>();
-			this._buttonSell = this.towerCanvas.transform.Find("Buttons").Find("Sell").GetComponent<Button>();
-			this._buttonHide = this.towerCanvas.transform.Find("Buttons").Find("Hide").GetComponent<Button>();
+			this._renderer = this.GetComponentInChildren<Renderer>();
+			this.towerCanvasPrefab = TowerManager.Instance.towerCanvas;
 			this._headTransform = this.transform.Find("Head");
 			this._gunTransform = this.transform.Find("Head").Find("Gun");
 			this._turretTransform = this.transform.Find("Head").Find("Turret");
 			this._muzzleTransform = this.transform.Find("Head").Find("Muzzle");
 			var position = this._gunTransform.position;
 			this._muzzleTransform.position = new Vector3(position.x - this._gunTransform.localScale.x, position.y, position.z);
-		}
-
-		private void Start() {
+			var transformCanvasPosition = transform.position;
+			this.instantiate = Instantiate(this.towerCanvasPrefab, new Vector3(transformCanvasPosition.x, transformCanvasPosition.y + 1f, transformCanvasPosition.z), this.towerCanvasPrefab.transform.rotation, transform);
+			this.instantiate.SetActive(false);
+			this._buttonUpgrade = this.instantiate.transform.Find("Buttons").Find("Upgrade").GetComponent<Button>();
+			this._buttonSell = this.instantiate.transform.Find("Buttons").Find("Sell").GetComponent<Button>();
+			this._buttonHide = this.instantiate.transform.Find("Buttons").Find("Hide").GetComponent<Button>();
 			this._buttonUpgrade.onClick.AddListener(this.Upgrade);
 			this._buttonSell.onClick.AddListener(() => TowerManager.Instance.RemoveTower(this.gameObject));
-			this._buttonHide.onClick.AddListener(() => this.towerCanvas.SetActive(false));
+			this._buttonHide.onClick.AddListener(() => this.instantiate.SetActive(false));
 		}
 
 		private void OnDrawGizmos() {
@@ -56,14 +54,11 @@ namespace Src.Tower {
 		}
 
 		private void OnMouseDown() {
-			if (!Input.GetMouseButtonDown(0) || this._towerCanvas) {
+			if (!Input.GetMouseButtonDown(0)) {
 				return;
 			}
-
-			var transformCanvas = this.transform;
-			var position = transformCanvas.position;
-			Instantiate(this.towerCanvas, new Vector3(position.x, position.y + 1f, position.z), this.towerCanvas.transform.rotation, transformCanvas);
-			this._towerCanvas = true;
+			
+			this.instantiate.SetActive(true);
 		}
 
 		private void OnTriggerEnter(Collider other) {
@@ -114,8 +109,8 @@ namespace Src.Tower {
 		}
 
 		private void Upgrade() {
+			this._range += 1f;
 			this._renderer.material.color = Color.green;
-			Debug.Log("XXX");
 		}
 	}
 }
