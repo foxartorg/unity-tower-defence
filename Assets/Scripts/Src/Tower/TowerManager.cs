@@ -18,14 +18,13 @@ namespace Src.Tower {
 			return new Vector3(position.x, position.y + parentScale.y / 2 + localScale.y / 2, position.z);
 		}
 
-		public GameObject AddTower(GameObject platform) {
-			if (this._counter >= App.Towers) {
-				return null;
+		public void AddTower(GameObject platform) {
+			if (this._counter == App.Towers) {
+				return;
 			}
 
-			var tower = Tower.Add(this.towerPrefab, this.GetPosition(platform.transform), this.transform);
+			Tower.Add(this.towerPrefab, this.GetPosition(platform.transform), this.transform);
 			CanvasUI.Instance.TowerCount(++this._counter, App.Towers);
-			return tower;
 		}
 
 		public void RemoveTower(GameObject tower) {

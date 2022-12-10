@@ -92,9 +92,8 @@ namespace Src.Tower {
 			}
 
 			this._timeout = ShootTimeout;
-			var dir = this._turretTransform.position - this.enemies[0].transform.position;
-			var lookRotation = Quaternion.LookRotation(dir);
-			var rotation = lookRotation.eulerAngles;
+			var direction = this._turretTransform.position - this.enemies[0].transform.position;
+			var rotation = Quaternion.LookRotation(direction).eulerAngles;
 			this._headTransform.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 			BulletManager.Instance.Shoot(this._muzzleTransform, this.enemies.First().transform);
 		}

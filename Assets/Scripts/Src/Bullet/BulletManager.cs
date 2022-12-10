@@ -14,22 +14,23 @@ namespace Src.Bullet {
 			this._bulletList = new List<GameObject>();
 		}
 
-		private void CreateBullet(Transform parentTransform, Transform destination) {
+		private static Bullet GetBullet(GameObject bullet) {
+			return bullet.GetComponent<Bullet>();
+		}
+
+		private void CreateBullet(Transform parent, Transform destination) {
 			// var bullet = this.gameObject.AddComponent<Bullet>();
-			// bullet.SetDestination();
-			var instantiate = Instantiate(this.bulletPrefab, parentTransform.position, parentTransform.rotation, this.transform);
-			// Debug.Break();
-			var bullet = instantiate.GetComponent<Bullet>();
-			// var destination = new Vector3(0, 0.33f, 0);
-			this._bulletList.Add(instantiate);
-			bullet.SetDestination(destination.position);
+			// this._bulletList.Add(bullet.gameObject);
+			var bullet = Instantiate(this.bulletPrefab, parent.position, Quaternion.identity, this.transform);
+			GetBullet(bullet).SetDestination(destination.position);
+			this._bulletList.Add(bullet);
 			CanvasUI.Instance.BulletCounter(this._bulletList.Count);
 		}
 
 		public void DestroyBullet(GameObject bullet) {
 			this._bulletList.Remove(bullet);
-			CanvasUI.Instance.BulletCounter(this._bulletList.Count);
 			Destroy(bullet);
+			CanvasUI.Instance.BulletCounter(this._bulletList.Count);
 		}
 
 		public void Shoot(Transform towerTransform, Transform destination) {

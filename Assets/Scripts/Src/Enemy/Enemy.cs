@@ -14,9 +14,9 @@ namespace Src.Enemy {
 		private void Awake() {
 			this._health = 100;
 			this._navMeshAgent = this.GetComponent<NavMeshAgent>();
-			this._navMeshAgent.speed = 25;
-			this._navMeshAgent.acceleration = 50;
-			this._navMeshAgent.angularSpeed = 100;
+			this._navMeshAgent.speed = 50 / 50f;
+			this._navMeshAgent.acceleration = this._navMeshAgent.speed * 2;
+			this._navMeshAgent.angularSpeed = this._navMeshAgent.speed * 2;
 			this._navMeshAgent.stoppingDistance = 0;
 			this._navMeshAgent.autoBraking = false;
 			this._slider = this.GetComponentInChildren<Slider>();
@@ -24,25 +24,21 @@ namespace Src.Enemy {
 		}
 
 		private void OnTriggerEnter(Collider other) {
+			if (other.gameObject.CompareTag("Bullet")) {
+				// Debug.Log("bullet");
+			}
+
 			if (other.gameObject.CompareTag("SpawnStart")) {
 				EnemyManager.Instance.MoveEnemy(this.gameObject);
 			}
 
 			if (other.gameObject.CompareTag("SpawnEnd")) {
-				EnemyManager.Instance.RemoveEnemy(this.gameObject);
+				EnemyManager.Instance.DestroyEnemy(this.gameObject);
 			}
 		}
 
 		private void OnTriggerExit(Collider other) {
 			if (other.gameObject.CompareTag("Tower")) { }
-		}
-
-		public static GameObject Add(GameObject prefab, Vector3 position, Transform parent) {
-			return Instantiate(prefab, position, Quaternion.identity, parent);
-		}
-
-		public void Remove() {
-			Destroy(this.gameObject);
 		}
 
 		public void MoveTo(Vector3 position) {
@@ -56,7 +52,7 @@ namespace Src.Enemy {
 				return;
 			}
 
-			EnemyManager.Instance.RemoveEnemy(this.gameObject);
+			EnemyManager.Instance.DestroyEnemy(this.gameObject);
 			Destroy(this.gameObject);
 		}
 	}
