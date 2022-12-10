@@ -5,6 +5,7 @@ using UnityEngine;
 namespace Src.Tower {
 	public sealed class TowerManager : MonoComponent<TowerManager> {
 		[SerializeField] private GameObject towerPrefab;
+		[SerializeField] public GameObject towerCanvas;
 		private int _counter;
 
 		private static Tower GetTower(GameObject tower) {
