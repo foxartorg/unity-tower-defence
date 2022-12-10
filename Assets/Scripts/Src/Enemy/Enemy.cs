@@ -14,7 +14,7 @@ namespace Src.Enemy {
 		private void Awake() {
 			this._health = 100;
 			this._navMeshAgent = this.GetComponent<NavMeshAgent>();
-			this._navMeshAgent.speed = 50 / 50f;
+			this._navMeshAgent.speed = 100 / 50f;
 			this._navMeshAgent.acceleration = this._navMeshAgent.speed * 2;
 			this._navMeshAgent.angularSpeed = this._navMeshAgent.speed * 2;
 			this._navMeshAgent.stoppingDistance = 0;

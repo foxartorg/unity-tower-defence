@@ -20,6 +20,7 @@ namespace Src.Tower {
 		private Renderer _renderer;
 		private float _timeout;
 		private Transform _turretTransform;
+		private bool _towerCanvas;
 
 		private Tower() {
 			this.enemies = new List<GameObject>();
@@ -28,13 +29,13 @@ namespace Src.Tower {
 		private void Awake() {
 			this._range = 3;
 			this.GetComponent<SphereCollider>().radius = this._range;
-			this._renderer = this.GetComponentInChildren<Renderer>();
+			this._renderer = this.GetComponent<Renderer>();
 			this.towerCanvas = TowerManager.Instance.towerCanvas;
 			// var buttons = this._canvas.transform.Find("Buttons");
 			// var head = this._canvas.transform.Find("Head");
-			// this._buttonUpgrade = this._canvas.transform.Find("Buttons").Find("Upgrade").GetComponent<Button>();
-			// this._buttonSell = this._canvas.transform.Find("Buttons").Find("Sell").GetComponent<Button>();
-			// this._buttonHide = this.gameObject.transform.Find("Hide").GetComponent<Button>();
+			this._buttonUpgrade = this.towerCanvas.transform.Find("Buttons").Find("Upgrade").GetComponent<Button>();
+			this._buttonSell = this.towerCanvas.transform.Find("Buttons").Find("Sell").GetComponent<Button>();
+			this._buttonHide = this.towerCanvas.transform.Find("Buttons").Find("Hide").GetComponent<Button>();
 			this._headTransform = this.transform.Find("Head");
 			this._gunTransform = this.transform.Find("Head").Find("Gun");
 			this._turretTransform = this.transform.Find("Head").Find("Turret");
@@ -44,9 +45,9 @@ namespace Src.Tower {
 		}
 
 		private void Start() {
-			// this._buttonHide.onClick.AddListener(() => this._canvas.SetActive(false));
-			// this._buttonSell.onClick.AddListener(() => TowerManager.Instance.RemoveTower(this.gameObject));
-			// this._buttonUpgrade.onClick.AddListener(this.Upgrade);
+			this._buttonUpgrade.onClick.AddListener(this.Upgrade);
+			this._buttonSell.onClick.AddListener(() => TowerManager.Instance.RemoveTower(this.gameObject));
+			this._buttonHide.onClick.AddListener(() => this.towerCanvas.SetActive(false));
 		}
 
 		private void OnDrawGizmos() {
@@ -55,9 +56,14 @@ namespace Src.Tower {
 		}
 
 		private void OnMouseDown() {
-			if (Input.GetMouseButtonDown(0)) {
-				Instantiate(this.towerCanvas, this.transform.position, Quaternion.identity, this.transform);
+			if (!Input.GetMouseButtonDown(0) || this._towerCanvas) {
+				return;
 			}
+
+			var transformCanvas = this.transform;
+			var position = transformCanvas.position;
+			Instantiate(this.towerCanvas, new Vector3(position.x, position.y + 1f, position.z), this.towerCanvas.transform.rotation, transformCanvas);
+			this._towerCanvas = true;
 		}
 
 		private void OnTriggerEnter(Collider other) {
@@ -109,6 +115,7 @@ namespace Src.Tower {
 
 		private void Upgrade() {
 			this._renderer.material.color = Color.green;
+			Debug.Log("XXX");
 		}
 	}
 }
