@@ -19,6 +19,8 @@ namespace Src.Tower {
 		private float _timeout;
 		private GameObject _towerCanvas;
 		private Transform _turretTransform;
+		private GameObject towerCanvasPrefab;
+		private GameObject instantiate;
 
 		private Tower() {
 			this._enemyList = new List<GameObject>();
@@ -27,6 +29,7 @@ namespace Src.Tower {
 		private void Awake() {
 			this.GetComponent<SphereCollider>().radius = this._range = 3;
 			this._renderer = this.GetComponentInChildren<Renderer>();
+			this.towerCanvasPrefab = TowerManager.Instance.towerCanvas;
 			this._headTransform = this.transform.Find("Head");
 			this._gunTransform = this._headTransform.Find("Gun");
 			this._turretTransform = this._headTransform.Find("Turret");
@@ -34,12 +37,15 @@ namespace Src.Tower {
 			this._towerCanvas = TowerManager.Instance.towerCanvas;
 			var position = this._gunTransform.position;
 			this._muzzleTransform.position = new Vector3(position.x - this._gunTransform.localScale.x, position.y, position.z);
-		}
-
-		private void Start() {
-			// this._buttonHide.onClick.AddListener(() => this._canvas.SetActive(false));
-			// this._buttonSell.onClick.AddListener(() => TowerManager.Instance.RemoveTower(this.gameObject));
-			// this._buttonUpgrade.onClick.AddListener(this.Upgrade);
+			var transformCanvasPosition = transform.position;
+			this.instantiate = Instantiate(this.towerCanvasPrefab, new Vector3(transformCanvasPosition.x, transformCanvasPosition.y + 1f, transformCanvasPosition.z), this.towerCanvasPrefab.transform.rotation, transform);
+			this.instantiate.SetActive(false);
+			this._buttonUpgrade = this.instantiate.transform.Find("Buttons").Find("Upgrade").GetComponent<Button>();
+			this._buttonSell = this.instantiate.transform.Find("Buttons").Find("Sell").GetComponent<Button>();
+			this._buttonHide = this.instantiate.transform.Find("Buttons").Find("Hide").GetComponent<Button>();
+			this._buttonUpgrade.onClick.AddListener(this.Upgrade);
+			this._buttonSell.onClick.AddListener(() => TowerManager.Instance.RemoveTower(this.gameObject));
+			this._buttonHide.onClick.AddListener(() => this.instantiate.SetActive(false));
 		}
 
 		private void OnDrawGizmos() {
@@ -49,6 +55,14 @@ namespace Src.Tower {
 
 		private void OnMouseDown() {
 			if (!Input.GetMouseButtonDown(0)) {
+				return;
+			}
+
+			this.instantiate.SetActive(true);
+		}
+
+		private void OnTriggerEnter(Collider other) {
+			if (!other.CompareTag("Enemy")) {
 				return;
 			}
 
@@ -111,6 +125,7 @@ namespace Src.Tower {
 		}
 
 		private void Upgrade() {
+			this._range += 1f;
 			this._renderer.material.color = Color.green;
 		}
 	}
