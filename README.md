@@ -1,36 +1,31 @@
-# unity-tower-defence
+[//]: # (https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 
-## Instructions
-
-### Run project
-
-in **Unity Editor** on **Project** tab
-in **Assets/Scenes** folder
-select **MainScene** or **GameScene** and press play button
+# [unity-tower-defence](https://github.com/foxartorg/unity-tower-defence)
 
 ## Request for Comments
 
-### Manager class
-all classes that can instantiate dynamic object
-should be extended from **Assets/Common/Manager**
-and implement getter **Instance** as described
+### classes
+
+All classes that can instantiate dynamic object should be extended from **Assets/Scripts/Common/MonoBehaviourSingleton.cs**
+
+To access public properties use getter **Instance** from outside
+
+### fields
+
+[SerializeField] should be used only to connect prefabs or expose foreign variables
+
+### structure
 
 ```c#
-using Common;
-
-public class MyObjectManager : Manager {
+public class MyClass : MonoBehaviourSingleton {
     [SerializeField] private GameObject myGameObject;
-    public static MyObjectManager Instance { get; private set; }
 
     public void Awake() {
-        Instance = this.SingleInstance<MyObjectManager>(this, Instance);
+        // use to set up fields
     }
     
-    public GameObject Create(Transform parentTransform) {
-        var vector3 = Helper.PositionUpFromParent(this.myGameObject.transform, parentTransform);
-        return Instantiate(this.myGameObject, vector3, parentTransform.rotation, this.transform);
+    public void Start() {
+        // use to put logic
     }
-    
-    // you code goes here
 }
 ```

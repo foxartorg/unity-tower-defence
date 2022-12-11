@@ -5,32 +5,36 @@ namespace Src.Tower {
 		private Color _hoverColor;
 		private Color _initColor;
 		private Renderer _renderer;
-		private GameObject _tower;
+		private bool _tower;
 
 		private void Awake() {
-			this._renderer = this.GetComponent<Renderer>();
+			this._renderer = this.GetComponentInChildren<Renderer>();
 			this._hoverColor = new Color(0, 255, 255, 127);
 			this._initColor = this._renderer.material.color;
 		}
 
 		private void OnMouseEnter() {
-			if (this._tower == null) {
+			if (!this._tower && TowerManager.Instance.CheckTower()) {
 				this._renderer.material.color = this._hoverColor;
 			}
 		}
 
 		private void OnMouseExit() {
-			this._renderer.material.color = this._initColor;
+			if (!this._tower) {
+				this._renderer.material.color = this._initColor;
+			}
 		}
 
 		private void OnMouseOver() {
-			if (Input.GetMouseButtonDown(0) && this._tower == null) {
+			if (Input.GetMouseButtonDown(0) && !this._tower && TowerManager.Instance.CheckTower()) {
+				this._tower = true;
 				this._renderer.material.color = this._initColor;
-				this._tower = TowerManager.Instance.AddTower(this.gameObject);
+				TowerManager.Instance.CreateTower(this.gameObject);
+				Debug.Log("TowerPlatform left");
 			}
 
 			if (Input.GetMouseButtonDown(2)) {
-				Debug.Log("Pressed middle click.");
+				Debug.Log("TowerPlatform middle");
 			}
 		}
 	}

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Examples {
-	public sealed class SceneManagerExample : MonoBehaviourSingleton<SceneManagerExample> {
+	public sealed class SceneManagerExample : MonoInstance<SceneManagerExample> {
 		private void OnEnable() {
 			SceneManager.sceneLoaded += OnEnableHook;
 		}

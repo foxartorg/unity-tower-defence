@@ -644,6 +644,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plane
       objectReference: {fileID: 0}
+    - target: {fileID: 5268652735276994456, guid: 0e5484ca30c131a398fd466a7015630f, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 5268652735276994457, guid: 0e5484ca30c131a398fd466a7015630f, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -1382,6 +1386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerPrefab: {fileID: 9141055176018091899, guid: 828b536d1363348a880de0da7cecf67b, type: 3}
+  towerCanvas: {fileID: 0}
 --- !u!114 &2025623009631865340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1394,11 +1399,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae815604265046fbada6e52e4bfa5cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: []
-  stop: []
-  spawnStart: {fileID: 0}
-  spawnEnd: {fileID: 0}
   enemyPrefab: {fileID: 5231259221201410324, guid: 48bf1f36be2aff9d68fbf709d9178838, type: 3}
+  spawnEnd: {fileID: 0}
+  spawnStart: {fileID: 0}
 --- !u!4 &2025623009631865341
 Transform:
   m_ObjectHideFlags: 0

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Scenes.GameScene;
 using Src.Bullet;
 using UnityEngine;
@@ -7,50 +6,40 @@ using UnityEngine.UI;
 
 namespace Src.Tower {
 	public class Tower : MonoBehaviour {
-		private const float Timeout = 0.5f;
-		public List<GameObject> enemies;
-		private Button _button;
+		private const float ShootTimeout = 3f;
+		private readonly List<GameObject> _enemyList;
+		private Button _buttonHide;
 		private Button _buttonSell;
 		private Button _buttonUpgrade;
 		private Transform _gunTransform;
-		private Transform _head;
+		private Transform _headTransform;
 		private Transform _muzzleTransform;
 		private float _range;
 		private Renderer _renderer;
 		private float _timeout;
-		private GameObject canvas;
-		private int counter;
-		private Transform turret;
+		private GameObject _towerCanvas;
+		private Transform _turretTransform;
 
 		private Tower() {
-			this.enemies = new List<GameObject>();
+			this._enemyList = new List<GameObject>();
 		}
 
 		private void Awake() {
-			this.GetComponent<SphereCollider>().radius = this._range;
+			this.GetComponent<SphereCollider>().radius = this._range = 3;
 			this._renderer = this.GetComponentInChildren<Renderer>();
-			this.canvas = GameObject.Find("TowerCanvas");
-			this._buttonUpgrade = this.transform.Find("TowerCanvas").Find("Buttons").Find("Upgrade").GetComponent<Button>();
-			this._buttonSell = this.transform.Find("TowerCanvas").Find("Buttons").Find("Sell").GetComponent<Button>();
-			this._button = this.transform.Find("TowerCanvas").Find("Buttons").Find("Hide").GetComponent<Button>();
-			this._head = this.transform.Find("Head");
-			this.turret = this.transform.Find("Head").Find("Turret");
-			this._gunTransform = this.transform.Find("Head").Find("Gun");
-			this._muzzleTransform = this.transform.Find("Head").Find("Muzzle");
+			this._headTransform = this.transform.Find("Head");
+			this._gunTransform = this._headTransform.Find("Gun");
+			this._turretTransform = this._headTransform.Find("Turret");
+			this._muzzleTransform = this._headTransform.Find("Muzzle");
+			this._towerCanvas = TowerManager.Instance.towerCanvas;
 			var position = this._gunTransform.position;
-			this._muzzleTransform.position = new Vector3(position.x, position.y, position.z - this._gunTransform.localScale.z * 3);
+			this._muzzleTransform.position = new Vector3(position.x - this._gunTransform.localScale.x, position.y, position.z);
 		}
 
 		private void Start() {
-			this._button.onClick.AddListener(() => this.canvas.SetActive(false));
-			this._buttonSell.onClick.AddListener(() => TowerManager.Instance.DeleteTower(this.gameObject));
-			this._buttonUpgrade.onClick.AddListener(() => this.Upgrade(3));
-		}
-
-		private void OnDestroy() {
-			foreach (var i in this.enemies) {
-				i.GetComponent<Enemy.Enemy>().enemies.Remove(this.gameObject);
-			}
+			// this._buttonHide.onClick.AddListener(() => this._canvas.SetActive(false));
+			// this._buttonSell.onClick.AddListener(() => TowerManager.Instance.RemoveTower(this.gameObject));
+			// this._buttonUpgrade.onClick.AddListener(this.Upgrade);
 		}
 
 		private void OnDrawGizmos() {
@@ -59,63 +48,70 @@ namespace Src.Tower {
 		}
 
 		private void OnMouseDown() {
-			if (Input.GetMouseButtonDown(0)) {
-				this.canvas.SetActive(true);
-			}
-		}
-
-		private void OnTriggerEnter(Collider other) {
-			if (!other.CompareTag("Enemy")) {
+			if (!Input.GetMouseButtonDown(0)) {
 				return;
 			}
 
-			this.enemies.Add(other.gameObject);
-			CanvasUI.Instance.TowerEnemyCount(this.enemies.Count);
+			var selfTransform = this.transform;
+			var canvas = Instantiate(this._towerCanvas, selfTransform.position, Quaternion.identity, selfTransform);
+			canvas.SetActive(false);
 		}
 
-		private void OnTriggerExit(Collider other) {
-			if (!other.CompareTag("Enemy")) {
+		private void OnTriggerEnter(Collider component) {
+			if (!App.IsEnemyTag(component)) {
 				return;
 			}
 
-			this.enemies.Remove(other.gameObject);
-			CanvasUI.Instance.TowerEnemyCount(this.enemies.Count);
+			this._enemyList.Add(component.gameObject);
+			CanvasUI.Instance.TowerEnemyCount(this._enemyList.Count);
 		}
 
-		private void OnTriggerStay(Collider other) {
-			if (this.enemies.Count == 0) {
+		private void OnTriggerExit(Collider component) {
+			if (!App.IsEnemyTag(component)) {
 				return;
 			}
 
-			var dir = this.turret.position - this.enemies[0].transform.position;
-			var lookRotation = Quaternion.LookRotation(dir);
-			var rotation = lookRotation.eulerAngles;
-			this._head.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+			this._enemyList.Remove(component.gameObject);
+			CanvasUI.Instance.TowerEnemyCount(this._enemyList.Count);
+		}
+
+		private void OnTriggerStay(Collider component) {
+			if (!App.IsEnemyTag(component)) {
+				return;
+			}
+
 			if (this._timeout > 0) {
 				this._timeout -= Time.deltaTime;
 				return;
 			}
 
-			if (other.CompareTag("Enemy")) {
-				BulletManager.Instance.Shoot(this._muzzleTransform, this.enemies.First().transform);
-			}
-
-			this._timeout = Timeout;
+			this._timeout = ShootTimeout;
+			this.Shoot();
 		}
 
-		private void Upgrade(int counter2) {
-			if (counter2 <= this.counter) {
+		private Vector3 FindEnemyPosition() {
+			return this._enemyList[0] ? this._enemyList[0].transform.position : default;
+		}
+
+		private void AimTo(Vector3 position) {
+			var forward = this._turretTransform.position - position;
+			var rotation = Quaternion.LookRotation(forward).eulerAngles;
+			this._headTransform.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+		}
+
+		private void Shoot() {
+			var position = this.FindEnemyPosition();
+			if (position == default) {
 				return;
 			}
 
-			this.counter++;
-			this.SetRange(1);
-			this._renderer.material.color = new Color(0, 255, 0);
+			this.AimTo(position);
+			var bullet = BulletManager.Instance.CreateBullet(this._muzzleTransform);
+			bullet.GetComponent<Bullet.Bullet>().MoveTo(position);
 		}
 
-		public void SetRange(int range) {
-			this._range += range;
-			this.GetComponent<SphereCollider>().radius = this._range;
+		private void Upgrade() {
+			this._renderer.material.color = Color.green;
 		}
 	}
 }

@@ -1,62 +1,50 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
 namespace Src.Enemy {
 	public sealed class Enemy : MonoBehaviour {
-		public List<GameObject> enemies;
-		private int _health = 100;
+		private const float Speed = 50;
+		private const float SlowDown = 15;
+		private int _health;
 		private NavMeshAgent _navMeshAgent;
 		private Slider _slider;
 
 		private void Awake() {
+			this._health = 100;
 			this._navMeshAgent = this.GetComponent<NavMeshAgent>();
-			this._navMeshAgent.speed = (float)(5.5 / 2);
-			this._navMeshAgent.acceleration = 4;
+			this._navMeshAgent.speed = Speed / SlowDown;
+			this._navMeshAgent.acceleration = this._navMeshAgent.speed;
 			this._slider = this.GetComponentInChildren<Slider>();
-			this._slider.maxValue = this._health;
-			this._slider.value = this._health;
+			this._slider.value = this._slider.maxValue = this._health;
 		}
 
 		private void Start() {
-			// this.ExecCreate();
+			this.MoveTo(EnemyManager.Instance.GetDestination());
 		}
 
-		private void FixedUpdate() {
-			// this.CheckDestination();
-		}
-
-		private void OnTriggerEnter(Collider other) {
-			if (other.gameObject.CompareTag("Tower")) {
-				this.enemies.Add(other.gameObject);
+		private void OnTriggerEnter(Collider component) {
+			if (App.IsBulletTag(component)) {
+				this.ReceiveDamage(component.GetComponent<Bullet.Bullet>().GetDamage());
 			}
 
-			if (other.gameObject.CompareTag("SpawnEnd")) {
-				EnemyManager.Instance.DestroyEnemy(this.gameObject, this.enemies);
+			if (App.IsFinishTag(component)) {
+				EnemyManager.Instance.DestroyEnemy(this.gameObject);
 			}
 		}
 
-		private void OnTriggerExit(Collider other) {
-			if (other.gameObject.CompareTag("Tower")) {
-				this.enemies.Remove(other.gameObject);
-			}
-		}
-
-		public void Create(Vector3 position) {
+		private void MoveTo(Vector3 position) {
 			this._navMeshAgent.SetDestination(position);
 		}
 
-		public void Damage(int damage) {
+		private void ReceiveDamage(int damage) {
 			this._health -= damage;
 			this._slider.value = this._health;
 			if (this._health > 0) {
 				return;
 			}
 
-			this.enemies.Remove(this.gameObject);
-			EnemyManager.Instance.DestroyEnemy(this.gameObject, this.enemies);
-			Destroy(this.gameObject);
+			EnemyManager.Instance.DestroyEnemy(this.gameObject);
 		}
 	}
 }

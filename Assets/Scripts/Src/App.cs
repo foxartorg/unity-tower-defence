@@ -1,9 +1,10 @@
+using System.Collections;
 using Common;
 using Src.Enemy;
 using UnityEngine;
 
 namespace Src {
-	public class App : MonoBehaviourSingleton<App> {
+	public class App : MonoInstance<App> {
 		public const int MainSceneIndex = 0;
 		public const int GameSceneIndex = 1;
 		private const int LevelSceneIndex = 2;
@@ -36,19 +37,36 @@ namespace Src {
 		}
 
 		private void Start() {
-			if (Camera.main) {
-				this.Run();
-				return;
+			if (!Camera.main) {
+				Level = this.level;
+				this.StartCoroutine(SceneHelper.Load(GameSceneIndex, true));
+				this.StartCoroutine(SceneHelper.SetActive(GameSceneIndex));
 			}
 
-			Level = this.level;
-			this.StartCoroutine(SceneHelper.Load(GameSceneIndex, true));
-			this.StartCoroutine(SceneHelper.SetActive(GameSceneIndex));
-			this.Run();
+			this.StartCoroutine(Run());
 		}
 
-		private void Run() {
-			this.StartCoroutine(EnemyManager.Instance.Spawn());
+		public static bool IsBulletTag(Component component) {
+			return component.CompareTag("Bullet");
+		}
+
+		public static bool IsEnemyTag(Component component) {
+			return component.CompareTag("Enemy");
+		}
+
+		public static bool IsFinishTag(Component component) {
+			return component.CompareTag("Finish");
+		}
+
+		private static IEnumerator Run() {
+			for (var i = 0; i < Waves; i++) {
+				for (var j = 0; j < Enemies; j++) {
+					EnemyManager.Instance.CreateEnemy();
+					yield return new WaitForSeconds(EnemiesTimeout);
+				}
+
+				yield return new WaitForSeconds(WavesTimeout);
+			}
 		}
 	}
 }

@@ -3,28 +3,34 @@ using Scenes.GameScene;
 using UnityEngine;
 
 namespace Src.Tower {
-	public sealed class TowerManager : MonoBehaviourSingleton<TowerManager> {
+	public sealed class TowerManager : MonoInstance<TowerManager> {
 		[SerializeField] private GameObject towerPrefab;
+		[SerializeField] public GameObject towerCanvas;
 		private int _counter;
 
-		public GameObject AddTower(GameObject parent) {
-			if (this._counter >= App.Towers) {
-				return null;
+		public void CreateTower(GameObject platform) {
+			if (!this.CheckTower()) {
+				return;
 			}
 
+			Instantiate(this.towerPrefab, this.GetPosition(platform.transform), Quaternion.identity, this.transform);
 			CanvasUI.Instance.TowerCount(++this._counter, App.Towers);
-			var parentPosition = parent.transform.position;
-			var position = new Vector3(parentPosition.x,
-				parentPosition.y + parent.transform.localScale.y / 2 + this.gameObject.transform.localScale.y / 2, parentPosition.z);
-			var tower = Instantiate(this.towerPrefab, position, Quaternion.identity, this.transform);
-			tower.GetComponent<Tower>().SetRange(3);
-			return tower;
 		}
 
-		public GameObject DeleteTower(GameObject tower) {
+		public void DestroyTower(GameObject tower) {
+			Destroy(this.gameObject);
 			CanvasUI.Instance.TowerCount(--this._counter, App.Towers);
-			Destroy(tower);
-			return null;
+		}
+
+		public bool CheckTower() {
+			return this._counter != App.Towers;
+		}
+
+		private Vector3 GetPosition(Transform platform) {
+			var position = platform.position;
+			var parentScale = platform.localScale;
+			var localScale = this.gameObject.transform.localScale;
+			return new Vector3(position.x, position.y + parentScale.y / 2 + localScale.y / 2, position.z);
 		}
 	}
 }
