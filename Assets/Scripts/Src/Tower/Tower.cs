@@ -26,10 +26,9 @@ namespace Src.Tower {
 		}
 
 		private void Awake() {
-			this.GetComponent<SphereCollider>().radius = this._range = 3;
+			this.GetComponentInChildren<SphereCollider>().radius = this._range = 3;
 			this._renderer = this.GetComponentInChildren<Renderer>();
-			// this.towerCanvasPrefab = TowerManager.Instance.towerCanvas;
-			this._headTransform = this.transform.Find("Head");
+ 			this._headTransform = this.transform.Find("Head");
 			this._gunTransform = this._headTransform.Find("Gun");
 			this._turretTransform = this._headTransform.Find("Turret");
 			this._muzzleTransform = this._headTransform.Find("Muzzle");
@@ -59,18 +58,13 @@ namespace Src.Tower {
 		}
 
 		private void OnMouseDown() {
-			Debug.Log("MOUSE DOWN");
 			if (!Input.GetMouseButtonDown(0)) {
-				// return;
+				return;
 			}
 
 			this._menu.SetActive(true);
 		}
-
-		private void OnMouseOver() {
-			if (Input.GetMouseButtonDown(0)) { }
-		}
-
+		
 		private void OnTriggerEnter(Collider component) {
 			if (!App.IsEnemyTag(component)) {
 				return;

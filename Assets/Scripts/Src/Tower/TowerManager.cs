@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Common;
 using Scenes.GameScene;
 using UnityEngine;
@@ -6,19 +7,22 @@ namespace Src.Tower {
 	public sealed class TowerManager : MonoInstance<TowerManager> {
 		[SerializeField] private GameObject towerPrefab;
 		[SerializeField] public GameObject towerCanvas;
+		public List<GameObject> towers;
 		private int _counter;
 
-		public void CreateTower(GameObject platform) {
+		public GameObject CreateTower(GameObject platform) {
 			if (!this.CheckTower()) {
-				return;
 			}
-
-			Instantiate(this.towerPrefab, this.GetPosition(platform.transform), Quaternion.identity, this.transform);
+			
+			var instantiate= Instantiate(this.towerPrefab, this.GetPosition(platform.transform), Quaternion.identity, this.transform);
+			this.towers.Add(instantiate);
 			CanvasUI.Instance.TowerCount(++this._counter, App.Towers);
+			return instantiate;
 		}
 
 		public void DestroyTower(GameObject tower) {
-			Destroy(this.gameObject);
+			Destroy(tower);
+			this.towers.Remove(tower);
 			CanvasUI.Instance.TowerCount(--this._counter, App.Towers);
 		}
 
