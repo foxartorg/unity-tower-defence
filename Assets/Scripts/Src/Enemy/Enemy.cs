@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 namespace Src.Enemy {
 	public sealed class Enemy : MonoBehaviour {
+		private const float Speed = 50;
+		private const float SlowDown = 15;
 		private int _health;
 		private NavMeshAgent _navMeshAgent;
 		private Slider _slider;
@@ -11,11 +13,8 @@ namespace Src.Enemy {
 		private void Awake() {
 			this._health = 100;
 			this._navMeshAgent = this.GetComponent<NavMeshAgent>();
-			this._navMeshAgent.speed = 50 / 50f;
-			this._navMeshAgent.acceleration = this._navMeshAgent.speed * 2;
-			this._navMeshAgent.angularSpeed = this._navMeshAgent.speed * 2;
-			this._navMeshAgent.stoppingDistance = 0;
-			this._navMeshAgent.autoBraking = false;
+			this._navMeshAgent.speed = Speed / SlowDown;
+			this._navMeshAgent.acceleration = this._navMeshAgent.speed;
 			this._slider = this.GetComponentInChildren<Slider>();
 			this._slider.value = this._slider.maxValue = this._health;
 		}
@@ -24,25 +23,21 @@ namespace Src.Enemy {
 			this.MoveTo(EnemyManager.Instance.GetDestination());
 		}
 
-		private void OnTriggerEnter(Collider other) {
-			if (other.gameObject.CompareTag("Bullet")) {
-				// Debug.Log("bullet");
+		private void OnTriggerEnter(Collider component) {
+			if (App.IsBulletTag(component)) {
+				this.ReceiveDamage(component.GetComponent<Bullet.Bullet>().GetDamage());
 			}
 
-			if (other.gameObject.CompareTag("Finish")) {
+			if (App.IsFinishTag(component)) {
 				EnemyManager.Instance.DestroyEnemy(this.gameObject);
 			}
-		}
-
-		private void OnTriggerExit(Collider other) {
-			// if (other.gameObject.CompareTag("Tower")) { }
 		}
 
 		private void MoveTo(Vector3 position) {
 			this._navMeshAgent.SetDestination(position);
 		}
 
-		public void MakeDamage(int damage) {
+		private void ReceiveDamage(int damage) {
 			this._health -= damage;
 			this._slider.value = this._health;
 			if (this._health > 0) {

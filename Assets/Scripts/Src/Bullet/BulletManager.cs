@@ -7,8 +7,6 @@ namespace Src.Bullet {
 	public sealed class BulletManager : MonoInstance<BulletManager> {
 		[SerializeField] private GameObject bulletPrefab;
 		private readonly List<GameObject> _bulletList;
-		private int _counter;
-		private double _timeout;
 
 		private BulletManager() {
 			this._bulletList = new List<GameObject>();

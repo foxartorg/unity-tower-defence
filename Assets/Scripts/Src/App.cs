@@ -46,8 +46,16 @@ namespace Src {
 			this.StartCoroutine(Run());
 		}
 
+		public static bool IsBulletTag(Component component) {
+			return component.CompareTag("Bullet");
+		}
+
 		public static bool IsEnemyTag(Component component) {
 			return component.CompareTag("Enemy");
+		}
+
+		public static bool IsFinishTag(Component component) {
+			return component.CompareTag("Finish");
 		}
 
 		private static IEnumerator Run() {

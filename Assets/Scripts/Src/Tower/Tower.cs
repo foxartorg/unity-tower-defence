@@ -25,14 +25,13 @@ namespace Src.Tower {
 		}
 
 		private void Awake() {
-			this._range = 3;
-			this.GetComponent<SphereCollider>().radius = this._range;
+			this.GetComponent<SphereCollider>().radius = this._range = 3;
 			this._renderer = this.GetComponentInChildren<Renderer>();
-			this._towerCanvas = TowerManager.Instance.towerCanvas;
 			this._headTransform = this.transform.Find("Head");
-			this._gunTransform = this.transform.Find("Head").Find("Gun");
-			this._turretTransform = this.transform.Find("Head").Find("Turret");
-			this._muzzleTransform = this.transform.Find("Head").Find("Muzzle");
+			this._gunTransform = this._headTransform.Find("Gun");
+			this._turretTransform = this._headTransform.Find("Turret");
+			this._muzzleTransform = this._headTransform.Find("Muzzle");
+			this._towerCanvas = TowerManager.Instance.towerCanvas;
 			var position = this._gunTransform.position;
 			this._muzzleTransform.position = new Vector3(position.x - this._gunTransform.localScale.x, position.y, position.z);
 		}
@@ -53,30 +52,31 @@ namespace Src.Tower {
 				return;
 			}
 
-			var canvas = Instantiate(this._towerCanvas, this.transform.position, Quaternion.identity, this.transform);
+			var selfTransform = this.transform;
+			var canvas = Instantiate(this._towerCanvas, selfTransform.position, Quaternion.identity, selfTransform);
 			canvas.SetActive(false);
 		}
 
-		private void OnTriggerEnter(Collider obj) {
-			if (!App.IsEnemyTag(obj)) {
+		private void OnTriggerEnter(Collider component) {
+			if (!App.IsEnemyTag(component)) {
 				return;
 			}
 
-			this._enemyList.Add(obj.gameObject);
+			this._enemyList.Add(component.gameObject);
 			CanvasUI.Instance.TowerEnemyCount(this._enemyList.Count);
 		}
 
-		private void OnTriggerExit(Collider obj) {
-			if (!App.IsEnemyTag(obj)) {
+		private void OnTriggerExit(Collider component) {
+			if (!App.IsEnemyTag(component)) {
 				return;
 			}
 
-			this._enemyList.Remove(obj.gameObject);
+			this._enemyList.Remove(component.gameObject);
 			CanvasUI.Instance.TowerEnemyCount(this._enemyList.Count);
 		}
 
-		private void OnTriggerStay(Collider obj) {
-			if (!App.IsEnemyTag(obj)) {
+		private void OnTriggerStay(Collider component) {
+			if (!App.IsEnemyTag(component)) {
 				return;
 			}
 
@@ -93,9 +93,9 @@ namespace Src.Tower {
 			return this._enemyList[0] ? this._enemyList[0].transform.position : default;
 		}
 
-		private void RotateHead(Vector3 position) {
-			var direction = this._turretTransform.position - position;
-			var rotation = Quaternion.LookRotation(direction).eulerAngles;
+		private void AimTo(Vector3 position) {
+			var forward = this._turretTransform.position - position;
+			var rotation = Quaternion.LookRotation(forward).eulerAngles;
 			this._headTransform.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 		}
 
@@ -105,7 +105,7 @@ namespace Src.Tower {
 				return;
 			}
 
-			this.RotateHead(position);
+			this.AimTo(position);
 			var bullet = BulletManager.Instance.CreateBullet(this._muzzleTransform);
 			bullet.GetComponent<Bullet.Bullet>().MoveTo(position);
 		}
