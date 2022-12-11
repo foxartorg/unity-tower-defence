@@ -35,7 +35,7 @@ namespace Src.Tower {
 			this._muzzleTransform = this._headTransform.Find("Muzzle");
 			this._towerCanvas = TowerManager.Instance.towerCanvas;
 			var position = this._gunTransform.position;
-			this._muzzleTransform.position = new Vector3(position.x - this._gunTransform.localScale.x, position.y, position.z);
+			this._muzzleTransform.position = new Vector3(position.x + this._gunTransform.localScale.x / 2, position.y, position.z);
 		}
 
 		private void Start() {
@@ -59,22 +59,17 @@ namespace Src.Tower {
 		}
 
 		private void OnMouseDown() {
+			Debug.Log("MOUSE DOWN");
 			if (!Input.GetMouseButtonDown(0)) {
-				return;
+				// return;
 			}
 
 			this._menu.SetActive(true);
 		}
 
-		// private void OnTriggerEnter(Collider other) {
-		// 	if (!other.CompareTag("Enemy")) {
-		// 		return;
-		// 	}
-		//
-		// 	var selfTransform = this.transform;
-		// 	var canvas = Instantiate(this._towerCanvas, selfTransform.position, Quaternion.identity, selfTransform);
-		// 	canvas.SetActive(false);
-		// }
+		private void OnMouseOver() {
+			if (Input.GetMouseButtonDown(0)) { }
+		}
 
 		private void OnTriggerEnter(Collider component) {
 			if (!App.IsEnemyTag(component)) {
@@ -115,7 +110,7 @@ namespace Src.Tower {
 		private void AimTo(Vector3 position) {
 			var forward = this._turretTransform.position - position;
 			var rotation = Quaternion.LookRotation(forward).eulerAngles;
-			this._headTransform.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+			this._headTransform.transform.rotation = Quaternion.Euler(0f, rotation.y + 90, rotation.z);
 		}
 
 		private void Shoot() {
