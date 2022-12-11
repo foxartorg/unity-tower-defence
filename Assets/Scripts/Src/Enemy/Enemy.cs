@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Src.Enemy {
 	public sealed class Enemy : MonoBehaviour {
-		private const float Speed = 50;
+		private const float Speed = 25;
 		private const float SlowDown = 15;
 		private int _health;
 		private NavMeshAgent _navMeshAgent;

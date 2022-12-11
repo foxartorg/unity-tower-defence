@@ -13,14 +13,13 @@ namespace Src.Tower {
 		private Button _buttonUpgrade;
 		private Transform _gunTransform;
 		private Transform _headTransform;
+		private GameObject _menu;
 		private Transform _muzzleTransform;
 		private float _range;
 		private Renderer _renderer;
 		private float _timeout;
 		private GameObject _towerCanvas;
 		private Transform _turretTransform;
-		private GameObject towerCanvasPrefab;
-		private GameObject instantiate;
 
 		private Tower() {
 			this._enemyList = new List<GameObject>();
@@ -29,7 +28,7 @@ namespace Src.Tower {
 		private void Awake() {
 			this.GetComponent<SphereCollider>().radius = this._range = 3;
 			this._renderer = this.GetComponentInChildren<Renderer>();
-			this.towerCanvasPrefab = TowerManager.Instance.towerCanvas;
+			// this.towerCanvasPrefab = TowerManager.Instance.towerCanvas;
 			this._headTransform = this.transform.Find("Head");
 			this._gunTransform = this._headTransform.Find("Gun");
 			this._turretTransform = this._headTransform.Find("Turret");
@@ -37,15 +36,21 @@ namespace Src.Tower {
 			this._towerCanvas = TowerManager.Instance.towerCanvas;
 			var position = this._gunTransform.position;
 			this._muzzleTransform.position = new Vector3(position.x - this._gunTransform.localScale.x, position.y, position.z);
-			var transformCanvasPosition = transform.position;
-			this.instantiate = Instantiate(this.towerCanvasPrefab, new Vector3(transformCanvasPosition.x, transformCanvasPosition.y + 1f, transformCanvasPosition.z), this.towerCanvasPrefab.transform.rotation, transform);
-			this.instantiate.SetActive(false);
-			this._buttonUpgrade = this.instantiate.transform.Find("Buttons").Find("Upgrade").GetComponent<Button>();
-			this._buttonSell = this.instantiate.transform.Find("Buttons").Find("Sell").GetComponent<Button>();
-			this._buttonHide = this.instantiate.transform.Find("Buttons").Find("Hide").GetComponent<Button>();
+		}
+
+		private void Start() {
+			var tr = this.transform;
+			var pos = tr.position;
+			var position = new Vector3(pos.x, pos.y + 1f, pos.z);
+			this._menu = Instantiate(this._towerCanvas, position, this._towerCanvas.transform.rotation, tr);
+			this._menu.SetActive(false);
+			var buttons = this._menu.transform.Find("Buttons");
+			this._buttonUpgrade = buttons.Find("Upgrade").GetComponent<Button>();
+			this._buttonSell = buttons.Find("Sell").GetComponent<Button>();
+			this._buttonHide = buttons.Find("Hide").GetComponent<Button>();
 			this._buttonUpgrade.onClick.AddListener(this.Upgrade);
-			this._buttonSell.onClick.AddListener(() => TowerManager.Instance.RemoveTower(this.gameObject));
-			this._buttonHide.onClick.AddListener(() => this.instantiate.SetActive(false));
+			this._buttonSell.onClick.AddListener(() => TowerManager.Instance.DestroyTower(this.gameObject));
+			this._buttonHide.onClick.AddListener(() => this._menu.SetActive(false));
 		}
 
 		private void OnDrawGizmos() {
@@ -58,18 +63,18 @@ namespace Src.Tower {
 				return;
 			}
 
-			this.instantiate.SetActive(true);
+			this._menu.SetActive(true);
 		}
 
-		private void OnTriggerEnter(Collider other) {
-			if (!other.CompareTag("Enemy")) {
-				return;
-			}
-
-			var selfTransform = this.transform;
-			var canvas = Instantiate(this._towerCanvas, selfTransform.position, Quaternion.identity, selfTransform);
-			canvas.SetActive(false);
-		}
+		// private void OnTriggerEnter(Collider other) {
+		// 	if (!other.CompareTag("Enemy")) {
+		// 		return;
+		// 	}
+		//
+		// 	var selfTransform = this.transform;
+		// 	var canvas = Instantiate(this._towerCanvas, selfTransform.position, Quaternion.identity, selfTransform);
+		// 	canvas.SetActive(false);
+		// }
 
 		private void OnTriggerEnter(Collider component) {
 			if (!App.IsEnemyTag(component)) {
