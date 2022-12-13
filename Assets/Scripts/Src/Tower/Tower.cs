@@ -1,60 +1,50 @@
 using System.Collections.Generic;
+using Common;
 using Scenes.GameScene;
 using Src.Bullet;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Src.Tower {
-	public class Tower : MonoBehaviour {
+	public class Tower : MonoInstance<Tower> {
 		private const float ShootTimeout = 3f;
 		private readonly List<GameObject> _enemyList;
-		private Button _buttonHide;
-		private Button _buttonSell;
-		private Button _buttonUpgrade;
 		private Transform _gunTransform;
 		private Transform _headTransform;
 		private GameObject _menu;
+		private GameObject _towerCanvasPrefab;
 		private Transform _muzzleTransform;
 		private float _range;
 		private Renderer _renderer;
 		private float _timeout;
-		private GameObject _towerCanvas;
 		private Transform _turretTransform;
+		private TowerCanvas _towerCanvas;
 
 		private Tower() {
 			this._enemyList = new List<GameObject>();
 		}
 
 		private void Awake() {
-			this.GetComponentInChildren<SphereCollider>().radius = this._range = 3;
+			var tr = this.transform;
+			var pos = tr.position;
+			var vector3 = new Vector3(pos.x, pos.y + 1f, pos.z);
+			this._towerCanvasPrefab = TowerManager.Instance.towerCanvas;
+			this._menu = Instantiate(this._towerCanvasPrefab, vector3, this._towerCanvasPrefab.transform.rotation, tr);
+			this._towerCanvas = this._menu.GetComponent<TowerCanvas>();
+			this._towerCanvas.tower = this.gameObject;
+			this._menu.SetActive(false);
+			this.GetComponentInChildren<SphereCollider>().radius = this._range = 6f;
 			this._renderer = this.GetComponentInChildren<Renderer>();
- 			this._headTransform = this.transform.Find("Head");
+			this._headTransform = this.transform.Find("Head");
 			this._gunTransform = this._headTransform.Find("Gun");
 			this._turretTransform = this._headTransform.Find("Turret");
 			this._muzzleTransform = this._headTransform.Find("Muzzle");
-			this._towerCanvas = TowerManager.Instance.towerCanvas;
 			var position = this._gunTransform.position;
 			this._muzzleTransform.position = new Vector3(position.x + this._gunTransform.localScale.x / 2, position.y, position.z);
 		}
 
-		private void Start() {
-			var tr = this.transform;
-			var pos = tr.position;
-			var position = new Vector3(pos.x, pos.y + 1f, pos.z);
-			this._menu = Instantiate(this._towerCanvas, position, this._towerCanvas.transform.rotation, tr);
-			this._menu.SetActive(false);
-			var buttons = this._menu.transform.Find("Buttons");
-			this._buttonUpgrade = buttons.Find("Upgrade").GetComponent<Button>();
-			this._buttonSell = buttons.Find("Sell").GetComponent<Button>();
-			this._buttonHide = buttons.Find("Hide").GetComponent<Button>();
-			this._buttonUpgrade.onClick.AddListener(this.Upgrade);
-			this._buttonSell.onClick.AddListener(() => TowerManager.Instance.DestroyTower(this.gameObject));
-			this._buttonHide.onClick.AddListener(() => this._menu.SetActive(false));
-		}
-
 		private void OnDrawGizmos() {
 			Gizmos.color = Color.red;
-			Gizmos.DrawWireSphere(this.transform.position, this._range);
+			Gizmos.DrawWireSphere(this.transform.position, this._range / 2);
 		}
 
 		private void OnMouseDown() {
@@ -64,7 +54,7 @@ namespace Src.Tower {
 
 			this._menu.SetActive(true);
 		}
-		
+
 		private void OnTriggerEnter(Collider component) {
 			if (!App.IsEnemyTag(component)) {
 				return;
@@ -118,7 +108,7 @@ namespace Src.Tower {
 			bullet.GetComponent<Bullet.Bullet>().MoveTo(position);
 		}
 
-		private void Upgrade() {
+		public void Upgrade() {
 			this._range += 1f;
 			this._renderer.material.color = Color.green;
 		}

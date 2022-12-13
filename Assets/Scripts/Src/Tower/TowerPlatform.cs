@@ -28,7 +28,7 @@ namespace Src.Tower {
 		private void OnMouseOver() {
 			var contains = TowerManager.Instance.towers.Contains(this._tower);
 			if (Input.GetMouseButtonDown(0) && !contains && TowerManager.Instance.CheckTower()) {
-				this._tower = TowerManager.Instance.CreateTower(this.gameObject);;
+				this._tower = TowerManager.Instance.CreateTower(this.gameObject);
 				this._renderer.material.color = this._initColor;
 				Debug.Log("TowerPlatform left");
 			}
