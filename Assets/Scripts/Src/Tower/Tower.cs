@@ -52,6 +52,7 @@ namespace Src.Tower {
 				return;
 			}
 
+			Debug.Log("XXX");
 			// this._menu.SetActive(true);
 		}
 

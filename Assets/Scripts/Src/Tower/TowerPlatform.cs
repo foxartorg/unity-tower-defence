@@ -26,7 +26,7 @@ namespace Src.Tower {
 		}
 
 		private void OnMouseOver() {
-			if (Input.GetMouseButtonDown(0) && TowerManager.Instance.CanCreate()) {
+			if (Input.GetMouseButtonDown(0) && !this._tower && TowerManager.Instance.CanCreate()) {
 				this._tower = true;
 				this._renderer.material.color = this._initColor;
 				TowerManager.Instance.CreateTower(this.gameObject);
