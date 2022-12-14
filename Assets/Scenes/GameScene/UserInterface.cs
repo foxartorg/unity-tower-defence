@@ -1,39 +1,43 @@
 using Common;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Scenes.GameScene {
 	public class UserInterface : MonoInstance<UserInterface> {
-		// public static TextMeshProUGUI Dummy;
-		[SerializeField] private TextMeshProUGUI level;
-		[SerializeField] private TextMeshProUGUI bulletCounter;
-		[SerializeField] private TextMeshProUGUI enemyCounter;
-		[SerializeField] private TextMeshProUGUI towerCounter;
-		[SerializeField] private TextMeshProUGUI towerEnemyCounter;
-		[SerializeField] private TextMeshProUGUI dummy;
+		[SerializeField] private TextMeshProUGUI levelText;
+		[SerializeField] private TextMeshProUGUI bulletCounterText;
+		[SerializeField] private TextMeshProUGUI enemyCounterText;
+		[SerializeField] private TextMeshProUGUI towerCounterText;
+		[SerializeField] private TextMeshProUGUI dummyText;
+		[SerializeField] private Button level1Button;
+		[SerializeField] private Button level2Button;
+		[SerializeField] private Button menuButton;
 
-		public void Level(int param) {
-			this.level.text = $"Level: {param}";
+		private void Start() {
+			this.menuButton.onClick.AddListener(EventSystem.Instance.LoadMainScene);
+			this.level1Button.onClick.AddListener(() => EventSystem.Instance.LoadLevelScene(1));
+			this.level2Button.onClick.AddListener(() => EventSystem.Instance.LoadLevelScene(2));
+		}
+
+		public void Level(int index) {
+			this.levelText.text = $"Level: {index}";
 		}
 
 		public void BulletCounter(int count) {
-			this.bulletCounter.text = $"Bullets: {count}";
+			this.bulletCounterText.text = $"Bullets: {count}";
 		}
 
 		public void EnemyCounter(int count) {
-			this.enemyCounter.text = $"Enemies: {count}";
+			this.enemyCounterText.text = $"Enemies: {count}";
 		}
 
 		public void TowerCount(int count, int max) {
-			this.towerCounter.text = $"Towers: {count} / {max}";
-		}
-
-		public void TowerEnemyCount(int count) {
-			this.towerEnemyCounter.text = $"TowerEnemies: {count}";
+			this.towerCounterText.text = $"Towers: {count} / {max}";
 		}
 
 		public void Dummy(string text) {
-			this.dummy.text = text;
+			this.dummyText.text = text;
 		}
 	}
 }
