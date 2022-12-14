@@ -11,13 +11,13 @@ namespace Src.Tower {
 		private Transform _gunTransform;
 		private Transform _headTransform;
 		private GameObject _menu;
-		private GameObject _towerCanvasPrefab;
 		private Transform _muzzleTransform;
 		private float _range;
 		private Renderer _renderer;
 		private float _timeout;
-		private Transform _turretTransform;
 		private TowerCanvas _towerCanvas;
+		private GameObject _towerCanvasPrefab;
+		private Transform _turretTransform;
 
 		private Tower() {
 			this._enemyList = new List<GameObject>();
@@ -26,12 +26,12 @@ namespace Src.Tower {
 		private void Awake() {
 			var tr = this.transform;
 			var pos = tr.position;
-			var vector3 = new Vector3(pos.x, pos.y + 1f, pos.z);
+			// var vector3 = new Vector3(pos.x, pos.y + 1f, pos.z);
 			this._towerCanvasPrefab = TowerManager.Instance.towerCanvas;
-			this._menu = Instantiate(this._towerCanvasPrefab, vector3, this._towerCanvasPrefab.transform.rotation, tr);
-			this._towerCanvas = this._menu.GetComponent<TowerCanvas>();
-			this._towerCanvas.tower = this.gameObject;
-			this._menu.SetActive(false);
+			// this._menu = Instantiate(this._towerCanvasPrefab, vector3, this._towerCanvasPrefab.transform.rotation, tr);
+			// this._towerCanvas = this._menu.GetComponent<TowerCanvas>();
+			// this._towerCanvas.tower = this.gameObject;
+			// this._menu.SetActive(false);
 			this.GetComponentInChildren<SphereCollider>().radius = this._range = 6f;
 			this._renderer = this.GetComponentInChildren<Renderer>();
 			this._headTransform = this.transform.Find("Head");
@@ -52,7 +52,7 @@ namespace Src.Tower {
 				return;
 			}
 
-			this._menu.SetActive(true);
+			// this._menu.SetActive(true);
 		}
 
 		private void OnTriggerEnter(Collider component) {

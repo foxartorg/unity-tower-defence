@@ -7,26 +7,26 @@ namespace Src.Tower {
 	public sealed class TowerManager : MonoInstance<TowerManager> {
 		[SerializeField] private GameObject towerPrefab;
 		[SerializeField] public GameObject towerCanvas;
-		public List<GameObject> towers;
 		private int _counter;
+		private List<GameObject> _towerList;
 
-		public GameObject CreateTower(GameObject platform) {
-			if (!this.CheckTower()) {
+		public void CreateTower(GameObject platform) {
+			if (!this.CanCreate()) {
+				Helper.ThrowError("tower limit exceeded");
 			}
-			
-			var instantiate= Instantiate(this.towerPrefab, this.GetPosition(platform.transform), Quaternion.identity, this.transform);
-			this.towers.Add(instantiate);
+
+			var tower = Instantiate(this.towerPrefab, this.GetPosition(platform.transform), Quaternion.identity, this.transform);
+			// this._towerList.Add(tower);
 			CanvasUI.Instance.TowerCount(++this._counter, App.Towers);
-			return instantiate;
 		}
 
 		public void DestroyTower(GameObject tower) {
 			Destroy(tower);
-			this.towers.Remove(tower);
+			// this._towerList.Remove(tower);
 			CanvasUI.Instance.TowerCount(--this._counter, App.Towers);
 		}
 
-		public bool CheckTower() {
+		public bool CanCreate() {
 			return this._counter != App.Towers;
 		}
 

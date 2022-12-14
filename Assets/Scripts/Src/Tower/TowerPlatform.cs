@@ -5,7 +5,7 @@ namespace Src.Tower {
 		private Color _hoverColor;
 		private Color _initColor;
 		private Renderer _renderer;
-		private GameObject _tower;
+		private bool _tower;
 
 		private void Awake() {
 			this._renderer = this.GetComponentInChildren<Renderer>();
@@ -14,7 +14,7 @@ namespace Src.Tower {
 		}
 
 		private void OnMouseEnter() {
-			if (!this._tower && TowerManager.Instance.CheckTower()) {
+			if (!this._tower && TowerManager.Instance.CanCreate()) {
 				this._renderer.material.color = this._hoverColor;
 			}
 		}
@@ -26,10 +26,10 @@ namespace Src.Tower {
 		}
 
 		private void OnMouseOver() {
-			var contains = TowerManager.Instance.towers.Contains(this._tower);
-			if (Input.GetMouseButtonDown(0) && !contains && TowerManager.Instance.CheckTower()) {
-				this._tower = TowerManager.Instance.CreateTower(this.gameObject);
+			if (Input.GetMouseButtonDown(0) && TowerManager.Instance.CanCreate()) {
+				this._tower = true;
 				this._renderer.material.color = this._initColor;
+				TowerManager.Instance.CreateTower(this.gameObject);
 				Debug.Log("TowerPlatform left");
 			}
 
