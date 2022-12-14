@@ -1,30 +1,43 @@
+using System.Collections.Generic;
 using Common;
 using Scenes.GameScene;
 using UnityEngine;
 
 namespace Src.Tower {
-	public sealed class TowerManager : MonoBehaviourSingleton<TowerManager> {
+	public sealed class TowerManager : MonoInstance<TowerManager> {
 		[SerializeField] private GameObject towerPrefab;
-		private int _counter;
+		private readonly List<GameObject> _towerList;
+		private GameObject _towerMenu;
 
-		public GameObject AddTower(GameObject parent) {
-			if (this._counter >= App.Towers) {
-				return null;
-			}
-
-			CanvasUI.Instance.TowerCount(++this._counter, App.Towers);
-			var parentPosition = parent.transform.position;
-			var position = new Vector3(parentPosition.x,
-				parentPosition.y + parent.transform.localScale.y / 2 + this.gameObject.transform.localScale.y / 2, parentPosition.z);
-			var tower = Instantiate(this.towerPrefab, position, Quaternion.identity, this.transform);
-			tower.GetComponent<Tower>().SetRange(3);
-			return tower;
+		private TowerManager() {
+			this._towerList = new List<GameObject>();
 		}
 
-		public GameObject DeleteTower(GameObject tower) {
-			CanvasUI.Instance.TowerCount(--this._counter, App.Towers);
+		public void CreateTower(GameObject platform) {
+			if (!this.CanCreate()) {
+				Helper.ThrowError("tower limit exceeded");
+			}
+
+			var position = Helper.PositionParentUp(platform.transform, this.towerPrefab.transform);
+			var tower = Instantiate(this.towerPrefab, position, Quaternion.identity, this.transform);
+			tower.GetComponent<Tower>().Platform = platform;
+			this._towerList.Add(tower);
+			UserInterface.Instance.TowerCount(this._towerList.Count, App.Towers);
+		}
+
+		public void DestroyTower(GameObject tower) {
+			tower.GetComponent<Tower>().Platform.GetComponent<TowerPlatform>().CanAccept = true;
+			this._towerList.Remove(tower);
 			Destroy(tower);
-			return null;
+			UserInterface.Instance.TowerCount(this._towerList.Count, App.Towers);
+		}
+
+		public void UpgradeTower(GameObject tower) {
+			tower.GetComponent<Tower>().Upgrade();
+		}
+
+		public bool CanCreate() {
+			return this._towerList.Count != App.Towers;
 		}
 	}
 }

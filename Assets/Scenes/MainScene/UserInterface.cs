@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Scenes.MainScene {
-	public sealed class EventSystem : MonoBehaviour {
+	public sealed class UserInterface : MonoBehaviour {
 		[SerializeField] private Button startButton;
 
 		private void Start() {

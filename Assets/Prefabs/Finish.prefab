@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 4074602797714146559}
   - component: {fileID: 4074602797714146544}
   m_Layer: 0
-  m_Name: SpawnEnd
-  m_TagString: SpawnEnd
+  m_Name: Finish
+  m_TagString: Finish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

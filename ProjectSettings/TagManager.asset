@@ -6,11 +6,7 @@ TagManager:
   tags:
   - Bullet
   - Enemy
-  - Wall
-  - Plane
-  - TowerPlatform
-  - Tower
-  - SpawnEnd
+  - Undefined
   layers:
   - Default
   - TransparentFX
@@ -18,8 +14,8 @@ TagManager:
   - 
   - Water
   - UI
-  - Bullet
   - Tower
+  - 
   - 
   - 
   - 
