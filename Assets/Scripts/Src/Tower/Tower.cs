@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using Common;
 using Scenes.GameScene;
 using Src.Bullet;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Src.Tower {
 	public class Tower : MonoInstance<Tower> {
@@ -17,6 +19,11 @@ namespace Src.Tower {
 		private float _timeout;
 		private Transform _turretTransform;
 		public TowerPlatform towerPlatform;
+		private GameObject _canvasGameObject;
+		private GameObject _textGameObject;
+		private Canvas _canvas;
+		private Text _text;
+		private RectTransform _rectTransform;
 
 		private Tower() {
 			this._enemyList = new List<GameObject>();
@@ -30,6 +37,25 @@ namespace Src.Tower {
 			this._muzzleTransform = this._headTransform.Find("Muzzle");
 			var gunTransform = this._headTransform.Find("Gun");
 			this._muzzleTransform.position = Helper.PositionParentRight(gunTransform);
+			//Canvas
+			this._canvasGameObject = new GameObject();
+			this._canvasGameObject.transform.parent = this.transform;
+			this._canvasGameObject.name = "Canvas";
+			this._canvas = this._canvasGameObject.AddComponent<Canvas>();
+			this._canvas.renderMode = RenderMode.WorldSpace;
+			//Text
+			this._textGameObject = new GameObject();
+			this._textGameObject.transform.parent = this._canvasGameObject.transform;
+			this._textGameObject.name = "Text";
+			this._text = this._textGameObject.AddComponent<Text>();
+			this._text.font = Resources.Load<Font>("Fonts/LiberationSans");
+			this._text.text = "njj";
+			this._text.fontSize = 10;
+			// Text position
+			this._rectTransform = this._text.GetComponent<RectTransform>();
+			this._rectTransform.localPosition = new Vector3(0, 0, 0);
+			this._rectTransform.sizeDelta = new Vector2(20, 20);
+
 		}
 
 		private void OnDrawGizmos() {
