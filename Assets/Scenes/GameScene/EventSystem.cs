@@ -1,14 +1,8 @@
 using Common;
 using Src;
-using UnityEngine;
-using UnityEngine.UI;
 
 namespace Scenes.GameScene {
-	public sealed class EventSystem : MonoBehaviour {
-		[SerializeField] private Button menuButton;
-		[SerializeField] private Button level1Button;
-		[SerializeField] private Button level2Button;
-
+	public sealed class EventSystem : MonoInstance<EventSystem> {
 		private void Awake() {
 			if (App.Level == 0) {
 				this.LoadLevelScene(1);
@@ -17,18 +11,12 @@ namespace Scenes.GameScene {
 			}
 		}
 
-		private void Start() {
-			this.menuButton.onClick.AddListener(this.LoadMainScene);
-			this.level1Button.onClick.AddListener(() => this.LoadLevelScene(1));
-			this.level2Button.onClick.AddListener(() => this.LoadLevelScene(2));
-		}
-
-		private void LoadMainScene() {
+		public void LoadMainScene() {
 			App.Level = 0;
 			this.StartCoroutine(SceneHelper.Load(App.MainSceneIndex));
 		}
 
-		private void LoadLevelScene(int level) {
+		public void LoadLevelScene(int level) {
 			// Debug.Log($"UNLOAD {LevelManager.PrevLevelScene}");
 			if (SceneHelper.IsLoaded(App.PrevLevelScene)) {
 				this.StartCoroutine(SceneHelper.Unload(App.PrevLevelScene));

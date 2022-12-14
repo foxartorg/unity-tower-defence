@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Src.Tower {
 	public class Tower : MonoInstance<Tower> {
-		private const float ShootTimeout = 3f;
+		private const float ShootTimeout = 0.1f;
 		private readonly List<GameObject> _enemyList;
 		private Transform _gunTransform;
 		private Transform _headTransform;
@@ -51,7 +51,7 @@ namespace Src.Tower {
 			}
 
 			this._enemyList.Add(component.gameObject);
-			UserInterface.Instance.TowerEnemyCount(this._enemyList.Count);
+			// UserInterface.Instance.TowerEnemyCount(this._enemyList.Count);
 		}
 
 		private void OnTriggerExit(Collider component) {
@@ -60,7 +60,7 @@ namespace Src.Tower {
 			}
 
 			this._enemyList.Remove(component.gameObject);
-			UserInterface.Instance.TowerEnemyCount(this._enemyList.Count);
+			// UserInterface.Instance.TowerEnemyCount(this._enemyList.Count);
 		}
 
 		private void OnTriggerStay(Collider component) {
