@@ -16,6 +16,7 @@ namespace Src.Tower {
 		private Renderer _renderer;
 		private float _timeout;
 		private Transform _turretTransform;
+		public TowerPlatform towerPlatform;
 
 		private Tower() {
 			this._enemyList = new List<GameObject>();
