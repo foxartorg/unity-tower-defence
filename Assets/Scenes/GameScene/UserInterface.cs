@@ -3,7 +3,8 @@ using TMPro;
 using UnityEngine;
 
 namespace Scenes.GameScene {
-	public class CanvasUI : MonoInstance<CanvasUI> {
+	public class UserInterface : MonoInstance<UserInterface> {
+		// public static TextMeshProUGUI Dummy;
 		[SerializeField] private TextMeshProUGUI level;
 		[SerializeField] private TextMeshProUGUI bulletCounter;
 		[SerializeField] private TextMeshProUGUI enemyCounter;

@@ -6,8 +6,8 @@ using UnityEngine;
 namespace Src.Tower {
 	public sealed class TowerManager : MonoInstance<TowerManager> {
 		[SerializeField] private GameObject towerPrefab;
-		[SerializeField] public GameObject towerCanvas;
 		private readonly List<GameObject> _towerList;
+		private GameObject _towerMenu;
 
 		private TowerManager() {
 			this._towerList = new List<GameObject>();
@@ -20,13 +20,17 @@ namespace Src.Tower {
 
 			var tower = Instantiate(this.towerPrefab, this.GetPosition(platform.transform), Quaternion.identity, this.transform);
 			this._towerList.Add(tower);
-			CanvasUI.Instance.TowerCount(this._towerList.Count, App.Towers);
+			UserInterface.Instance.TowerCount(this._towerList.Count, App.Towers);
 		}
 
 		public void DestroyTower(GameObject tower) {
 			Destroy(tower);
 			this._towerList.Remove(tower);
-			CanvasUI.Instance.TowerCount(this._towerList.Count, App.Towers);
+			UserInterface.Instance.TowerCount(this._towerList.Count, App.Towers);
+		}
+
+		public void UpgradeTower(GameObject tower) {
+			tower.GetComponent<Tower>().Upgrade();
 		}
 
 		public bool CanCreate() {
@@ -35,9 +39,8 @@ namespace Src.Tower {
 
 		private Vector3 GetPosition(Transform platform) {
 			var position = platform.position;
-			var parentScale = platform.localScale;
-			var localScale = this.gameObject.transform.localScale;
-			return new Vector3(position.x, position.y + parentScale.y / 2 + localScale.y / 2, position.z);
+			var localScale = platform.localScale;
+			return new Vector3(position.x, position.y + localScale.y / 2 + this.towerPrefab.transform.localScale.y / 2, position.z);
 		}
 	}
 }

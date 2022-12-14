@@ -15,8 +15,6 @@ namespace Src.Tower {
 		private float _range;
 		private Renderer _renderer;
 		private float _timeout;
-		private TowerCanvas _towerCanvas;
-		private GameObject _towerCanvasPrefab;
 		private Transform _turretTransform;
 
 		private Tower() {
@@ -24,22 +22,14 @@ namespace Src.Tower {
 		}
 
 		private void Awake() {
-			var tr = this.transform;
-			var pos = tr.position;
-			// var vector3 = new Vector3(pos.x, pos.y + 1f, pos.z);
-			this._towerCanvasPrefab = TowerManager.Instance.towerCanvas;
-			// this._menu = Instantiate(this._towerCanvasPrefab, vector3, this._towerCanvasPrefab.transform.rotation, tr);
-			// this._towerCanvas = this._menu.GetComponent<TowerCanvas>();
-			// this._towerCanvas.tower = this.gameObject;
-			// this._menu.SetActive(false);
 			this.GetComponentInChildren<SphereCollider>().radius = this._range = 6f;
 			this._renderer = this.GetComponentInChildren<Renderer>();
 			this._headTransform = this.transform.Find("Head");
-			this._gunTransform = this._headTransform.Find("Gun");
 			this._turretTransform = this._headTransform.Find("Turret");
 			this._muzzleTransform = this._headTransform.Find("Muzzle");
-			var position = this._gunTransform.position;
-			this._muzzleTransform.position = new Vector3(position.x + this._gunTransform.localScale.x / 2, position.y, position.z);
+			var gunTransform = this._headTransform.Find("Gun");
+			var position = gunTransform.position;
+			this._muzzleTransform.position = new Vector3(position.x + gunTransform.localScale.x / 2, position.y, position.z);
 		}
 
 		private void OnDrawGizmos() {
@@ -52,8 +42,7 @@ namespace Src.Tower {
 				return;
 			}
 
-			Debug.Log("XXX");
-			// this._menu.SetActive(true);
+			TowerMenu.Instance.Show(this.gameObject);
 		}
 
 		private void OnTriggerEnter(Collider component) {
@@ -62,7 +51,7 @@ namespace Src.Tower {
 			}
 
 			this._enemyList.Add(component.gameObject);
-			CanvasUI.Instance.TowerEnemyCount(this._enemyList.Count);
+			UserInterface.Instance.TowerEnemyCount(this._enemyList.Count);
 		}
 
 		private void OnTriggerExit(Collider component) {
@@ -71,7 +60,7 @@ namespace Src.Tower {
 			}
 
 			this._enemyList.Remove(component.gameObject);
-			CanvasUI.Instance.TowerEnemyCount(this._enemyList.Count);
+			UserInterface.Instance.TowerEnemyCount(this._enemyList.Count);
 		}
 
 		private void OnTriggerStay(Collider component) {
