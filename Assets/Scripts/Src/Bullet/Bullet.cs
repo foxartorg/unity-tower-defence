@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Src.Bullet {
 	public sealed class Bullet : MonoBehaviour {
-		private const int Velocity = 500;
+		private const int Velocity = 300;
 		private int _damage;
 		private Rigidbody _rigidbody;
 		private Transform _transform;

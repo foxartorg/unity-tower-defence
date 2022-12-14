@@ -8,12 +8,13 @@ namespace Common {
 	public static class Helper {
 		private static readonly SystemRandom Random = new();
 
-		public static void ThrowError(string error) {
+		public static void ThrowError(string error, [CallerFilePath] string path = "") {
 			if (!Application.isEditor) {
 				Application.Quit();
 			}
 
 			Debug.Break();
+			Debug.Log($"Error in {path}");
 			throw new Exception(error);
 		}
 
@@ -38,18 +39,25 @@ namespace Common {
 			return default;
 		}
 
-		public static Vector3 PositionParentUp(Transform gameObject, Transform parentTransform) {
-			var position = parentTransform.position;
-			// var y = position.y + transform.localScale.y / 2 + gameObject.localScale.y;
-			var y = position.y + parentTransform.localScale.y / 2 + gameObject.localScale.y;
-			// Debug.Log($"Y {position.y} {parentTransform.localScale.y / 2} {gameObject.localScale.y}");
-			return new Vector3(position.x, y, position.z);
+		public static Vector3 PositionParentUp(Transform parent, Transform transform = null) {
+			var position = parent.position;
+			var scaleY = transform ? transform.localScale.y / 2 : 0f;
+			var posY = position.y + parent.localScale.y / 2 + scaleY;
+			return new Vector3(position.x, posY, position.z);
 		}
 
-		public static Vector3 PositionParentDown(Transform gameObject, Transform parentTransform) {
-			var position = parentTransform.position;
-			var y = position.y - parentTransform.localScale.y / 2 - gameObject.localScale.y;
-			return new Vector3(position.x, y, position.z);
+		public static Vector3 PositionParentDown(Transform parent, Transform transform = null) {
+			var position = parent.position;
+			var scaleY = transform ? transform.localScale.y / 2 : 0f;
+			var posY = position.y - parent.localScale.y / 2 - scaleY;
+			return new Vector3(position.x, posY, position.z);
+		}
+
+		public static Vector3 PositionParentRight(Transform parent, Transform transform = null) {
+			var position = parent.position;
+			var scaleX = transform ? transform.localScale.x / 2 : 0f;
+			var posX = position.x + parent.localScale.x / 2 + scaleX;
+			return new Vector3(posX, position.y, position.z);
 		}
 	}
 }

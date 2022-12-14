@@ -15,14 +15,14 @@ namespace Src.Bullet {
 		public GameObject CreateBullet(Transform parent) {
 			var bullet = Instantiate(this.bulletPrefab, parent.position, Quaternion.identity, this.transform);
 			this._bulletList.Add(bullet);
-			CanvasUI.Instance.BulletCounter(this._bulletList.Count);
+			UserInterface.Instance.BulletCounter(this._bulletList.Count);
 			return bullet;
 		}
 
 		public void DestroyBullet(GameObject bullet) {
 			this._bulletList.Remove(bullet);
 			Destroy(bullet);
-			CanvasUI.Instance.BulletCounter(this._bulletList.Count);
+			UserInterface.Instance.BulletCounter(this._bulletList.Count);
 		}
 	}
 }

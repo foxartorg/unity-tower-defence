@@ -1,50 +1,40 @@
 using System.Collections.Generic;
+using Common;
 using Scenes.GameScene;
 using Src.Bullet;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Src.Tower {
-	public class Tower : MonoBehaviour {
-		private const float ShootTimeout = 3f;
+	public class Tower : MonoInstance<Tower> {
+		private const float ShootTimeout = 0.1f;
 		private readonly List<GameObject> _enemyList;
-		private Button _buttonHide;
-		private Button _buttonSell;
-		private Button _buttonUpgrade;
 		private Transform _gunTransform;
 		private Transform _headTransform;
 		private Transform _muzzleTransform;
 		private float _range;
 		private Renderer _renderer;
 		private float _timeout;
-		private GameObject _towerCanvas;
 		private Transform _turretTransform;
 
 		private Tower() {
 			this._enemyList = new List<GameObject>();
 		}
 
+		public GameObject Platform { get; set; }
+
 		private void Awake() {
-			this.GetComponent<SphereCollider>().radius = this._range = 3;
+			this.GetComponentInChildren<SphereCollider>().radius = this._range = 6f;
 			this._renderer = this.GetComponentInChildren<Renderer>();
 			this._headTransform = this.transform.Find("Head");
-			this._gunTransform = this._headTransform.Find("Gun");
 			this._turretTransform = this._headTransform.Find("Turret");
 			this._muzzleTransform = this._headTransform.Find("Muzzle");
-			this._towerCanvas = TowerManager.Instance.towerCanvas;
-			var position = this._gunTransform.position;
-			this._muzzleTransform.position = new Vector3(position.x - this._gunTransform.localScale.x, position.y, position.z);
-		}
-
-		private void Start() {
-			// this._buttonHide.onClick.AddListener(() => this._canvas.SetActive(false));
-			// this._buttonSell.onClick.AddListener(() => TowerManager.Instance.RemoveTower(this.gameObject));
-			// this._buttonUpgrade.onClick.AddListener(this.Upgrade);
+			var gunTransform = this._headTransform.Find("Gun");
+			this._muzzleTransform.position = Helper.PositionParentRight(gunTransform);
 		}
 
 		private void OnDrawGizmos() {
 			Gizmos.color = Color.red;
-			Gizmos.DrawWireSphere(this.transform.position, this._range);
+			Gizmos.DrawWireSphere(this.transform.position, this._range / 2);
 		}
 
 		private void OnMouseDown() {
@@ -52,9 +42,7 @@ namespace Src.Tower {
 				return;
 			}
 
-			var selfTransform = this.transform;
-			var canvas = Instantiate(this._towerCanvas, selfTransform.position, Quaternion.identity, selfTransform);
-			canvas.SetActive(false);
+			TowerMenu.Instance.Show(this.gameObject);
 		}
 
 		private void OnTriggerEnter(Collider component) {
@@ -63,7 +51,7 @@ namespace Src.Tower {
 			}
 
 			this._enemyList.Add(component.gameObject);
-			CanvasUI.Instance.TowerEnemyCount(this._enemyList.Count);
+			// UserInterface.Instance.TowerEnemyCount(this._enemyList.Count);
 		}
 
 		private void OnTriggerExit(Collider component) {
@@ -72,7 +60,7 @@ namespace Src.Tower {
 			}
 
 			this._enemyList.Remove(component.gameObject);
-			CanvasUI.Instance.TowerEnemyCount(this._enemyList.Count);
+			// UserInterface.Instance.TowerEnemyCount(this._enemyList.Count);
 		}
 
 		private void OnTriggerStay(Collider component) {
@@ -96,7 +84,7 @@ namespace Src.Tower {
 		private void AimTo(Vector3 position) {
 			var forward = this._turretTransform.position - position;
 			var rotation = Quaternion.LookRotation(forward).eulerAngles;
-			this._headTransform.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+			this._headTransform.transform.rotation = Quaternion.Euler(0f, rotation.y + 90, rotation.z);
 		}
 
 		private void Shoot() {
@@ -110,7 +98,8 @@ namespace Src.Tower {
 			bullet.GetComponent<Bullet.Bullet>().MoveTo(position);
 		}
 
-		private void Upgrade() {
+		public void Upgrade() {
+			this._range += 1f;
 			this._renderer.material.color = Color.green;
 		}
 	}
