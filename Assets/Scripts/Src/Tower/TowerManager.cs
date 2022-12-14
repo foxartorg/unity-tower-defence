@@ -7,7 +7,6 @@ namespace Src.Tower {
 	public sealed class TowerManager : MonoInstance<TowerManager> {
 		[SerializeField] private GameObject towerPrefab;
 		private readonly List<GameObject> _towerList;
-		private GameObject _towerMenu;
 
 		private TowerManager() {
 			this._towerList = new List<GameObject>();

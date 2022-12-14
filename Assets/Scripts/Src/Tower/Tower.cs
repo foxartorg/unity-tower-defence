@@ -23,7 +23,7 @@ namespace Src.Tower {
 		public GameObject Platform { get; set; }
 
 		private void Awake() {
-			this.GetComponentInChildren<SphereCollider>().radius = this._range = 6f;
+			this.GetComponentInChildren<SphereCollider>().radius = this._range = 5f;
 			this._renderer = this.GetComponentInChildren<Renderer>();
 			this._headTransform = this.transform.Find("Head");
 			this._turretTransform = this._headTransform.Find("Turret");
@@ -60,7 +60,6 @@ namespace Src.Tower {
 			}
 
 			this._enemyList.Remove(component.gameObject);
-			// UserInterface.Instance.TowerEnemyCount(this._enemyList.Count);
 		}
 
 		private void OnTriggerStay(Collider component) {
