@@ -18,7 +18,8 @@ namespace Src.Tower {
 				Helper.ThrowError("tower limit exceeded");
 			}
 
-			var tower = Instantiate(this.towerPrefab, this.GetPosition(platform.transform), Quaternion.identity, this.transform);
+			var position = Helper.PositionParentUp(platform.transform, this.towerPrefab.transform);
+			var tower = Instantiate(this.towerPrefab, position, Quaternion.identity, this.transform);
 			this._towerList.Add(tower);
 			UserInterface.Instance.TowerCount(this._towerList.Count, App.Towers);
 		}
@@ -35,12 +36,6 @@ namespace Src.Tower {
 
 		public bool CanCreate() {
 			return this._towerList.Count != App.Towers;
-		}
-
-		private Vector3 GetPosition(Transform platform) {
-			var position = platform.position;
-			var localScale = platform.localScale;
-			return new Vector3(position.x, position.y + localScale.y / 2 + this.towerPrefab.transform.localScale.y / 2, position.z);
 		}
 	}
 }
