@@ -17,13 +17,11 @@ namespace Scenes.GameScene {
 		}
 
 		public void LoadLevelScene(int level) {
-			// Debug.Log($"UNLOAD {LevelManager.PrevLevelScene}");
 			if (SceneHelper.IsLoaded(App.PrevLevelScene)) {
 				this.StartCoroutine(SceneHelper.Unload(App.PrevLevelScene));
 			}
 
 			App.Level = level;
-			// Debug.Log($"LOAD {LevelManager.CurrLevelScene}");
 			this.StartCoroutine(SceneHelper.Load(App.CurrLevelScene, true));
 			UserInterface.Instance.Level(level);
 		}
