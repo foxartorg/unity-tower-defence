@@ -10,17 +10,17 @@ namespace Src.Tower {
 		private readonly List<GameObject> _enemyList;
 		private Transform _gunTransform;
 		private Transform _headTransform;
-		private GameObject _menu;
 		private Transform _muzzleTransform;
 		private float _range;
 		private Renderer _renderer;
 		private float _timeout;
 		private Transform _turretTransform;
-		public TowerPlatform towerPlatform;
 
 		private Tower() {
 			this._enemyList = new List<GameObject>();
 		}
+
+		public GameObject Platform { get; set; }
 
 		private void Awake() {
 			this.GetComponentInChildren<SphereCollider>().radius = this._range = 6f;

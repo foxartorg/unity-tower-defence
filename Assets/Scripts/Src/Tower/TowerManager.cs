@@ -20,15 +20,15 @@ namespace Src.Tower {
 
 			var position = Helper.PositionParentUp(platform.transform, this.towerPrefab.transform);
 			var tower = Instantiate(this.towerPrefab, position, Quaternion.identity, this.transform);
-			tower.GetComponent<Tower>().towerPlatform = platform.GetComponent<TowerPlatform>();	
+			tower.GetComponent<Tower>().Platform = platform;
 			this._towerList.Add(tower);
 			UserInterface.Instance.TowerCount(this._towerList.Count, App.Towers);
 		}
 
 		public void DestroyTower(GameObject tower) {
-			Destroy(tower);
-			tower.GetComponent<Tower>().towerPlatform.tower = false;
+			tower.GetComponent<Tower>().Platform.GetComponent<TowerPlatform>().CanAccept = true;
 			this._towerList.Remove(tower);
+			Destroy(tower);
 			UserInterface.Instance.TowerCount(this._towerList.Count, App.Towers);
 		}
 
