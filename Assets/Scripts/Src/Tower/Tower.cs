@@ -42,7 +42,7 @@ namespace Src.Tower {
 				return;
 			}
 
-			TowerMenu.Instance.Show(this.gameObject);
+			TowerMenuCanvas.Instance.Show(this.gameObject);
 		}
 
 		private void OnTriggerEnter(Collider component) {

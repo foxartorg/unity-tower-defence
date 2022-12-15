@@ -58,6 +58,10 @@ namespace Src {
 			return component.CompareTag("Finish");
 		}
 
+		public static bool IsUntagged(Component component) {
+			return component.CompareTag("Untagged");
+		}
+
 		private static IEnumerator Run() {
 			for (var i = 0; i < Waves; i++) {
 				for (var j = 0; j < Enemies; j++) {

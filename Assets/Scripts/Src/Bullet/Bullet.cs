@@ -20,6 +20,10 @@ namespace Src.Bullet {
 		}
 
 		private void OnTriggerEnter(Collider component) {
+			if (App.IsUntagged(component)) {
+				// return;
+			}
+
 			BulletManager.Instance.DestroyBullet(this.gameObject);
 		}
 

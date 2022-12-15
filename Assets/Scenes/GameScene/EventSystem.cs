@@ -7,7 +7,7 @@ namespace Scenes.GameScene {
 			if (App.Level == 0) {
 				this.LoadLevelScene(1);
 			} else {
-				UserInterface.Instance.Level(App.Level);
+				UICanvas.Instance.Level(App.Level);
 			}
 		}
 
@@ -23,7 +23,7 @@ namespace Scenes.GameScene {
 
 			App.Level = level;
 			this.StartCoroutine(SceneHelper.Load(App.CurrLevelScene, true));
-			UserInterface.Instance.Level(level);
+			UICanvas.Instance.Level(level);
 		}
 	}
 }
