@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Scenes.GameScene {
-	public class TowerMenu : MonoInstance<TowerMenu> {
+	public class TowerMenuCanvas : MonoInstance<TowerMenuCanvas> {
 		[SerializeField] private Button upgradeButton;
 		[SerializeField] private Button sellButton;
 		[SerializeField] private Button hideButton;

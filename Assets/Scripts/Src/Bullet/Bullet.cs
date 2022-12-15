@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Src.Bullet {
 	public sealed class Bullet : MonoBehaviour {
-		private const int Velocity = 300;
+		private const float Velocity = 100f;
 		private int _damage;
 		private Rigidbody _rigidbody;
 		private Transform _transform;
@@ -20,6 +20,9 @@ namespace Src.Bullet {
 		}
 
 		private void OnTriggerEnter(Collider component) {
+			if (!App.IsEnemyTag(component)) {
+				return;
+			}
 			BulletManager.Instance.DestroyBullet(this.gameObject);
 		}
 

@@ -12,7 +12,7 @@ namespace Src {
 		private static readonly float[] EnemyTimeoutList = { 0.25f, 0.25f };
 		private static readonly int[] TowerList = { 5, 5 };
 		private static readonly int[] WaveList = { 2, 4 };
-		private static readonly float[] WaveTimeoutList = { 0.5f, 0.5f };
+		private static readonly float[] WaveTimeoutList = { 1f, 0.5f };
 		public static int CurrLevelScene;
 		public static int PrevLevelScene;
 		private static int _level;
@@ -56,6 +56,10 @@ namespace Src {
 
 		public static bool IsFinishTag(Component component) {
 			return component.CompareTag("Finish");
+		}
+
+		public static bool IsUntagged(Component component) {
+			return component.CompareTag("Untagged");
 		}
 
 		private static IEnumerator Run() {

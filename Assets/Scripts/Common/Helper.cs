@@ -8,12 +8,13 @@ namespace Common {
 	public static class Helper {
 		private static readonly SystemRandom Random = new();
 
-		public static void ThrowError(string error) {
+		public static void ThrowError(string error, [CallerFilePath] string path = "") {
 			if (!Application.isEditor) {
 				Application.Quit();
 			}
 
 			Debug.Break();
+			Debug.Log($"Error in {path}");
 			throw new Exception(error);
 		}
 

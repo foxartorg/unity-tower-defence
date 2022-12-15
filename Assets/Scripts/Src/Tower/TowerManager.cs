@@ -7,7 +7,6 @@ namespace Src.Tower {
 	public sealed class TowerManager : MonoInstance<TowerManager> {
 		[SerializeField] private GameObject towerPrefab;
 		private readonly List<GameObject> _towerList;
-		private GameObject _towerMenu;
 
 		private TowerManager() {
 			this._towerList = new List<GameObject>();
@@ -20,16 +19,16 @@ namespace Src.Tower {
 
 			var position = Helper.PositionParentUp(platform.transform, this.towerPrefab.transform);
 			var tower = Instantiate(this.towerPrefab, position, Quaternion.identity, this.transform);
-			tower.GetComponent<Tower>().towerPlatform = platform.GetComponent<TowerPlatform>();	
+			tower.GetComponent<Tower>().Platform = platform;
 			this._towerList.Add(tower);
-			UserInterface.Instance.TowerCount(this._towerList.Count, App.Towers);
+			UICanvas.Instance.TowerCount(this._towerList.Count, App.Towers);
 		}
 
 		public void DestroyTower(GameObject tower) {
-			Destroy(tower);
-			tower.GetComponent<Tower>().towerPlatform.tower = false;
+			tower.GetComponent<Tower>().Platform.GetComponent<TowerPlatform>().CanAccept = true;
 			this._towerList.Remove(tower);
-			UserInterface.Instance.TowerCount(this._towerList.Count, App.Towers);
+			Destroy(tower);
+			UICanvas.Instance.TowerCount(this._towerList.Count, App.Towers);
 		}
 
 		public void UpgradeTower(GameObject tower) {

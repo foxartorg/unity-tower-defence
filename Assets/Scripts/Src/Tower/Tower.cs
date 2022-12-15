@@ -2,41 +2,41 @@ using System.Collections.Generic;
 using Common;
 using Scenes.GameScene;
 using Src.Bullet;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Src.Tower {
 	public class Tower : MonoInstance<Tower> {
-		private const float ShootTimeout = 0.1f;
+		private const float ShootTimeout = 0.5f;
 		private readonly List<GameObject> _enemyList;
 		private Transform _gunTransform;
 		private Transform _headTransform;
-		private GameObject _menu;
 		private Transform _muzzleTransform;
 		private float _range;
 		private Renderer _renderer;
 		private float _timeout;
 		private Transform _turretTransform;
-		public TowerPlatform towerPlatform;
 		private GameObject _canvasGameObject;
 		private GameObject _textGameObject;
 		private Canvas _canvas;
 		private Text _text;
 		private RectTransform _rectTransform;
-
 		private Tower() {
 			this._enemyList = new List<GameObject>();
 		}
 
+		public GameObject Platform { get; set; }
+
 		private void Awake() {
-			this.GetComponentInChildren<SphereCollider>().radius = this._range = 6f;
+			this.GetComponentInChildren<SphereCollider>().radius = this._range = 5f;
 			this._renderer = this.GetComponentInChildren<Renderer>();
 			this._headTransform = this.transform.Find("Head");
 			this._turretTransform = this._headTransform.Find("Turret");
 			this._muzzleTransform = this._headTransform.Find("Muzzle");
 			var gunTransform = this._headTransform.Find("Gun");
 			this._muzzleTransform.position = Helper.PositionParentRight(gunTransform);
+			// this._muzzleTransform.position = new Vector3(this._muzzleTransform.position.x, this._muzzleTransform.position.y + 0.1f,
+			// this._gunTransform.position.z);
 			//Canvas
 			this._canvasGameObject = new GameObject();
 			this._canvasGameObject.transform.parent = this.transform;
@@ -55,7 +55,6 @@ namespace Src.Tower {
 			this._rectTransform = this._text.GetComponent<RectTransform>();
 			this._rectTransform.localPosition = new Vector3(0, 0, 0);
 			this._rectTransform.sizeDelta = new Vector2(20, 20);
-
 		}
 
 		private void OnDrawGizmos() {
@@ -68,7 +67,7 @@ namespace Src.Tower {
 				return;
 			}
 
-			TowerMenu.Instance.Show(this.gameObject);
+			TowerMenuCanvas.Instance.Show(this.gameObject);
 		}
 
 		private void OnTriggerEnter(Collider component) {
@@ -86,7 +85,6 @@ namespace Src.Tower {
 			}
 
 			this._enemyList.Remove(component.gameObject);
-			// UserInterface.Instance.TowerEnemyCount(this._enemyList.Count);
 		}
 
 		private void OnTriggerStay(Collider component) {

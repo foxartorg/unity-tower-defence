@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Scenes.GameScene {
-	public class UserInterface : MonoInstance<UserInterface> {
+	public class UICanvas : MonoInstance<UICanvas> {
 		[SerializeField] private TextMeshProUGUI levelText;
 		[SerializeField] private TextMeshProUGUI bulletCounterText;
 		[SerializeField] private TextMeshProUGUI enemyCounterText;
