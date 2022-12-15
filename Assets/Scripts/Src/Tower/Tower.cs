@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Src.Tower {
 	public class Tower : MonoInstance<Tower> {
-		private const float ShootTimeout = 0.1f;
+		private const float ShootTimeout = 0.5f;
 		private readonly List<GameObject> _enemyList;
 		private Transform _gunTransform;
 		private Transform _headTransform;
