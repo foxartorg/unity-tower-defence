@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Common;
 using Scenes.GameScene;
 using Src.Bullet;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,8 +20,10 @@ namespace Src.Tower {
 		private GameObject _canvasGameObject;
 		private GameObject _textGameObject;
 		private Canvas _canvas;
-		private Text _text;
-		private RectTransform _rectTransform;
+		private TextMeshProUGUI _text;
+		private RectTransform _rectTransformText;
+		private RectTransform _rectTransformCanvas;
+
 		private Tower() {
 			this._enemyList = new List<GameObject>();
 		}
@@ -43,18 +46,24 @@ namespace Src.Tower {
 			this._canvasGameObject.name = "Canvas";
 			this._canvas = this._canvasGameObject.AddComponent<Canvas>();
 			this._canvas.renderMode = RenderMode.WorldSpace;
+			this._rectTransformCanvas = this._canvasGameObject.GetComponent<RectTransform>();
+			this._canvasGameObject.AddComponent<CanvasScaler>();
+			this._canvasGameObject.AddComponent<GraphicRaycaster>();
+			this._rectTransformCanvas.localPosition = new Vector3(0, 1, 0);
+			this._rectTransformCanvas.localRotation = Quaternion.Euler(75,0,0);
+			this._rectTransformCanvas.sizeDelta = new Vector2(10, 10);
 			//Text
 			this._textGameObject = new GameObject();
 			this._textGameObject.transform.parent = this._canvasGameObject.transform;
-			this._textGameObject.name = "Text";
-			this._text = this._textGameObject.AddComponent<Text>();
-			this._text.font = Resources.Load<Font>("Fonts/LiberationSans");
-			this._text.text = "njj";
-			this._text.fontSize = 10;
+			this._textGameObject.name = "TextMeshPro";
+			this._text = this._textGameObject.AddComponent<TextMeshProUGUI>();
+			this._text.fontSize = 0.5f;
 			// Text position
-			this._rectTransform = this._text.GetComponent<RectTransform>();
-			this._rectTransform.localPosition = new Vector3(0, 0, 0);
-			this._rectTransform.sizeDelta = new Vector2(20, 20);
+			this._rectTransformText = this._text.GetComponent<RectTransform>();
+			this._rectTransformText.localPosition = new Vector3(0, 0, 0);
+			this._rectTransformText.localRotation = Quaternion.Euler(0,0,0);
+			this._rectTransformText.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+			this._rectTransformText.sizeDelta = new Vector2(1, 1);
 		}
 
 		private void OnDrawGizmos() {
@@ -76,7 +85,8 @@ namespace Src.Tower {
 			}
 
 			this._enemyList.Add(component.gameObject);
-			// UserInterface.Instance.TowerEnemyCount(this._enemyList.Count);
+			this._text.text = $"{this._enemyList.Count}";
+
 		}
 
 		private void OnTriggerExit(Collider component) {
@@ -85,9 +95,11 @@ namespace Src.Tower {
 			}
 
 			this._enemyList.Remove(component.gameObject);
+			this._text.text = $"{this._enemyList.Count}";
 		}
 
 		private void OnTriggerStay(Collider component) {
+			this._text.text = $"{this._enemyList.Count}";
 			if (!App.IsEnemyTag(component)) {
 				return;
 			}
