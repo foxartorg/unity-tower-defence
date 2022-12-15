@@ -1,3 +1,4 @@
+using Src.Bullet;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -26,6 +27,7 @@ namespace Src.Enemy {
 		private void OnTriggerEnter(Collider component) {
 			if (App.IsBulletTag(component)) {
 				this.ReceiveDamage(component.GetComponent<Bullet.Bullet>().GetDamage());
+				BulletManager.Instance.DestroyBullet(component.gameObject);
 			}
 
 			if (App.IsFinishTag(component)) {

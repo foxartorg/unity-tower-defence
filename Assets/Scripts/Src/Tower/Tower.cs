@@ -30,6 +30,8 @@ namespace Src.Tower {
 			this._muzzleTransform = this._headTransform.Find("Muzzle");
 			var gunTransform = this._headTransform.Find("Gun");
 			this._muzzleTransform.position = Helper.PositionParentRight(gunTransform);
+			// this._muzzleTransform.position = new Vector3(this._muzzleTransform.position.x, this._muzzleTransform.position.y + 0.1f,
+			// this._gunTransform.position.z);
 		}
 
 		private void OnDrawGizmos() {
