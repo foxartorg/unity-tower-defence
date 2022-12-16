@@ -63,7 +63,7 @@ namespace Src.Tower {
 			this._rectTransformText.localPosition = new Vector3(0, 0, 0);
 			this._rectTransformText.localRotation = Quaternion.Euler(0,0,0);
 			this._rectTransformText.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-			this._rectTransformText.sizeDelta = new Vector2(1, 1);
+			this._rectTransformText.sizeDelta = new Vector2(3, 1);
 		}
 
 		private void OnDrawGizmos() {
@@ -85,7 +85,7 @@ namespace Src.Tower {
 			}
 
 			this._enemyList.Add(component.gameObject);
-			this._text.text = $"{this._enemyList.Count}";
+			this._text.text = $"Enemies {this._enemyList.Count}";
 
 		}
 
@@ -95,11 +95,11 @@ namespace Src.Tower {
 			}
 
 			this._enemyList.Remove(component.gameObject);
-			this._text.text = $"{this._enemyList.Count}";
+			this._text.text = $"Enemies {this._enemyList.Count}";
 		}
 
 		private void OnTriggerStay(Collider component) {
-			this._text.text = $"{this._enemyList.Count}";
+			this._text.text = $"Enemies {this._enemyList.Count}";
 			if (!App.IsEnemyTag(component)) {
 				return;
 			}
